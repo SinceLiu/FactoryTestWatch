@@ -185,6 +185,10 @@ public class CameraViewTest {
                         assertThat(cameraView.getAutoFocus(), is(false));
                         cameraView.setAutoFocus(true);
                         assertThat(cameraView.getAutoFocus(), is(true));
+                        cameraView.setAutoFocus(false);
+                        assertThat(cameraView.getAutoFocus(), is(false));
+                        cameraView.setAutoFocus(true);
+                        assertThat(cameraView.getAutoFocus(), is(true));
                     }
                 });
     }

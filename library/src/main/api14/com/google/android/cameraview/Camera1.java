@@ -367,7 +367,7 @@ class Camera1 extends CameraViewImpl {
             mCamera.startPreview();
         }
         if (mCameraId == 1){
-            mCameraParameters.setExposureCompensation(-7);
+            mCameraParameters.setExposureCompensation(0);
         }
     }
 
