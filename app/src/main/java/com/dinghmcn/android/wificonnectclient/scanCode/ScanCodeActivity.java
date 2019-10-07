@@ -97,7 +97,7 @@ public class ScanCodeActivity extends AppCompatActivity implements ZBarScannerVi
     }
 
     private void checkPermission() {
-        if (PermissionUtils.isGranted(Manifest.permission.CAMERA)) {
+        if (PermissionUtils.isGranted(this,Manifest.permission.CAMERA)) {
             zBarScannerView.startCamera();//打开系统相机，并进行基本的初始化
         } else {
             PermissionUtils.permission(Manifest.permission.CAMERA).callBack(new PermissionUtils.PermissionCallBack() {
@@ -110,7 +110,7 @@ public class ScanCodeActivity extends AppCompatActivity implements ZBarScannerVi
                 public void onDenied(PermissionUtils permissionUtils) {
                     Toast.makeText(ScanCodeActivity.this, "拒绝了权限,无法使用扫一扫功能", Toast.LENGTH_SHORT).show();
                 }
-            }).request();
+            }).requestPermissions(this);
         }
     }
 
@@ -168,17 +168,17 @@ public class ScanCodeActivity extends AppCompatActivity implements ZBarScannerVi
 
         @Override
         public void run() {
-            Log.e("CHEN", "ScanCodeActivity:SSD:" + WifiUtils.getSSID());
+            Log.e("CHEN", "ScanCodeActivity:SSD:" + WifiUtils.getSSID(ScanCodeActivity.this));
             Log.e("CHEN", "ScanCodeActivity:pwd:" + password);
-            if (!TextUtils.isEmpty(WifiUtils.getSSID())
-                    && WifiUtils.getSSID().equals(netWorkName)) {//连接到了扫描的wifi
+            if (!TextUtils.isEmpty(WifiUtils.getSSID(ScanCodeActivity.this))
+                    && WifiUtils.getSSID(ScanCodeActivity.this).equals(netWorkName)) {//连接到了扫描的wifi
                 stopTimer();
                 Intent intent = new Intent(ScanCodeActivity.this, MainActivity.class);
                 intent.putExtra("ssid", netWorkName);
                 intent.putExtra("password",password);
                 startActivity(intent);  //将ssid和密码传到mainActivity
                 finish();
-            }else if (!WifiUtils.getSSID().equals(netWorkName)){
+            }else if (!WifiUtils.getSSID(ScanCodeActivity.this).equals(netWorkName)){
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -1,6 +1,5 @@
 package com.dinghmcn.android.wificonnectclient;
 
-import com.dinghmcn.android.wificonnectclient.MainActivity;
 
 public class MyRunnable implements Runnable {
     public static MainActivity Instance;

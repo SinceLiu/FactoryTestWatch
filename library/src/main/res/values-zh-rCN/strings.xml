@@ -1,386 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MainList!</string>
-    <string name="app_name">CIT</string>    
-    <string name="pass">"Pass"</string>
-    <string name="fail">"Fail"</string>
-    <!--title --> 
-    <string name="pcb">PCBA测试</string>
-    <string name="complete">整机测试</string>
-    <string name="subpcb">副板测试</string>
-    <string name="title_pcba_auto">PCBA自动测试</string>
-    <string name="title_complete_auto">整机自动测试</string>
-    <string name="title_pcba_sensorAuto">PCBA传感器自动测试</string>
-    <string name="title_complete_sensorAuto">整机传感器自动测试</string>
-    <string name="title_WBGauto">WBG自动测试</string>
-    <string name="test_info_1">以上的</string>
-    <string name="test_info_2">项测试全部通过</string>
-    <string name="clear_data">清除数据</string>
-    <string name="pre_install">预安装应用检测</string>
+    <string name="app_name">CIT</string>
+    <!--title -->
 
-    <!-- exit-->     
-    <string name="alert_dialog_ok">确定</string>
-    <string name="alert_dialog_cancel">取消</string>
-    <string name="alert_title">测试</string>
-    <string name="alert_content">是否退出测试？</string>
+    <!-- exit-->
     <!-- colligate -->
-    <string name="sim_status_0"> 未知</string>
-    <string name="sim_status_1"> 设备中没有可用的SIM/UIM 卡</string>
-    <string name="sim_status_2"> 锁定: 需要用户用 PIN码来解锁 </string>
-    <string name="sim_status_3"> 锁定: 需要用户用 PUK码来解锁</string>
-    <string name="sim_status_4"> 锁定: 需要用户用网络 PIN码来解锁</string>
-    <string name="sim_status_5"> 可用</string>
-    <string name="sim_status_6">SIM1 和 SIM2 ：可用 </string>
-    <string name="sd_card_space">"SD 卡容量"</string>
-    <string name="sd_card_space1">"SD 卡可用空间"</string>
-    <string name="colligate_illustration">按键调节音量</string>
     <!-- wlan for cta test -->
-    <string name="wlan_data_rate">Data Rate</string>
-    <string name="wlan_channel">Channel</string>
-    <string name="wlan_equ_type">设备类型</string>
-    <string name="wlan_TotalPacket">总包数</string>
-    <string name="wlan_wl">"WL"</string>
-    <string name="wlan_tx_start">Start</string>
-    <string name="wlan_tx_close">Stop</string>
-    <string name="wlan_tx_clear">Clear</string>
-    <string name="wlan_setmode_error">"Set Wifi Cit test mode failed!"</string>
-    <string name="wlan_translate_error">"please input integer number"</string>
-    <string name="wlan_data_rate_error">"data_rate between 0 and 7"</string>
-    <string name="wlan_tx_tx_gain">TX Gain</string>
-    <string name="wlan_tx_sifs">SIFS</string>
-    <string name="wlan_tx_macaddress">MAC</string>
-    <string name="wlan_danzaibo_start">"单载波发送"</string>
-    <string name="wlan_danzaibo_stop">"单载波停止"</string>
-    <string name="wlan_model">"B/G模式"</string>
-    <string name="wlan_wl_success">"WL 操作成功"</string>
-    <string name="wlan_wl_fail">"WL 操作失败"</string>	
     <!-- back light -->
-    <string name="backlight_illustration">"请在屏幕变暗后按Power键测试机器睡眠/唤醒"</string>
     <!-- camera -->
-    <string name="camera_illustration">"请选择相机的测试结果"</string>
     <!-- CameraBack -->
-    <string name="cameraback_name">CameraBack</string>
-    <string name="cameraback_takepicture">拍照</string>
-    <string name="cameraback_fail_open">相机打开失败，请检查相机是否正确安装!</string>
-    <string name="autofocus_fail">聚焦失败!</string>
-    <string name="connect_fail">对不起，链接后摄像头失败</string>
     <!-- CameraFront -->
-    <string name="camerafront_name">CameraFront</string>
-    <string name="camerafront_takepicture">拍照</string>
     <!-- loopback -->
-    <string name="change_loop">"切换"</string>
-    <string name="recive_loopback">Receive loopback</string>
-    <string name="head_loopback">Head loopback</string>
-    <string name="receiver_illustration">"请对准MIC吹气"</string>
-    <string name="headset_illustration1">"请插入耳机"</string>
-    <string name="headset_illustration2">"请开始耳机回路测试"</string>
     <!-- headset-->
-    <string name="remove_headset">请移除耳机</string>
-    <string name="insert_headset">请插入耳机</string>
-    <string name="record_finish">录音已播放完毕</string>
     <!--TransmitterReceiver -->
-    <string name="transmitter_receiver_name">Transmitter and Receiver</string>
-    <string name="transmitter_receiver_hint">Transmitter and Receiver</string>
-    <string name="transmitter_receiver_recording">现在开始录音, 请对准麦克说话，然后点击stop键</string>
-    <string name="transmitter_receiver_recording1">请对准机器上方副麦克大声说话，并测试是否可以从扬声器听到声音</string>
-    <string name="transmitter_receiver_recording2">请对准机器下方主麦克大声说话，并测试是否可以从听筒收听到声音</string>
-    <string name="transmitter_receiver_recording3">请对准耳机麦克说话，并测试是否可以从耳机听筒收听到声音</string>
-    <string name="transmitter_receiver_playing">录音正在播放....</string>
-    <string name="transmitter_receiver_confirm">请问您是否听到声音?</string>
-    <string name="transmitter_receiver_record_first">请先点击Record键</string>
-    <string name="transmitter_receiver_replay_end">录音已播放完毕，请选择测试结果或重新录音</string>
-    <string name="transmitter_receiver_to_record">请点击录音键开始录音</string>
     <!-- Headset -->
-    <string name="headset_name">Headset</string>
-    <string name="headset_hint">Headset</string>
-    <string name="headset_recording">现在开始录音, 请对准麦克说话，然后点击stop键</string>
-    <string name="headset_playing">录音正在播放....</string>
-    <string name="headset_confirm">请问您是否听到声音?</string>
-    <string name="headset_record_first">请先点击录音键</string>
-    <string name="headset_replay_end">录音已播放完毕，请选择测试结果</string>
-    <string name="headset_to_record">请点击录音键开始录音</string>
-    <string name="speaker_recording">>现在开始录音, 请对准麦克说话，然后点击stop键</string>
-    <string name="stop">Stop</string>
-    <string name="ok">OK</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="record">录音</string>
     <!-- fm -->
-    <string name="fm_illustration">"请选择FMradio的测试结果"</string>
-    <string name="fm_init">Init</string>
-    <string name="fm_get_FREQ">Get FREQ</string>
-    <string name="fm_change_VOL">Change VOL</string>
-    <string name="fm_stereo_mono">Stereo</string>
-    <string name="fm_mute">MUTE</string>
-    <string name="fm_rssi">Rssi</string>
-    <string name="fm_seek">Seek</string>
-    <string name="fm_close">Close</string>
-    <string name="fm_setfreqtext">Set Freq</string>
-    <string name="fm_freqinputtext">Freq Input</string>
-    <string name="fm_statetext">State:</string>
-    <string name="fm_initmessage">Init OK ,the freq is:</string>
-    <string name="fm_Curfreq">Cur freq is:</string>
-    <string name="fm_CurVolume">Cur volume is:</string>
-    <string name="fm_mono">mono now</string>
-    <string name="fm_stereo">Stereo now</string>
-    <string name="fm_getnewfreq">Get new freq:</string>
-    <string name="fm_nofreq">No new freq</string>
-    <string name="fm_closed">Radio Closed</string>
-    <string name="fm_freqnow">Freq now is:</string>
-    <string name="fm_channel">Please Enter Correct Channel!</string>
-    <string name="g_null_text"></string>
-    <string name="fm_khz">khz</string>
-    <string name="wait">"请稍后 ..."</string>
-    <string name="fm_name">FmRadio</string>
-    <string name="fm_search">"搜索"</string>    
     <!-- battery info -->
-    <string name="voltage">"电压 : "</string>
-    <string name="temperature">"温度 : "</string>
-    <string name="volage_volt">mV</string>
-    <string name="temperature_degree">degree</string>
     <!-- charge&battery -->
-    <string name="test_temperature_degree">摄氏度</string>
     <string name="charging">"正在充电"</string>
-    <string name="test_volage_volt">mV</string>
     <string name="battery_info_status_full">"电池电量已满"</string>
-    <string name="battery_not_linked">"电池处于虚焊状态"</string>
-    <string name="battery_tooLarge">"过高"</string>
-    <string name="battery_normal">"正常"</string>
     <!-- charge state -->
     <!-- <string name="i2c_state_err">"9V快充节点检测失败!"</string> -->
-    <string name="i2c_state_err">"快充节点检测失败!"</string>
     <string name="please_input_charger">"请插入充电器"</string>
     <!-- lcd -->
-    <string name="lcd_illustration">"请点击屏幕或返回键进行背景切换"</string>
     <!-- touch panel -->
-    <string name="touch_illustration">"按 up volume 键可显示PASS、FAIL菜单"</string>
-    <string name="touch_illustration1">"如果触屏有问题可以按 返回键 退出该界面"</string>
-    <string name="touch_illustration2">"请选择PASS或FAIL"</string>
     <!-- motion sensor -->
-    <string name="motion_sensor_calibration_illustration">"本测试项目，用于重力传感器校准！请将机器平放在水平平面上然后点击校准按钮,校准开始后不要重复点击校准按钮，或者点击PASS/FAIL按钮，弹出校准结果提示后，根据校准结果点击PASS/FAIL退出测试!"</string>
-    <string name="str_calibration">"校准"</string>
-    <string name="str_calibration_success">"校准成功"</string>
-    <string name="str_calibration_failed">"校准失败"</string>
-    <string name="motionsensor_info">"Motion sensor 数据信息："</string>
     <!-- gyro sensor -->
-    <string name="gyro_cali_tips">"本测试项目，用于陀螺仪校准！校准前，请保持设备水平，点击屏幕中央校准按钮，校准过程中不要点击任何按键，弹出校准结果提示后，根据提示点击PASS或者FAIL退出校准!"</string>
     <!-- ecompass -->
-    <string name="magneticsensor_info">"地磁传感器数据信息:\n"</string>
     <!-- priximity sensor -->
-    <string name="proximitysenor_info">"距离传感器的数据信息："</string>
-    <string name="proximity_calibration_illustration">"请确认夹具安装正确！点击按钮进行校准"</string>
     <!-- light sensor -->
-    <string name="original_data">"原始数据："</string>
-    <string name="backlight_data">"背光数据："</string>
-    <string name="lux_data">"LUX："</string>
     <!-- gps -->
-    <string name="gps_info">"正在获取GPS数据："</string>
-    <string name="bd_info">"正在获取北斗数据:"</string>
-    <string name="gps_success">"正在定位..."</string>
-    <string name="gps_located">定位成功</string>
-    <string name="gps_st_info_snr">信噪比：</string>
-    <string name="gps_st_info_prn">prn：</string>
-    <string name="gps_st_info_azimuth">方位角：</string>
-    <string name="gps_st_info_elevation">海拔：</string>
     <string name="gps_open_error">"GPS打开出现错误！"</string>
     <!-- wifi -->
-    <string name="wifisettins_page">"请选择WLAN测试结果"</string>
-    <string name="wifisettins_24g">"2.4G WiFi :  "</string>
-    <string name="wifisettins_5g">"5G WiFi :  "</string>
-    <string name="wifi_scan_null">未发现任何可用的AP!</string>
-    <string name="wifi_name">WiFi</string>
-    <string name="wifi_text"> WIFI测试将在30秒内完成，请稍后。 </string>
-    <string name="wifi_scan_failed">扫描失败!</string>
-    <string name="wifi_is_closing">WIFI正在关闭，请稍后重试.</string>
-    <string name="wifi_state_unknown">WIFI状态未知，请重试。</string>
     <!-- BlueTooth -->
-    <string name="bluetooth_setingpage">"请选择BlueTooth测试结果"</string>
-    <string name="bluetooth_mac_address">"MAC地址:"</string>
-    <string name="bluetooth_scanning">正在查找...</string>
-    <string name="bluetooth_finished">查找完成</string>
-    <string name="bluetooth_name">Bluetooth</string>
-    <string name="bluetooth_scan_start">正在扫描设备...</string>
-    <string name="bluetooth_scan_finish">扫描完成</string>
-    <string name="bluetooth_turning_on">正在打开蓝牙...</string>
-    <string name="bluetooth_scan_null">未发现任何设备</string>
-    <string name="scan">扫描设备</string>
-    <string name="cancel">取消</string>
     <!-- Version -->
-    <string name="cit_info_default">未知</string>
-    <string name="sn_model">型号:</string>
-    <string name="software_title">内部版本:</string>
-    <string name="hardware_title">硬件版本:</string>
-    <string name="baseband_version">基带版本:</string>
-    <string name="sn_version">SN号:</string>
-    <string name="internal_version">"内部版本号"</string>
-    <string name="software_version">软件版本:</string>
-    <string name="bt_ft_result">"BT/FT是否pass信息"</string>
-    <string name="tp_type">"触摸屏厂家信息"</string>
-    <string name="lcd_type">"显示屏厂家信息"</string>
-    <string name="battery_vendor">电池厂家信息</string>
-    <string name="motion_sensor_vendor">重力传感器厂家信息</string>
-    <string name="proximity_sensor_vendor">距离传感器厂家信息</string>
-    <string name="light_sensor_vendor">光线传感器厂家信息</string>
     <!--Modify for add front camera information by lizhaobo 20151120 start-->
-    <string name="camera_type">"后置摄像头厂家信息"</string>
-    <string name="rom_type">"ROM厂家信息"</string>
-    <string name="front_camera_type">"前置摄像头厂家信息"</string>
     <!--Modify for add front camera information by lizhaobo 20151120 end-->
 
     <!--  bt&ft-->
-    <string name="wft_result">"WCDMA_FT: WCDMA FT "</string>
-    <string name="wbt_result">"WCDMA_BT: WCDMA BT "</string>
-    <string name="cft_result">"CDMA_FT: CDMA FT "</string>
-    <string name="cbt_result">"CDMA_BT: CDMA BT "</string>
-    <string name="gft_result">"GSM_FT: GSM FT "</string>
-    <string name="gbt_result">"GSM_BT: GSM BT "</string>
 
-    <string name="auto_test_result">"CIT测试完成标志"</string>
-    <string name="imei">IMEI</string>    
     <!-- Receiver Test -->
-    <string name="play">"Play"</string> 
-    <string name="str_speaker_speaker">请确认是否有声音从Speaker中发出!</string>    
     <!-- TouchScreen upgrade -->
-    <string name="current_version">The current version is:</string>
-    <string name="start_upgrade_version">Start upgrade version</string>
-    <string name="updated_success">Updated version success！</string>
     <!-- FlashLight -->
-    <string name="flashlight_confirm">请问是否看到闪光灯发光:</string>
-    <string name="flashlight_yes">是</string>
-    <string name="flashlight_no">否</string>
 
-    <string name="ir_confirm">请问是否看到补强灯发光:</string>
     <!-- Stereo -->
-    <string name="stereo_left">左声道</string>
-    <string name="stereo_right">右声道</string>
-    <string name="stereo_stop">停止</string>
     <!--  keypad  -->
-    <string name="keypad_lightison">观察键盘灯是否常亮</string>
-    <string name="key_home">home</string>
-    <string name="key_back">back</string>
-    <string name="key_menu">menu</string>
-    <string name="key_one">1</string>
-    <string name="key_two">2</string>
-    <string name="key_three">3</string>
-    <string name="key_four">4</string>
-    <string name="key_five">5</string>
-    <string name="key_six">6</string>
-    <string name="key_seven">7</string>
-    <string name="key_eight">8</string>
-    <string name="key_nine">9</string>
-    <string name="key_zero">0</string>
-    <string name="key_star">*</string>
-    <string name="key_pound">#</string>
     <!-- LED -->
     <!--Modify for PA568 EVT version by xiasiping 20140808 start-->
-    <string name="led_hint">观察LED灯是否有红、绿、蓝这三种颜色的变化</string>
-    <string name="keyboardled">请观察键盘灯是否能够正常亮起</string>
-    <string name="led_red_test">请连接充电线，并观察LED灯是否为红色点亮状态</string>
     <!--Modify for PA568 EVT version by xiasiping 20140808 start-->
     <!-- Gyroscope -->
-    <string name="gyroscope_name">Gyroscope</string>
-    <string name="service_get_fail">服务获取失败!</string>
-    <string name="sensor_get_fail">传感器获取失败!</string>
-    <string name="sensor_register_fail">传感器注册失败!</string>
-    <string name="shake_hint_other_sensor">请旋转机器.</string>
-    <string name="test_pass">测试成功</string>
     <!-- Vibrate -->
-    <string name="vibrate_hint">请观察震动是否正常</string>
     <!-- Udisk -->
-    <string name="udisk_space">"U盘容量："</string>
-    <string name="udisk_hint">"请根据是否有音乐播放来判断测试是否通过"</string>
     <!--Modify for add prompt of check USB by xiasiping 20141124 start-->
-    <string name="udisk_failed">测试失败，请确认已经插入U盘进行测试</string>
     <!--Modify for add prompt of check USB by xiasiping 20141124 end-->
     <!-- NFC -->
-    <string name="nfc_info">扫描中。。。</string>
-    <string name="nfc_enable">NFC可以使用！ 请将NFC卡片放到感应区进行测试！</string>
-    <string name="nfc_disable">NFC不可用</string>
-<!--Modify for add NFC Feature by liyunlong 20140301 start-->
-    <string name="nfc_dialog_info">扫描时间过短，请重试!</string>
-<!--Modify for add NFC Feature by liyunlong 20140301 end-->
-    <string name="str_calibration_failed_0">传感器测试本地错误</string>
-    <string name="str_calibration_failed_1">传感器ID无效</string>
-    <string name="str_calibration_failed_2">测试超时</string>
-    <string name="str_calibration_failed_3">设备正忙</string>
-    <string name="str_calibration_failed_4">测试无效</string>
-    <string name="str_calibration_failed_5">测试参数无效</string>
-    <string name="str_calibration_failed_6">收到‘失败’的回应</string>
-    <string name="str_calibration_failed_7">正在进行其他测试，请稍后再试</string>
-    <string name="str_calibration_failed_8">消息传递错误</string>
-    <string name="str_calibration_failed_9">内部错误</string>
-    <string name="str_calibration_failed_10">未知错误</string>
+    <!--Modify for add NFC Feature by liyunlong 20140301 start-->
+    <!--Modify for add NFC Feature by liyunlong 20140301 end-->
     <!--Receiver test -->
-    <string name="str_receiver_hint">请问您是否听到有声音从听筒发出?</string>
-    <string name="str_receiver_time">当前测试时间： </string>
 
-    <string name="usbmodestr">请选择USB 的连接模式</string>
-    <string name="mtp">  MTP </string>
-    <string name="ptp">  PTP </string>
-    <string name="mass_storage">  MASS_STORAGE </string>
-
-    <string name="HB_message">请将手指按在两个心电触点上，观察屏幕中间色块颜色</string>
-    <string name="status_on">当前状态：手指已经接触触点</string>
-    <string name="status_off">当前状态：手指已经离开触点</string>
-    <string name="status_exception">测试异常，点击FAIL退出测试</string>
     <!--Xpand test -->
-    <string name="urt_hint">点击URT 按键进行URT通信测试</string>
-    <string name="urt_test">URT 测试</string>
-    <string name="urt_vol">3.3V : </string>
-    <string name="urt_result">urt测试结果 : </string>
-    <string name="usb_test">USB test</string>
-    <string name="usb_hint">点击USB 按键测试USB鼠标</string>
-    <string name="usb_light">测试USB鼠标并观察两个5伏控制灯</string>
-    <string name="xpand_test_pass"> 测试成功</string>
-    <string name="xpand_test_fail"> 测试失败</string>
-    <string name="urtvol_test_fail"> 测试失败;请检查USB开关是否打开！</string>
     <!-- add for new tp test by lizhaobo 20151118 start -->
-    <string name="touch_waring">警告!</string>
-    <string name="test_item_TP">TPtest</string>
-    <string name="tp_success">成功！</string>
-    <string name="tp_fail">失败！</string>
-
-    <string name="tp_enough">请在限位线内画足够长</string>
-    <string name="tp_effective_tips">请在限位线内画线</string>
-    <string name="tp_confirm">确定</string>
-    <string name="tp_pass">测试成功！</string>
 
     <!-- add for new tp test by lizhaobo 20151118 end -->
     <!-- FingerPrint -->
-    <string name="fp_test">通讯测试</string>
-    <string name="fp_cali">校准</string>
-    <string name="fp_start">开始</string>
-    <string name="fp_stop">停止</string>
-    <string name="fp_quit">退出</string>
-    <string name="fp_startcali">开始校准!</string>
-    <string name="fp_exit">指纹校准没有成功，是否要退出？</string>
-    <string name="fp_calisucc">指纹校验成功</string>
-    <string name="fp_califail">指纹校验失败</string>
-    <string name="fp_test_hint">请点击开始按钮并观察新生成的指纹图像</string>
-
-    <string name="vibrator_tips">请观察，震动已经开启!</string>
-    <string name="writing_nv_flag">测试结果写入NV中，请稍候!</string>
-
-    <string name="light_sensor_tips">请遮挡光传感器的部分区域，观察光感数值变化，根据提示点击pass或者fail按键完成测试!</string>
-    <string name="touch_panel_test">请依次连接图中数字!</string>
 
     <!-- add LED Calibration by xsp-->
-    <string name="txt_title">请调节三个键盘灯亮度一致后，点击保存！</string>
-    <string name="save_led">保存</string>
-    <string name="str_r">中</string>
-    <string name="str_b">左</string>
-    <string name="str_g">右</string>
-    <string name="str_u">加一级</string>
-    <string name="str_d">减一级</string>
-    <string name="str_l">当前级别</string>
-
-    <string name="new_ps">注意:校准时不要遮挡距离传感器!</string>
-    
-    <string name="insertSD">请先插入SD卡和U盘，再测试</string>
-    <string name="num_pre_install">预安装应用数量：</string>
-    <string name="uninstalled">未安装应用：</string>
-    <string name="install">去下载</string>
-    <string name="downloading">下载中...\n下载过程可能需要数分钟</string>
-    <string name="download_fail">下载失败</string>
 
 </resources>

@@ -1,35 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string-array name="all_test">
-		<item>Sim,SD,Vibrate,Speaker,3 Color LED</item>
-		<item>Backlight and sleep/wake</item>
-		<item>front Camera </item>
-		<item>back Camera </item>
-		<item>Keypad</item>
-		<item>battery information</item>
-		<item>charge state</item>
-		<item>update gaugeIC</item>
-		<item>Receiver/Headset loopback</item>
-		<item>LCD</item>
-		<item>TouchPanel</item>
-		<item>Motion sensor calibration</item>
-		<item>Motion Sensor</item>
-		<item>Proximity Calibration</item>
-		<item>Proximity sensor</item>
-		<item>GPS</item>
-        <item>WLAN Settings</item>
-        <item>BlueTooth</item>
-	</string-array>
-	<string-array name="SoftTestString">
-		<!--
-		<item>DevTools</item>
-		<item>Logcat Manager</item>
-		<item>SpareParts</item>
-		<item>Bluetooth CTA Test</item>
-		-->
-		<item>WLAN CTA Test</item>
-	</string-array>
-</resources>
+<resources></resources>
 
 
 

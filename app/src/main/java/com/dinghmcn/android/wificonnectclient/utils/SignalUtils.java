@@ -1,19 +1,19 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.SystemProperties;
-
-import com.dinghmcn.android.wificonnectclient.AppDefine;
-import com.dinghmcn.android.wificonnectclient.BaseTestActivity;
+import android.view.WindowManager;
 
 /**
  * Created by zl121325 on 2019/4/14.
  */
 
-public class SignalUtils extends BaseTestActivity {
+public class SignalUtils extends Activity {
     Context mContext;
     SharedPreferences mSp;
     private boolean unknownSim = false;
@@ -23,10 +23,18 @@ public class SignalUtils extends BaseTestActivity {
         getsimOper();
     }
     public static SignalUtils getInstance(Context mContext){
-        if (instance==null)
+        if (instance==null) {
             instance=new SignalUtils(mContext);
+        }
         return instance;
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
     private void getsimOper() {
         String simOper = SystemProperties.get("gsm.sim.operator.numeric", "46099");
         if("46000".equals(simOper) || "46002".equals(simOper) || "46007".equals(simOper) || "46008".equals(simOper)) {
@@ -43,9 +51,6 @@ public class SignalUtils extends BaseTestActivity {
 //        Intent intent112 = new Intent(Intent.ACTION_CALL_PRIVILEGED);
         Intent intent112 = new Intent("android.intent.action.CALL_PRIVILEGED");
         intent112.setData(Uri.fromParts("tel", "112", null));
-//        startActivityForResult(intent112, AppDefine.FT_HOOKSETID);
-//        startActivity(intent112);
-
     }
     public void serviceCall(){
         Intent intent = new Intent("android.intent.action.CALL_PRIVILEGED");
@@ -59,6 +64,5 @@ public class SignalUtils extends BaseTestActivity {
         } else {
             intent.setData(Uri.fromParts("tel", "112", null));
         }
-//        startActivityForResult(intent, AppDefine.FT_HOOKSETID);
     }
 }

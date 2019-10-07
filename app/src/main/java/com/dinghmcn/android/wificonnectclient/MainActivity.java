@@ -535,7 +535,7 @@ public class MainActivity extends Activity {
                     assert mConnectManager != null;
                     File file = new File(pictureUri.getPath());
                     dataModel.setCamera("ok");
-                    mConnectManager.sendFileToServer(file, gson.toJson(dataModel, DataModel.class));
+                    mConnectManager.sendFileToServer(this,file, gson.toJson(dataModel, DataModel.class));
                     mConnectManager.sendMessageToServer(gson.toJson(dataModel, DataModel.class));
                     outPutLog(getString(R.string.send_file, pictureUri.toString()));
                 }
@@ -1328,7 +1328,7 @@ public class MainActivity extends Activity {
 //                                }
 //                                dataModel.setWifi(jsonArray.toString().replace("\"", "")
 //                                        .replace("[", "").replace("]", ""));
-                                String WIFIREESd = WifiUtils.getSSID() + "," + wifiREES;
+                                String WIFIREESd = WifiUtils.getSSID(MainActivity.this) + "," + wifiREES;
                                 dataModel.setWifi(WIFIREESd);
                                 mConnectManager.sendMessageToServer(gson.toJson(dataModel, DataModel.class));
                                 wifiTimer.cancel();
@@ -1435,7 +1435,6 @@ public class MainActivity extends Activity {
                                     ShowPictureFullActivity.class).putExtra("res_id", resId).putExtra("getScreenopeneration", dataModel.getScreenoperation());
                             mainActivity.startActivity(intent30);
 //                            mainActivity.startActivityForResult(intent30, REQUEST_SHOWPICTUREFULL);
-//                           Log.e("CHEN",Utils.getisScreen()+"");
 //                            seuccess(); //执行到这个时候
                         } else if (dataModel.getScreenoperation() == 1) {     //关掉
                             Activity topActivity = MyActivityManager.getInstance().getCurrentActivity();

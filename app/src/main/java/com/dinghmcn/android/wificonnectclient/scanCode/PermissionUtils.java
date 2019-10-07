@@ -16,7 +16,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.dinghmcn.android.wificonnectclient.CITTestHelper;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -146,12 +145,12 @@ public final class PermissionUtils {
      * @param permissions
      * @return
      */
-    public static boolean isGranted(final String... permissions) {
+    public static boolean isGranted(Context context, final String... permissions) {
         // 防止数据为null
         if (permissions != null && permissions.length != 0) {
             // 遍历全部需要申请的权限
             for (String permission : permissions) {
-                if (!isGranted(CITTestHelper.getContext_x(), permission)) {
+                if (!isGranted(context, permission)) {
                     return false;
                 }
             }
@@ -212,7 +211,7 @@ public final class PermissionUtils {
      *
      * @return -1 已经请求过, 0 = 不处理, 1 = 需要请求
      */
-    private int checkPermissions() {
+    private int checkPermissions(Context context) {
         if (isRequest) {
             return -1; // 已经申请过
         }
@@ -228,7 +227,7 @@ public final class PermissionUtils {
                 // 首先判断是否存在
                 if (mAllPermissions.contains(permission)) {
                     // 判断是否通过请求
-                    if (isGranted(CITTestHelper.getContext_x(), permission)) {
+                    if (isGranted(context, permission)) {
                         mPermissionsGranted.add(permission); // 权限允许通过
                     } else {
                         mPermissionsRequest.add(permission); // 准备请求权限
@@ -257,13 +256,13 @@ public final class PermissionUtils {
      * 无需调用以下代码判断
      * boolean isGranted = PermissionUtils.isGranted(Manifest.permission.xx);
      */
-    public void request() {
-        if (checkPermissions() == 1) {
+    public void requestPermissions(Context context) {
+        if (checkPermissions(context) == 1) {
             // 如果 SDK 版本大于 23 才请求
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 sInstance = this;
                 // 自定义Activity
-                PermissionUtils.PermissionActivity.start(CITTestHelper.getContext_x());
+                PermissionUtils.PermissionActivity.start(context);
             }
         }
     }
@@ -284,7 +283,7 @@ public final class PermissionUtils {
      * @param requestCode
      */
     public void request(Activity activity, int requestCode) {
-        if (checkPermissions() == 1 && activity != null) {
+        if (checkPermissions(activity) == 1 && activity != null) {
             // 如果 SDK 版本大于 23 才请求
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 sInstance = this;

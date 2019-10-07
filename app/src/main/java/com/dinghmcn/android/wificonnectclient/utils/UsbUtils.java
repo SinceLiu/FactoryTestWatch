@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.SystemProperties;
 import android.os.storage.StorageManager;
 
-import com.dinghmcn.android.wificonnectclient.CITTestHelper;
 import com.dinghmcn.android.wificonnectclient.DiskManager;
 
 import java.io.BufferedReader;

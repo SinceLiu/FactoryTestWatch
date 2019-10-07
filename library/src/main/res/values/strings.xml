@@ -1,418 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MainList!</string>
-    <string name="app_name">CIT</string>    
-    <string name="pass">"Pass"</string>
-    <string name="fail">"Fail"</string>
-    <string name="calibrating">"Calibrating..."</string>
-    <!-- title--> 
-    <string name="pcb">PCBA</string>
-    <string name="complete">Complete</string>
-    <string name="subpcb">SUBPCB</string>
-    <string name="title_pcba_auto">PCBA_auto_test</string>
-    <string name="title_complete_auto">Complete_auto_test</string>
-    <string name="title_pcba_sensorAuto">PCBA_sensor_auto_test</string>
-    <string name="title_complete_sensorAuto">Complete_sensor_auto_test</string>
-    <string name="title_WBGauto">WBG_auto_test</string>
-    <string name="test_info_1">Above</string>
-    <string name="test_info_2">of all tests pass.</string>
-    <string name="clear_data">清除数据</string>
-    <string name="pre_install">预安装应用检测</string>
+    <string name="app_name">CIT</string>
+    <!-- title-->
 
-    <!-- exit-->     
-    <string name="alert_dialog_ok">OK</string>
-    <string name="alert_dialog_cancel">Cancel</string>
-    <string name="alert_title">CITTest</string>
-    <string name="alert_content">Are you sure to exit the test？</string>
+    <!-- exit-->
     <!-- colligate -->
-    <string name="sim_status_0"> Unknown</string>
-    <string name="sim_status_1"> no SIM/UIM card is available in the device</string>
-    <string name="sim_status_2"> Locked: requires the users SIM/UIM PIN to unlock</string>
-    <string name="sim_status_3"> Locked: requires the users SIM/UIM PUK to unlock</string>
-    <string name="sim_status_4"> Locked: requires a network PIN to unlock</string>
-    <string name="sim_status_5"> Ready</string>
-    <string name="sim_status_6">SIM1 and SIM2 are ready</string>
-    <string name="sd_card_space">"SD card content"</string>
-    <string name="sd_card_space1">"SD card space available"</string>
-    <string name="colligate_illustration">Adjust the volume by keypad</string>
     <!-- wlan for cta test -->
-    <string name="wlan_data_rate">Data Rate</string>
-    <string name="wlan_channel">Channel</string>
-    <string name="wlan_equ_type">device type</string>
-    <string name="wlan_TotalPacket">total package</string>
-    <string name="wlan_wl">"WL"</string>
-    <string name="wlan_tx_start">Start</string>
-    <string name="wlan_tx_close">Stop</string>
-    <string name="wlan_tx_clear">Clear</string>
-    <string name="wlan_setmode_error">"Set Wifi Cit test mode failed!"</string>
-    <string name="wlan_translate_error">"please input integer number"</string>
-    <string name="wlan_data_rate_error">"data_rate between 0 and 7"</string>
-    <string name="wlan_tx_tx_gain">TX Gain</string>
-    <string name="wlan_tx_sifs">SIFS</string>
-    <string name="wlan_tx_macaddress">MAC</string>
-    <string name="wlan_danzaibo_start">"Single carrier to send "</string>
-    <string name="wlan_danzaibo_stop">"Single carrier stopping"</string>
-    <string name="wlan_model">"the model of B/G"</string>
-    <string name="wlan_wl_success">"WL operation success"</string>
-    <string name="wlan_wl_fail">"WL operation failure"</string>	
     <!-- back light -->
-    <string name="backlight_illustration">"Press the Power key to test cell phone sleep/wake after screen turn dark! "</string>
     <!-- camera -->
-    <string name="camera_illustration">"Select the result of Camera test，please！"</string>
     <!-- CameraBack -->
-    <string name="cameraback_name">CameraBack</string>
-    <string name="cameraback_takepicture">Take picture</string>
-    <string name="cameraback_fail_open">Camera open Fail, please Check Camera Installed Correctly!</string>
-    <string name="autofocus_fail">AutoFocus Failed</string>
-    <string name="connect_fail">can not connet to the back camera</string>
     <!-- CameraFront -->
-    <string name="camerafront_name">CameraFront</string>
-    <string name="camerafront_takepicture">Take picture</string>
     <!-- loopback -->
-    <string name="change_loop">"switch"</string>
-    <string name="recive_loopback">Receive loopback</string>
-    <string name="head_loopback">Head loopback</string>
-    <string name="receiver_illustration">"Please align MIC blowing"</string>
-    <string name="headset_illustration1">"Please insert headset"</string>
-    <string name="headset_illustration2">"Please start the headset loopback test"</string>
     <!--headsett-->
-    <string name="remove_headset">Please remove headset</string>
-    <string name="insert_headset">Please insert headset</string>
-    <string name="record_finish">The recorder has finished</string>
     <!--TransmitterReceiver -->
-    <string name="transmitter_receiver_name">Transmitter and Receiver</string>
-    <string name="transmitter_receiver_hint">Transmitter and Receiver</string>
-    <string name="transmitter_receiver_recording">Now recording, please say some words to transmitter and click Stop button to stop.</string>
-    <string name="transmitter_receiver_recording1">please say some words loudly to second-mic on top of the phone and test whether can hear sound from speaker</string>
-    <string name="transmitter_receiver_recording2">please say some words loudly to transmitter on bottom of the phone and test whether can hear sound from receiver</string>
-    <string name="transmitter_receiver_recording3">please say some words to microphone on headset and test whether can hear sound from headset</string>
-    <string name="transmitter_receiver_playing">Replaying now, please listen to the receiver.</string>
-    <string name="transmitter_receiver_confirm">Do you hear the sound?</string>
-    <string name="transmitter_receiver_record_first">Please click Record button first</string>
-    <string name="transmitter_receiver_replay_end">Have reached the end.</string>
-    <string name="transmitter_receiver_to_record">Click Record button to record sound.</string>
     <!-- Headset -->
-    <string name="headset_name">Headset</string>
-    <string name="headset_hint">Headset</string>
-    <string name="headset_recording">Now recording, please say some words to transmitter and click Stop button to stop.</string>
-    <string name="headset_playing">Replaying now, please listen to the receiver.</string>
-    <string name="headset_confirm">Do you hear the sound?</string>
-    <string name="headset_record_first">Please click Record button first</string>
-    <string name="headset_replay_end">Have reached the end，please select test results.</string>
-    <string name="headset_to_record">Click Record button to record sound.</string>
-    <string name="speaker_recording">>Now being recorded, please speak</string>
-    <string name="stop">Stop</string>
-    <string name="ok">OK</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="record">Record</string>
     <!-- fm -->
-    <string name="fm_illustration">"Select the result of FMradio test，please！"</string>
-    <string name="fm_init">Init</string>
-    <string name="fm_get_FREQ">Get FREQ</string>
-    <string name="fm_change_VOL">Change VOL</string>
-    <string name="fm_stereo_mono">Stereo</string>
-    <string name="fm_mute">MUTE</string>
-    <string name="fm_rssi">Rssi</string>
-    <string name="fm_seek">Seek</string>
-    <string name="fm_close">Close</string>
-    <string name="fm_setfreqtext">Set Freq</string>
-    <string name="fm_freqinputtext">Freq Input</string>
-    <string name="fm_statetext">State:</string>
-    <string name="fm_initmessage">Init OK ,the freq is:</string>
-    <string name="fm_Curfreq">Cur freq is:</string>
-    <string name="fm_CurVolume">Cur volume is:</string>
-    <string name="fm_mono">mono now</string>
-    <string name="fm_stereo">Stereo now</string>
-    <string name="fm_getnewfreq">Get new freq:</string>
-    <string name="fm_nofreq">No new freq</string>
-    <string name="fm_closed">Radio Closed</string>
-    <string name="fm_freqnow">Freq now is:</string>
-    <string name="fm_channel">Please Enter Correct Channel!</string>
-    <string name="g_null_text"></string>
-    <string name="fm_khz">khz</string>
-    <string name="wait">"Please wait ..."</string>
-    <string name="fm_name">FmRadio</string>
-    <string name="fm_search">Search</string>    
-    <string name="openFM_fail">Open FM failed</string>
     <!-- battery info -->
-    <string name="voltage">"voltage : "</string>
-    <string name="temperature">"temperature : "</string>
-    <string name="volage_volt">mV</string>
-    <string name="temperature_degree">degree</string>
     <!--charge&battery -->
-    <string name="test_temperature_degree">degree</string>
     <string name="charging">"charging"</string>
-    <string name="test_volage_volt">mV</string>
     <string name="battery_info_status_full">"The battery power is full already"</string>
-    <string name="battery_not_linked">"The battery in a virtual welding condition"</string>
-    <string name="battery_tooLarge">"too high"</string>
-    <string name="battery_normal">"normal"</string>
     <!-- charge state -->
     <!-- <string name="i2c_state_err">"9V node State! test Failed!"</string> -->
-    <string name="i2c_state_err">"node State! test Failed!"</string>
     <string name="please_input_charger">"Insert charger please"</string>
     <!-- lcd -->
-    <string name="lcd_illustration">"Press the screen or click back key to switch background,please"</string>
     <!-- touch panel -->
-    <string name="touch_illustration">"Press the up volume key to display PASS and FAIL"</string>
-    <string name="touch_illustration1">"If the TouchPanel is bad, you can press the back key to exit"</string>
-    <string name="touch_illustration2">"Please choose PASS or FAIL"</string>
     <!-- motion sensor -->
-    <string name="motion_sensor_calibration_illustration">"This test for G-sensor!Let the phone flat on horizontal plane and then click G_Sesor_calibration button,and do not pop up any key entil pop G_sensor_calibration results suggest."</string>
-    <string name="str_calibration">"calibration"</string>
-    <string name="str_calibration_success">"calibration success"</string>
-    <string name="str_calibration_failed">"calibration failure"</string>
-    <string name="motionsensor_info">"Motion sensor data："</string>
     <!-- Gyro sensor -->
-    <string name="gyro_cali_tips">"This test for GYRO_Sensor!Let the phone flat on horizontal plane and then click GYRO_calibration button,and do not pop up any key entil pop GYRO_calibration results suggest."</string>
 
     <!-- ecompass -->
-    <string name="magneticsensor_info">"Magnetic sensor data:\n"</string>	
     <!-- priximity sensor -->
-    <string name="proximitysenor_info">"Proximity sensor data："</string>
-    <string name="proximity_calibration_illustration">"Please make sure the clamp installed correctly！Click on the button of the calibration "</string>
     <!-- light sensor -->
-    <string name="original_data">"original data："</string>
-    <string name="backlight_data">"backlight data："</string>
-    <string name="lux_data">"LUX："</string>
     <!-- gps -->
-    <string name="gps_info">"getting data of GPS："</string>
-    <string name="bd_info">"getting data of BeiDou："</string>
-    <string name="gps_success">"Locating..."</string>
-    <string name="gps_located">Locate success</string>
-    <string name="gps_st_info_snr">SNR：</string>
-    <string name="gps_st_info_prn">PRN：</string>
-    <string name="gps_st_info_azimuth">AZIMUTH：</string>
-    <string name="gps_st_info_elevation">ELEVATION：</string>
     <string name="gps_open_error">"An error occurred when open GPS！"</string>
-    <string name="del_success">"Delete the data of GPS successful!"</string>
-    <string name="del_fail">"Delete the data of GPS failed!"</string>
     <!-- wifi -->
-    <string name="wifisettins_page">"Select the result of WLAN test，please！"</string>
-    <string name="wifisettins_24g">"2.4G WiFi :  "</string>
-    <string name="wifisettins_5g">"5G WiFi :  "</string>
-    <string name="wifi_scan_null">Not found any AP!</string>
-    <string name="wifi_name">WiFi</string>
-    <string name="wifi_text">WiFi test will be completed within 30 seconds, please wait. </string>
-    <string name="wifi_scan_failed">Scan failed!</string>
-    <string name="wifi_is_closing">WiFi is closing, please retry after a while.</string>
-    <string name="wifi_state_unknown">WiFi state unknown, please retry.</string>
     <!-- BlueTooth -->
-    <string name="bluetooth_setingpage">"Select the result of BlueTooth test,please!"</string>
-    <string name="bluetooth_mac_address">"MAC address"</string>
-    <string name="bluetooth_scanning">Scanning</string>
-    <string name="bluetooth_finished">finished</string>
-    <string name="bluetooth_name">Bluetooth</string>
-    <string name="bluetooth_scan_start">Scaning devices...</string>
-    <string name="bluetooth_scan_finish">Finish scan</string>
-    <string name="bluetooth_turning_on">Turning on bluetooth...</string>
-    <string name="bluetooth_scan_null">Not found any device</string>
-    <string name="scan">Scan</string>
-    <string name="cancel">Cancel</string>
     <!-- Version -->
-    <string name="cit_info_default">unknown</string>
-    <string name="sn_model">MODEL</string>
-    <string name="software_title">internal version</string>
-    <string name="hardware_title">hardware version</string>
-    <string name="hardware_content">Readboy_C3L_HW02</string>
-    <string name="baseband_version">baseband version</string>
-    <string name="sn_version">sn number</string>
-    <string name="internal_version">"internal version number"</string>
-    <string name="software_version">"software version"</string>
-    <string name="bt_ft_result">"BT/FT test info"</string>
-    <string name="tp_type">"TP manufacturer info"</string>
-    <string name="lcd_type">"LCD manufacturer info"</string>
-    <string name="battery_vendor">Battery manufacturer info</string>
-    <string name="motion_sensor_vendor">motion sensor manufacturer info</string>
-    <string name="proximity_sensor_vendor">proximity sensor manufacturer info</string>
-    <string name="light_sensor_vendor">light sensor manufacturer info</string>
     <!--Modify for add front camera information by lizhaobo 20151120 start-->
-    <string name="camera_type">"Back Camera manufacturer info"</string>
-    <string name="rom_type">"ROM manufacturer info"</string>
-    <string name="front_camera_type">"Front Camera manufacturer info"</string>
     <!--Modify for add front camera information by lizhaobo 20151120 end-->
     <!-- bt&ft-->
-    <string name="wft_result">"WCDMA_FT: WCDMA FT "</string>
-    <string name="wbt_result">"WCDMA_BT: WCDMA BT "</string>
-    <string name="cft_result">"CDMA_FT: CDMA FT "</string>
-    <string name="cbt_result">"CDMA_BT: CDMA BT "</string>
-    <string name="gft_result">"GSM_FT: GSM FT "</string>
-    <string name="gbt_result">"GSM_BT: GSM BT "</string>
 
-    <string name="auto_test_result">"CIT complete mark"</string>
-    <string name="imei">IMEI</string>    
     <!-- Receiver Test -->
-    <string name="play">"Play"</string>   
     <!--Speaker test -->
-    <string name="str_speaker_speaker">Please listen to the Speaker,do you hear the sound?</string> 
     <!-- TouchScreen upgrade -->
-    <string name="current_version">The current version is:</string>
-    <string name="start_upgrade_version">Start upgrade version</string>
-    <string name="updated_success">Updated version success！</string>
     <!-- FlashLight -->
-    <string name="flashlight_confirm">Do you see the flash light:</string>
-    <string name="flashlight_yes">yes</string>
-    <string name="flashlight_no">no</string>
 
-    <string name="ir_confirm">Do you see the IR light:</string>
     <!--Stereo  -->
-    <string name="stereo_left">left channel</string>
-    <string name="stereo_right">right channel</string>
-    <string name="stereo_stop">Stop</string>
     <!-- keypad -->
-    <string name="keypad_lightison">To observe the keyboard light is always on</string>
-    <string name="key_home">home</string>
-    <string name="key_back">back</string>
-    <string name="key_menu">menu</string>
-    <string name="key_one">1</string>
-    <string name="key_two">2</string>
-    <string name="key_three">3</string>
-    <string name="key_four">4</string>
-    <string name="key_five">5</string>
-    <string name="key_six">6</string>
-    <string name="key_seven">7</string>
-    <string name="key_eight">8</string>
-    <string name="key_nine">9</string>
-    <string name="key_zero">0</string>
-    <string name="key_star">*</string>
-    <string name="key_pound">#</string>
-    <string name="keylighthome">home</string>
     <!-- LED -->
-    <string name="led_hint">Please observation of LED lamp is red, green, blue, changes in these three kinds of color</string>
-    <string name="keyboardled">Please observation of KeyBoardLed is always on!</string>
     <!-- LED_Red -->
-    <string name="led_red_test">Please insert charger and confirm the LED lamp is red</string>
     <!-- Gyroscope -->
-    <string name="gyroscope_name">Gyroscope</string>
-    <string name="service_get_fail">Sevice get fail!</string>
-    <string name="sensor_get_fail">Sensor get fail!</string>
-    <string name="sensor_register_fail">Sensor register fail!</string>
-    <string name="shake_hint_other_sensor">Please turn round the phone.</string>
-    <string name="test_pass">Test pass</string>
     <!-- Vibrate -->
-    <string name="vibrate_hint">Observation of vibrate is working, please!</string>
     <!-- Udisk -->
-    <string name="udisk_space">"UDisk capacity："</string>
-    <string name="udisk_hint">"Please judge the test pass or fail according to if the music is playing"</string>
     <!--Modify for add prompt of check USB by xiasiping 20141124 start-->
-    <string name="udisk_failed">UDisk Test Failed!Please check the USB has been inserted</string>
     <!--Modify for add prompt of check USB by xiasiping 20141124 end-->
 
     <!-- NFC -->
-    <string name="nfc_info">NFC Scanning...</string>
-    <string name="nfc_enable">The NFC is enable！ Please Keep the NFC card into the induction zone!</string>
-    <string name="nfc_disable">The NFC is disable！</string>
-<!--Modify for add NFC Feature by liyunlong 20140301 start-->
-    <string name="nfc_dialog_info">"I'll take more time to scan card,please try again!"</string>
-<!--Modify for add NFC Feature by liyunlong 20140301 end-->
-    <string name="str_calibration_failed_0">"Sensor Test Native Error."</string>
-    <string name="str_calibration_failed_1">"Invalid Sensor ID."</string>
-    <string name="str_calibration_failed_2">"Test Timed-out."</string>
-    <string name="str_calibration_failed_3">"Device Busy."</string>
-    <string name="str_calibration_failed_4">"Invalid Test."</string>
-    <string name="str_calibration_failed_5">"Invalid Test Parameter."</string>
-    <string name="str_calibration_failed_6">"Received 'failed' response."</string>
-    <string name="str_calibration_failed_7">"Another test is running, try later."</string>
-    <string name="str_calibration_failed_8">"Broken Message Pipe."</string>
-    <string name="str_calibration_failed_9">"Internal Error."</string>
-    <string name="str_calibration_failed_10">"Unknown Error."</string>
+    <!--Modify for add NFC Feature by liyunlong 20140301 start-->
+    <!--Modify for add NFC Feature by liyunlong 20140301 end-->
     <!--Receiver test -->
-    <string name="str_receiver_hint">Please listen to the receiver,do you hear the sound?</string>
-    <string name="str_receiver_time">testing time： </string>
 
-    <string name="usbmodestr">Please select the usb mode</string>
-    <string name="mtp">  MTP </string>
-    <string name="ptp">  PTP </string>
-    <string name="mass_storage">  MASS_STORAGE </string>
-    <string name="diag_opened">  TEST_MODE </string>
-    <string name="diag_closed">  USER_MODE </string>
     <!-- add PA568 list item by xiasiping 20140811 start-->
-    <string name="use_cit_config_item">Use the cit_config_item from storage</string>
-    <string name="use_pa568_list_item">Use the list_item from CIT</string>
 
-    <string name="use_cit_conf_node_from_storage">Use the cit_conf_node from storage</string>
-    <string name="use_cit_conf_node_from_cit">Use the cit_conf_node from CIT</string>
-    <string name="invoke_method_fail">Invoke Method has Exception!</string>
     <!-- add PA568 list item by xiasiping 20140811 end-->
     <!-- Modify for add readconfig by xiasiping 20140819 start -->
-    <string name="readconfig_name">ReadConfig</string>
     <!-- Modify for add readconfig by xiasiping 20140819 end -->
-    <string name="HB_message">keep your finger on the two contacts,and observed intermediate color</string>
-    <string name="status_on">status: has been exposed contacts</string>
-    <string name="status_off">status: has been left contacts</string>
-    <string name="status_exception">Test has exception, please click the FAIL button to exit test</string>
 
-    <string name="urt_hint">Click URT test button to test URT</string>
-    <string name="urt_test">URT test</string>
-    <string name="urt_vol">3.3V : </string>
-    <string name="urt_result">urt_result : </string>
-    <string name="usb_test">USB test</string>
-    <string name="usb_hint">Click USB test button to test USB mouse</string>
-    <string name="usb_light">test USB mouse and observer the two control lights</string>
-    <string name="xpand_test_pass"> test pass</string>
-    <string name="xpand_test_fail"> test failed</string>
-    <string name="urtvol_test_fail"> test failed; please check is the USB switch On?</string>
     <!-- FingerPrint -->
-    <string name="fp_test">Communication Test</string>
-    <string name="fp_cali">Calibration</string>
-    <string name="fp_start">Start</string>
-    <string name="fp_stop">Stop</string>
-    <string name="fp_quit">Quit</string>
-    <string name="fp_startcali">start calibrate!</string>
-    <string name="fp_exit">fp cali fail，exit？</string>
-    <string name="fp_calisucc">fp cali succ</string>
-    <string name="fp_califail">fp cali fail</string>
-    <string name="fp_test_hint">Please click the start button and observe the finger image</string>
     <!-- add by xsp for UsbMode -->
-    <string name="portOn"> TEST_MODE </string>
-    <string name="portOff"> USER_MODE </string>
-
-    <string name="vibrator_tips">Please observe the Vibrator is working!</string>
-    <string name="writing_nv_flag">Writing NV Flag, Please wait a moment!</string>
-
-    <string name="retest">Retest</string>
-    <string name="success">success</string>
-    <string name="touch_panel_test">touch_panel_test</string>
-    <string name="touchname">touchname</string>
-    <string name="lcdmenuquit">lcdmenuquit</string>
-
-    <string name="txt_test_pass">test pass </string>
-    <string name="txt_test_sure">yes</string>
-    <string name="txt_test_cancel">no</string>
-    <string name="ntrig_pen_test">Draw on the screen with your finger!</string>
-    <string name="ntrig_torch_test">Draw on the screen with your finger!</string>
-
-    <string name="tips_waiting_first">Getting P-sensorCalibration Values, Please wait for a moment!</string>
-
-    <string name="light_sensor_tips">Please hank blocking the light sensor ,and observe the changes of sensor Values!click pass or fail button based on prompt!</string>
-
-    <string name="touch_waring">Waring!</string>
-    <string name="test_item_TP">TPtest</string>
-    <string name="tp_success">Success</string>
-    <string name="tp_fail">FAIL</string>
 
     <!-- add for new tp test by xsp -->
-    <string name="tp_enough">Please draw long enough</string>
-    <string name="tp_effective_tips">Please draw in the effective region</string>
-    <string name="tp_confirm">OK</string>
-    <string name="tp_pass">TPTest PASS</string>
-
-    <string name="my_sensor_tips">Calibrate Tips</string>
-
-    <string name="new_ps">Warning:Please Do not Cover Psensor when Calibrate</string>
-    
-    <string name="fp_touch_key">请用手指轻按指纹按键</string>
-    <string name="insertSD">请先插入SD卡和U盘，再测试</string>
-    <string name="fp_identify_suc">指纹识别成功，请选择结果</string>
-    
-    <string name="btn_start">开始测试</string>
-    <string name="btn_starting">测试中</string>
-    <string name="test_notice">点击开始测试按钮后，测试过程中，请保持屏幕亮屏，并且不要触摸到屏幕</string>
-    <string name="num_pre_install">预安装应用数量：</string>
-    <string name="uninstalled">未安装应用：</string>
-    <string name="install">去下载</string>
-    <string name="downloading">下载中...\n下载过程可能需要数分钟</string>
-    <string name="download_fail">下载失败</string>
 
 </resources>

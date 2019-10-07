@@ -1,26 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="camera_margin_both_side">0dip</dimen>
-    <dimen name="corner_radius">8dp</dimen>
-    <dimen name="background_padding">2dp</dimen>
-    <dimen name="grid_item_padding">8dp</dimen>
-    <dimen name="space_height">30dip</dimen>
-    <dimen name="main_activity_padding_top_bottom">38dip</dimen>
-    <dimen name="main_activity_padding_left_right">30dip</dimen>
-    <dimen name="btn_normal_text_size">32sp</dimen>
-    <dimen name="btn_succ_fail_text_size">32sp</dimen>
-    <dimen name="mic_text_padding_top">15dip</dimen>
-    <dimen name="mic_test_vum_width">200dip</dimen>
-    <dimen name="mic_test_vum_height">50dip</dimen>
-    <dimen name="wifi_test_label_textsize">38sp</dimen>
-    <dimen name="wifi_test_summary_textsize">32sp</dimen>
-    <dimen name="ble_test_label_textsize">32sp</dimen>
-    <dimen name="ble_test_summary_textsize">26sp</dimen>
-    <dimen name="vibrate_test_textsize">36sp</dimen>
-    <dimen name="backlight_btn_height">80dip</dimen>
-    <dimen name="msensor_view_padding_top">10dip</dimen>
-    <dimen name="mobiledata_view_padding_top">20dip</dimen>
 
-    <dimen name="info_layout_padding_top_bottom">10dip</dimen>
-    <dimen name="info_layout_padding_top_right">60dip</dimen>
 </resources>

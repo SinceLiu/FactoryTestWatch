@@ -59,7 +59,6 @@
 
 
     <application
-        android:name=".CITTestHelper"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -92,16 +91,6 @@
             android:name=".ShowPictureFullActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Signal"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.CALL_PRIVILEGED" />
-        </intent-filter>
-
-        </activity>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.dinghmcn.android.wificonnectclient.provider"

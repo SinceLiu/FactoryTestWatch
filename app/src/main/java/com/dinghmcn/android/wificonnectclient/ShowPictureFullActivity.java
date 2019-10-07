@@ -66,7 +66,6 @@ public class ShowPictureFullActivity extends AppCompatActivity {
     if (resId > 0) {
       mImageView.setImageResource(resId);
       setResult(mResult);
-//       Utils.setisScreen(true);
       EventBus.getDefault().post(1010);
       // 5s 后自动退出
 //      new Handler().postDelayed(() -> finish(), mTimeOut);

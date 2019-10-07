@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FactoryTest</string>
-    <string name="get_ip_failed">get server ip failed!</string>
     <string name="ip_or_port_illegal">Ip or port is illegal!</string>
     <string name="connect_loading">Connecting %1$s . . .</string>
     <string name="connect_failed">Connect server failed.</string>
@@ -10,31 +9,10 @@
     <string name="wait_command">Wait command . . .</string>
     <string name="execute_command_error">execute command error!</string>
     <string name="command_file_error">command_error!</string>
-    <string name="command_type_error">command_type_error!</string>
     <string name="send_file">Send file:%1$s</string>
     <string name="file_not_exist">%1$s don\'t exist!</string>
     <string name="show_file">Show %1$s.</string>
-    <string name="software_expired">Software is Expired.</string>
     <string name="connect_info_error">Connect info errror!</string>
 
-    <string name="txt_title">请调节三个键盘灯亮度一致后，点击保存！</string>
-    <string name="save_led">保存</string>
-    <string name="str_r">中</string>
-    <string name="str_b">左</string>
-    <string name="str_g">右</string>
-    <string name="str_u">加一级</string>
-    <string name="str_d">减一级</string>
-    <string name="str_l">当前级别</string>
-
-    <string name="emergency_call">Emergency Call</string>
-    <string name="service_call">Service Call</string>
-    <string name="FMRadio_notice">Choose</string>
-    <string name="HeadSet_hook_message">Please make sure the call duration can press the headphone Hook hang up?</string>
-    <string name="headsethook_name">Headphone hook</string>
-    <string name="telephone_name">Phone</string>
-
-
-    <string name="Success">Success</string>
-    <string name="Failed">Failure</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
+import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dinghmcn.android.wificonnectclient.CITTestHelper;
 import com.dinghmcn.android.wificonnectclient.MainActivity;
 
 import java.io.BufferedInputStream;
@@ -313,7 +313,7 @@ public class ConnectManagerUtils {
      * @param file    the file uri
      * @param message the message
      */
-    public void sendFileToServer(File file, String message) {
+    public void sendFileToServer(Context context,File file, String message) {
         Log.e("CHEN", "Send File :" + file.getAbsolutePath());
         assert mThreadPool != null;
         mThreadPool.execute(() -> {
@@ -349,7 +349,7 @@ public class ConnectManagerUtils {
                     @Override
                     public void run() {
                         Looper.prepare();
-                        Toast.makeText(CITTestHelper.getContext_x(), "远程共享文件纯文本密码已禁用.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "远程共享文件纯文本密码已禁用.", Toast.LENGTH_LONG).show();
                         Looper.loop();
                     }
                 }.start();//                DisplayToast();

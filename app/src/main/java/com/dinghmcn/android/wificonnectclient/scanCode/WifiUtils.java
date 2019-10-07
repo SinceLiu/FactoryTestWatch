@@ -12,7 +12,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.dinghmcn.android.wificonnectclient.CITTestHelper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -199,13 +198,13 @@ public final class WifiUtils {
     /**
      * 通过获取当前连接的ssid
      */
-    public static String getSSID() {
+    public static String getSSID(Context context) {
 
         String ssid = "unknown id";
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O || Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
 
-            WifiManager mWifiManager = (WifiManager) CITTestHelper.getContext_x().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             assert mWifiManager != null;
             WifiInfo info = mWifiManager.getConnectionInfo();
@@ -217,7 +216,7 @@ public final class WifiUtils {
             }
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
 
-            ConnectivityManager connManager = (ConnectivityManager) CITTestHelper.getContext_x().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             assert connManager != null;
             NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
             if (networkInfo.isConnected()) {
@@ -392,7 +391,7 @@ public final class WifiUtils {
             NetworkInfo.State nState = cManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
             if ((nState == NetworkInfo.State.CONNECTED)) {
                 // 获取连接的ssid
-                return getSSID();
+                return getSSID(context);
             }
         } catch (Exception e) {
             Log.e(TAG, "isConnectAphot");
