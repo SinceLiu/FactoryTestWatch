@@ -14,9 +14,9 @@ import java.text.DecimalFormat;
  */
 public class StorageUtils {
 
-    private Context mContext;
     @SuppressLint("StaticFieldLeak")
     private static StorageUtils instance;
+    private Context mContext;
 
     private StorageUtils(Context context) {
         this.mContext = context;
@@ -28,8 +28,8 @@ public class StorageUtils {
      * @param mContext the m context
      * @return the storage utils
      */
-    public static StorageUtils getInstance(Context mContext){
-        if (null == instance){
+    public static StorageUtils getInstance(Context mContext) {
+        if (null == instance) {
             instance = new StorageUtils(mContext);
         }
         return instance;
@@ -78,8 +78,7 @@ public class StorageUtils {
      *
      * @return the rom available storage
      */
-    public String getRomAvailableStorage()
-    {
+    public String getRomAvailableStorage() {
         return Formatter.formatFileSize(mContext,
                 Environment.getDataDirectory().getUsableSpace());
     }
@@ -102,8 +101,7 @@ public class StorageUtils {
      *
      * @return the sd available storage
      */
-    public String getSdAvailableStorage()
-    {
+    public String getSdAvailableStorage() {
         String sdPatch = DiskManager.getSdStoragePath(mContext);
         return DiskManager.isExistDisk(sdPatch)
                 ? Formatter.formatFileSize(mContext, new StatFs(sdPatch).getAvailableBytes())

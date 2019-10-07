@@ -12,7 +12,6 @@ import com.dinghmcn.android.wificonnectclient.R;
 
 /**
  * 该自定义Dialog应用在：弹出框居中显示图片，点击其他区域自动关闭Dialog
- *
  */
 public class CustomPopDialog2 extends Dialog {
 
@@ -43,22 +42,13 @@ public class CustomPopDialog2 extends Dialog {
         public CustomPopDialog2 create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final CustomPopDialog2 dialog = new CustomPopDialog2(context,R.style.Dialog);
+            final CustomPopDialog2 dialog = new CustomPopDialog2(context, R.style.Dialog);
             View layout = inflater.inflate(R.layout.dialog_share_qrcode, null);
             dialog.addContentView(layout, new LayoutParams(
                     android.view.ViewGroup.LayoutParams.WRAP_CONTENT
                     , android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            dialog.getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-
             dialog.setContentView(layout);
-            ImageView img = (ImageView)layout.findViewById(R.id.img_qrcode);
+            ImageView img = (ImageView) layout.findViewById(R.id.img_qrcode);
             img.setImageBitmap(getImage());
             return dialog;
         }

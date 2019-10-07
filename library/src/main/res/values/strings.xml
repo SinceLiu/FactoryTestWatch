@@ -31,7 +31,6 @@
     <!-- priximity sensor -->
     <!-- light sensor -->
     <!-- gps -->
-    <string name="gps_open_error">"An error occurred when open GPS！"</string>
     <!-- wifi -->
     <!-- BlueTooth -->
     <!-- Version -->

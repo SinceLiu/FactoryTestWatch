@@ -2,6 +2,7 @@ package com.dinghmcn.android.wificonnectclient.utils;
 
 /**
  * 获取磁盘挂载路径
+ *
  * @author chenjd
  * @email chenjd@allwinnertech.com
  * @data 2011-8-10
@@ -77,8 +78,8 @@ public class DiskManager {
         int size = totalDevicesList.size();
         for (int i = 0; i < size; i++) {
             if (!getInterStoragePath().equals(totalDevicesList.get(i))) {
-//				if (totalDevicesList.get(i).contains("st")) {
-//				}
+//                if (totalDevicesList.get(i).contains("st")) {
+//                }
                 path = totalDevicesList.get(i);
                 break;
             }
@@ -130,15 +131,15 @@ public class DiskManager {
      */
     public static ArrayList<String> getAllStoragePath(Context context) {
         ArrayList<String> totalDevicesList = initDevicePath(context);
-//		int size = totalDevicesList.size();
-//		for (int i = 0; i < size; i++) {
-//			if (!getInterStoragePath().equals(totalDevicesList.get(i))) {
-//				if (totalDevicesList.get(i).contains("usb")) {
-//					path = totalDevicesList.get(i);
-//					break;
-//				}
-//			}
-//		}
+//        int size = totalDevicesList.size();
+//        for (int i = 0; i < size; i++) {
+//            if (!getInterStoragePath().equals(totalDevicesList.get(i))) {
+//                if (totalDevicesList.get(i).contains("usb")) {
+//                    path = totalDevicesList.get(i);
+//                    break;
+//                }
+//            }
+//        }
         return totalDevicesList;
     }
 

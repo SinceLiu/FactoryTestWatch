@@ -142,7 +142,7 @@ LastLevelId=954 */
            bus_read(reg_addr , reg_data, r_len)
 /* EasyCASE ) */
 
-#define	BMA250_DEV_NAME				"bma250"
+#define    BMA250_DEV_NAME                "bma250"
 
 /** bma250 I2C Address
 */

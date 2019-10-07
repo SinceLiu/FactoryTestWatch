@@ -19,20 +19,20 @@
 
 #define BMA222_IOC_MAGIC 'B'
 
-#define BMA222_SOFT_RESET				               _IO(BMA222_IOC_MAGIC,0)
-#define BMA222_SET_RANGE			                   _IOWR(BMA222_IOC_MAGIC,1, unsigned char)
-#define BMA222_GET_RANGE			                   _IOWR(BMA222_IOC_MAGIC,2, unsigned char)
-#define BMA222_SET_MODE				                   _IOWR(BMA222_IOC_MAGIC,3, unsigned char)
-#define BMA222_GET_MODE				                   _IOWR(BMA222_IOC_MAGIC,4, unsigned char)
-#define BMA222_SET_BANDWIDTH		                   _IOWR(BMA222_IOC_MAGIC,5, unsigned char)
-#define BMA222_GET_BANDWIDTH		                   _IOWR(BMA222_IOC_MAGIC,6, unsigned char)
+#define BMA222_SOFT_RESET                               _IO(BMA222_IOC_MAGIC,0)
+#define BMA222_SET_RANGE                               _IOWR(BMA222_IOC_MAGIC,1, unsigned char)
+#define BMA222_GET_RANGE                               _IOWR(BMA222_IOC_MAGIC,2, unsigned char)
+#define BMA222_SET_MODE                                   _IOWR(BMA222_IOC_MAGIC,3, unsigned char)
+#define BMA222_GET_MODE                                   _IOWR(BMA222_IOC_MAGIC,4, unsigned char)
+#define BMA222_SET_BANDWIDTH                           _IOWR(BMA222_IOC_MAGIC,5, unsigned char)
+#define BMA222_GET_BANDWIDTH                           _IOWR(BMA222_IOC_MAGIC,6, unsigned char)
 #define BMA222_WRITE_REG                               _IOWR(BMA222_IOC_MAGIC,7, unsigned char)
 #define BMA222_READ_REG                                _IOWR(BMA222_IOC_MAGIC,8, unsigned char)
-#define BMA222_RESET_INTERRUPT		                   _IO(BMA222_IOC_MAGIC,9)
-#define BMA222_READ_ACCEL_X			                   _IOWR(BMA222_IOC_MAGIC,10,short)
-#define BMA222_READ_ACCEL_Y			                   _IOWR(BMA222_IOC_MAGIC,11,short)
-#define BMA222_READ_ACCEL_Z			                   _IOWR(BMA222_IOC_MAGIC,12,short)
-#define BMA222_READ_ACCEL_XYZ		                   _IOWR(BMA222_IOC_MAGIC,13,short)
+#define BMA222_RESET_INTERRUPT                           _IO(BMA222_IOC_MAGIC,9)
+#define BMA222_READ_ACCEL_X                               _IOWR(BMA222_IOC_MAGIC,10,short)
+#define BMA222_READ_ACCEL_Y                               _IOWR(BMA222_IOC_MAGIC,11,short)
+#define BMA222_READ_ACCEL_Z                               _IOWR(BMA222_IOC_MAGIC,12,short)
+#define BMA222_READ_ACCEL_XYZ                           _IOWR(BMA222_IOC_MAGIC,13,short)
 #define BMA222_GET_INTERRUPTSTATUS1                    _IOWR(BMA222_IOC_MAGIC,16, unsigned char)
 #define BMA222_GET_INTERRUPTSTATUS2                    _IOWR(BMA222_IOC_MAGIC,17, unsigned char)
 #define BMA222_GET_LOW_G_INTERRUPT                     _IOWR(BMA222_IOC_MAGIC,18, unsigned char)
@@ -170,13 +170,13 @@
 //#define BMA222_FAST_CALIBRATION                        _IOWR(BMA222_IOC_MAGIC,149, unsigned char)
 #define BMA2x2_FAST_CALIBRATION                        _IOWR(BMA222_IOC_MAGIC,149, unsigned char)
 /*+ qiukj add for calibration*/
-#define	MOTION_DOCAL								   _IOWR(BMA222_IOC_MAGIC,150, unsigned char)
+#define    MOTION_DOCAL                                   _IOWR(BMA222_IOC_MAGIC,150, unsigned char)
 #define MOTION_SETCAL                                  _IOWR(BMA222_IOC_MAGIC,151, unsigned char)
 #define MOTION_DOCAL_STEP1                             _IOWR(BMA222_IOC_MAGIC,152, unsigned char)
 #define MOTION_DOCAL_STEP2                             _IOWR(BMA222_IOC_MAGIC,153, unsigned char)
 /*- qiukj add for calibration*/
-#define BMA222_IOC_MAXNR				150
+#define BMA222_IOC_MAXNR                150
 
 
-#define MOTACC_PATH	"/etc/accel_caldata"
+#define MOTACC_PATH    "/etc/accel_caldata"
 

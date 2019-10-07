@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.SystemProperties;
 import android.os.storage.StorageManager;
 
-import com.dinghmcn.android.wificonnectclient.DiskManager;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,8 +28,15 @@ import static android.content.Context.AUDIO_SERVICE;
  */
 
 public class UsbUtils {
+    private static UsbUtils instance;
+    private final String MASS_ADB = "diag,serial_smd,rmnet_bam,adb";
+    private final String MASS = "diag,serial_smd,rmnet_bam";
+    //add for port switch by songguangyu 20140429 start
+    private final String MTP_ADB = "mtp,adb";
+    private final String MTP = "mtp";
     Context mContext;
     String path;
+    String currentFunction = "none";
     private String strFromFile = "";
     private File mfile = null;
     private StorageManager mStorageManager;
@@ -41,64 +46,62 @@ public class UsbUtils {
     private UsbManager mUsbManager;
     private boolean mUsbAccessoryMode;
     private boolean isadbmode = false;
-    String currentFunction = "none";
-    private  final String MASS_ADB = "diag,serial_smd,rmnet_bam,adb";
-    private  final String MASS = "diag,serial_smd,rmnet_bam";
-    //add for port switch by songguangyu 20140429 start
-    private  final String MTP_ADB = "mtp,adb";
-    private  final String MTP = "mtp";
-    private static UsbUtils instance;
+
     public UsbUtils(Context mContext) {
         this.mContext = mContext;
         getManager();
     }
-    public static UsbUtils getInstance(Context mContext){
-        if (instance==null)
-            instance=new UsbUtils(mContext);
+
+    public static UsbUtils getInstance(Context mContext) {
+        if (instance == null)
+            instance = new UsbUtils(mContext);
         return instance;
     }
+
     private void getManager() {
         mStorageManager = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
     }
 
-    public boolean isadbmode(){
+    public boolean isadbmode() {
         currentFunction = SystemProperties.get("sys.usb.config", "000");
-        if (currentFunction != null && currentFunction.endsWith("adb")){
+        if (currentFunction != null && currentFunction.endsWith("adb")) {
             isadbmode = true;
         }
-        mUsbManager = (UsbManager)mContext.getSystemService(Context.USB_SERVICE);
+        mUsbManager = (UsbManager) mContext.getSystemService(Context.USB_SERVICE);
         return isadbmode;
     }
-    public void setCurrentFunction(String function){
-        if (function!=null&&function.equals(MASS)){
-        if (isadbmode){
-            SystemProperties.set("sys.usb.config", MASS_ADB);
-        }else {
-            SystemProperties.set("sys.usb.config", MASS);
-        }
+
+    public void setCurrentFunction(String function) {
+        if (function != null && function.equals(MASS)) {
+            if (isadbmode) {
+                SystemProperties.set("sys.usb.config", MASS_ADB);
+            } else {
+                SystemProperties.set("sys.usb.config", MASS);
+            }
             function = MASS;
-        }else {
-        if (isadbmode){
-            SystemProperties.set("sys.usb.config", MTP_ADB);
-            function = "mtp";
-        }else {
-            SystemProperties.set("sys.usb.config", MTP);
-            function = "mtp";
-        }
+        } else {
+            if (isadbmode) {
+                SystemProperties.set("sys.usb.config", MTP_ADB);
+                function = "mtp";
+            } else {
+                SystemProperties.set("sys.usb.config", MTP);
+                function = "mtp";
+            }
         }
         setCurrentFunction(function, true);
     }
-    private boolean setCurrentFunction(String function,boolean boo){
+
+    private boolean setCurrentFunction(String function, boolean boo) {
         Boolean invoke = false;
         try {
             Class cls = Class.forName("android.hardware.usb.UsbManager");
             try {
                 UsbManager obj = (UsbManager) cls.newInstance();
                 try {
-                    Method meth = cls.getMethod("setCurrentFunction", String.class,Boolean.class);
+                    Method meth = cls.getMethod("setCurrentFunction", String.class, Boolean.class);
                     meth.setAccessible(true);
                     try {
-                         invoke = (Boolean) meth.invoke(obj, function,boo);
+                        invoke = (Boolean) meth.invoke(obj, function, boo);
                     } catch (InvocationTargetException e) {
                         e.printStackTrace();
                     }
@@ -115,15 +118,17 @@ public class UsbUtils {
         }
         return invoke;
     }
-    private boolean hadUsbDisk(){
+
+    private boolean hadUsbDisk() {
         path = DiskManager.getUsbStoragePath(mContext);
-        if(path == null){
+        if (path == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
-    private void creatTest(){
+
+    private void creatTest() {
         ArrayList<String> allPathList = new ArrayList<String>();
         allPathList.add(path);
         int size = allPathList.size();
@@ -156,9 +161,9 @@ public class UsbUtils {
             mfile.createNewFile();
             writeFIle();
         } catch (IOException ioe) {
-//			System.out.println("addFile IOException");
-//			Toast.makeText(this, mfile.getAbsolutePath(), Toast.LENGTH_LONG).show();
-//			ioe.printStackTrace();
+//            System.out.println("addFile IOException");
+//            Toast.makeText(this, mfile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+//            ioe.printStackTrace();
         }
 
     }
@@ -178,6 +183,7 @@ public class UsbUtils {
         }
         return true;
     }
+
     public void writeFIle() {
         FileWriter fw;
         BufferedWriter bw;
@@ -212,7 +218,8 @@ public class UsbUtils {
         }
         return str;
     }
-    public void startSpeaker(){
+
+    public void startSpeaker() {
         am = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
         am = (AudioManager) mContext.getSystemService(AUDIO_SERVICE);
         int nMaxMusicVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -223,11 +230,10 @@ public class UsbUtils {
 
         String sound_path = uDiskPath + "/test.mp3";
         File f = new File(sound_path);
-//        Uri uri = Uri.parse(CITTestHelper.COLLIGATE_SOUND_PATH);
         Uri uri = Uri.parse(sound_path);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType( Uri.fromFile(f), "audio/x-mpeg");
+        intent.setDataAndType(Uri.fromFile(f), "audio/x-mpeg");
 //        startActivity(intent);
 
 //        if (sdIsPass) {
@@ -248,7 +254,8 @@ public class UsbUtils {
                   mp.start();
             }*/
     }
-    public void pauseSpeaker(){
+
+    public void pauseSpeaker() {
         if (mp != null) {
             mp.stop();
             mp.release();

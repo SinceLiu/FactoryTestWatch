@@ -27,7 +27,7 @@ public class USBDiskReceiver extends BroadcastReceiver {
                 Log.e(TAG, "onReceive: ---------------usb拨出-------------");
             }
             if ("android.intent.action.MEDIA_MOUNTED".equals(action)) {
-                Log.e(TAG, "onReceive: --------usb路径-------"+ path);
+                Log.e(TAG, "onReceive: --------usb路径-------" + path);
 
             }
         }

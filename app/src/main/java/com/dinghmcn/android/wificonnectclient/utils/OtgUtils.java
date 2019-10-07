@@ -1,12 +1,9 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.dinghmcn.android.wificonnectclient.DiskManager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,32 +17,38 @@ import java.util.ArrayList;
 import static android.app.ActivityThread.TAG;
 
 public class OtgUtils {
-    private Context mContext;
     public static final String USB_PATH = "/storage/12B9-40E7";
-
+    private static final int OPEN_IN_MUSIC = 1;
+    public static OtgUtils instance;
+    private Context mContext;
     private Uri mUri;
     private long mMediaId = -1;
-    private static final int OPEN_IN_MUSIC = 1;
     private String strFromFile = "";
     private File mfile = null;
     private int size;
-    public static OtgUtils instance;
+
     public OtgUtils(Context mContext) {
         this.mContext = mContext;
         hadOtg();
     }
 
+    public static OtgUtils getInstance(Context mContext) {
+        if (instance == null)
+            instance = new OtgUtils(mContext);
+        return instance;
+    }
+
     private void hadOtg() {
         String path = DiskManager.getUsbStoragePath(mContext);
-        if(path == null){
+        if (path == null) {
             Toast.makeText(mContext, "没有外接U盘", Toast.LENGTH_LONG).show();
             return;
         }
         ArrayList<String> allPathList = new ArrayList<String>();
         allPathList.add(path);
-//		ArrayList<String> allPathList = DiskManager.getAllStoragePath(this);
+//        ArrayList<String> allPathList = DiskManager.getAllStoragePath(this);
         size = allPathList.size();
-        Log.i(TAG, "-----------------------size = "+size);
+        Log.i(TAG, "-----------------------size = " + size);
         String pathString;
         for (int i = 0; i < size; i++) {
             pathString = allPathList.get(i);
@@ -92,23 +95,18 @@ public class OtgUtils {
         return strFromFile;
     }
 
-    public static OtgUtils getInstance(Context mContext){
-        if (instance==null)
-            instance=new OtgUtils(mContext);
-        return instance;
-    }
-
     public void addFile() {
         try {
             mfile.createNewFile();
             writeFIle();
         } catch (IOException ioe) {
-//			System.out.println("addFile IOException");
-//			Toast.makeText(this, mfile.getAbsolutePath(), Toast.LENGTH_LONG).show();
-//			ioe.printStackTrace();
+//            System.out.println("addFile IOException");
+//            Toast.makeText(this, mfile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+//            ioe.printStackTrace();
         }
 
     }
+
     public void writeFIle() {
         FileWriter fw;
         BufferedWriter bw;

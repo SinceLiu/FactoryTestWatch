@@ -15,11 +15,12 @@ import android.util.Log;
  */
 
 public class LightSensorUtils {
+    private static LightSensorUtils instance;
     Context mContext;
     private SensorManager mSensorManager;
     private Sensor mLightSensor;
     private int oldLight;
-    private int[] luxes = new int[] {
+    private int[] luxes = new int[]{
             0, 50, 100, 150, 200, 400, 600, 800, 1000,
             2000, 5000, 10000, 20000, 30000
     };
@@ -30,60 +31,15 @@ public class LightSensorUtils {
     private PowerManager powerManager;
     private long SensorchangeTimes = 0L;
     private float mValue;
-    private static LightSensorUtils instance;
-    public LightSensorUtils(Context mContext) {
-        this.mContext=mContext;
-        getService();
-    }
-    public static LightSensorUtils getInstance(@NonNull Context context) {
-        if (instance == null) {
-            instance = new LightSensorUtils(context);
-        }
-        return instance;
-    }
-    private void getService() {
-        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
-        mLightSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-//2012-12-06 add for test by lvhongshan--start
-        if(null==mLightSensor){
-            Log.i("lvhongshan_LightSensor", "LightSensor is "+"null");
-        }
-        else{
-            Log.i("lvhongshan_LightSensor", "LightSensor is "+"not null");
-        }
-//2012-12-06 add for test by lvhongshan--start
-        powerManager=(PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-        //2012-12-06 add for test by lvhongshan--start
-        if(null==powerManager){
-            Log.i("lvhongshan_powerManager", "powerManager is "+"null");
-        }
-        else{
-            Log.i("lvhongshan_powerManager", "powerManager is "+"not null");
-        }
-        //2012-12-06 add for test by lvhongshan--start
-        try {
-            oldLight = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.SCREEN_BRIGHTNESS);
-        } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    private  SensorEventListener mLightSensorListener = new SensorEventListener(){
+    private SensorEventListener mLightSensorListener = new SensorEventListener() {
 
+        @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
         }
 
+        @Override
         public void onSensorChanged(SensorEvent event) {
-			/*int degree = 0;
-			try {
-				degree = Integer.parseInt(CommonDrive.lightDegree().trim());
-				Log.i("AmbientTest", "original data = " + degree);
-			} catch (NumberFormatException e) {
-				Log.i("AmbientTest", "original data is not number.");
-				return;
-			}*/
-
             float lux = event.values[0];
             int blDegree = 0;
             for (int i = 0; i < brights.length; i++) {
@@ -92,7 +48,7 @@ public class LightSensorUtils {
                         blDegree = brights[i];
                         Log.i("AmbientTest", "blDegree = " + blDegree);
                     }
-                }else{
+                } else {
                     if (lux >= luxes[brights.length - 1]) {
                         blDegree = brights[brights.length - 1];
                         Log.i("AmbientTest", "blDegree = " + blDegree);
@@ -111,17 +67,53 @@ public class LightSensorUtils {
             }
             SensorchangeTimes++;
             //Add SensorCheck for MotionSensor by xiasiping 20140626 end
-
-//			CommonDrive.backlightControl(blDegree);
-
         }
     };
 
-    public boolean registerListener(){
-      return  mSensorManager.registerListener(mLightSensorListener,mLightSensor,
+    public LightSensorUtils(Context mContext) {
+        this.mContext = mContext;
+        getService();
+    }
+
+    public static LightSensorUtils getInstance(@NonNull Context context) {
+        if (instance == null) {
+            instance = new LightSensorUtils(context);
+        }
+        return instance;
+    }
+
+    private void getService() {
+        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        mLightSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+//2012-12-06 add for test by lvhongshan--start
+        if (null == mLightSensor) {
+            Log.i("lvhongshan_LightSensor", "LightSensor is " + "null");
+        } else {
+            Log.i("lvhongshan_LightSensor", "LightSensor is " + "not null");
+        }
+//2012-12-06 add for test by lvhongshan--start
+        powerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        //2012-12-06 add for test by lvhongshan--start
+        if (null == powerManager) {
+            Log.i("lvhongshan_powerManager", "powerManager is " + "null");
+        } else {
+            Log.i("lvhongshan_powerManager", "powerManager is " + "not null");
+        }
+        //2012-12-06 add for test by lvhongshan--start
+        try {
+            oldLight = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean registerListener() {
+        return mSensorManager.registerListener(mLightSensorListener, mLightSensor,
                 SensorManager.SENSOR_DELAY_NORMAL);
     }
-    public void unregisterListener(){
-          mSensorManager.unregisterListener(mLightSensorListener);
+
+    public void unregisterListener() {
+        mSensorManager.unregisterListener(mLightSensorListener);
     }
 }

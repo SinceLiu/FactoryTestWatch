@@ -54,6 +54,14 @@ public class DataModel {
      */
     private String sn;
     /**
+     * IMEI
+     */
+    private String imei;
+    /**
+     * CPU
+     */
+    private String cpu;
+    /**
      * 标志位
      */
     private String flag;
@@ -118,10 +126,6 @@ public class DataModel {
      */
     private String dial;
     /**
-     * 辅助摄像头进光量
-     */
-    private String AuxiliaryCamera;
-    /**
      * 版本号
      */
     private String version;
@@ -166,6 +170,7 @@ public class DataModel {
      * 切屏开关
      */
     private int ScreenOperation;
+
     /**
      * Gets screenoperation.
      *
@@ -183,6 +188,7 @@ public class DataModel {
     public void setScreenoperation(int ScreenOperation) {
         this.ScreenOperation = ScreenOperation;
     }
+
     /**
      * Gets ip.
      *
@@ -253,6 +259,34 @@ public class DataModel {
      */
     public void setSn(String sn) {
         this.sn = sn;
+    }
+
+    /**
+     * @return
+     */
+    public String getImei() {
+        return imei;
+    }
+
+    /**
+     * @param imei
+     */
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
+
+    /**
+     * @return
+     */
+    public String getCpu() {
+        return cpu;
+    }
+
+    /**
+     * @param cpu
+     */
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
     }
 
     /**
@@ -526,24 +560,6 @@ public class DataModel {
     }
 
     /**
-     * Gets carmeralight.
-     *
-     * @return the carmeralight
-     */
-    public String getAuxiliaryCamera() {
-        return AuxiliaryCamera;
-    }
-
-    /**
-     * Sets carmeralight.
-     *
-     * @param AuxiliaryCamera the carmeralight
-     */
-    public void setAuxiliaryCamera(String AuxiliaryCamera) {
-        this.AuxiliaryCamera = AuxiliaryCamera;
-    }
-
-    /**
      * Gets dial.
      *
      * @return the dial
@@ -693,7 +709,7 @@ public class DataModel {
      * @return the timeout
      */
     public int getTimeout() {
-        return timeout;
+        return timeout > 0 ? timeout : 1;
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.dinghmcn.android.wificonnectclient;
 
 import android.content.Intent;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,10 +22,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
-import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
-import top.zibin.luban.OnRenameListener;
 
 /**
  * The type Camera activity.
@@ -35,19 +32,12 @@ import top.zibin.luban.OnRenameListener;
  * @date 2018 /4/20 10:47
  * @deprecated 拍照效率好
  */
-public class
-
-
-CameraActivity extends AppCompatActivity implements
+public class CameraActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = "CameraActivity";
-
-    private String mPictureName = "picture.jpg";
-
     final int MSG_TAKEPICTURE = 0x1000;
-
     Handler mHandler;
-
+    private String mPictureName = "picture.jpg";
     @Nullable
     private CameraView mCameraView;
 
@@ -70,10 +60,10 @@ CameraActivity extends AppCompatActivity implements
         @Override
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             if (data != null) {
-                Log.e("CHEN", "onPictureTaken " + data.length);
+                Log.d(TAG, "onPictureTaken " + data.length);
                 Objects.requireNonNull(getBackgroundHandler()).post(() -> createFile(data));
             } else {
-                Log.e("CHEN", "hqb__CameraActivityfinish__onPictureTaken__data is null");
+                Log.v("hqb", "hqb__CameraActivityfinish__onPictureTaken__data is null");
                 setResult(RESULT_CANCELED);
                 finish();
             }
@@ -100,22 +90,17 @@ CameraActivity extends AppCompatActivity implements
 
 
         mCameraView = findViewById(R.id.camera);
-//        mCameraView.setAutoFocus(true);
         mCameraView.setAutoFocus(true);
 
-
-        mHandler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message message) {
-                switch (message.what) {
-                    case MSG_TAKEPICTURE:
-                        if (mCameraView != null) {
-                            mCameraView.takePicture();
-                        }
-                        break;
-                }
-                return true;
+        mHandler = new Handler(message -> {
+            switch (message.what) {
+                case MSG_TAKEPICTURE:
+                    if (mCameraView != null) {
+                        mCameraView.takePicture();
+                    }
+                    break;
             }
+            return true;
         });
 
         if (null != mCameraView) {
@@ -135,35 +120,19 @@ CameraActivity extends AppCompatActivity implements
         if (null != cameraInfo && !cameraInfo.isEmpty()) {
             // 保存照片名称
             mPictureName = cameraInfo + ".jpg";
-            String[] info = cameraInfo.split("-");
             // 前摄或后摄
-            int cameraId = Integer.parseInt(info[1]);
-            String[] isfocus=info[0].split("_");
-            String isturefocous=isfocus[1];
-
-
-            Log.e("CHEN", "cameraId : " + cameraId);
+//            String[] info = cameraInfo.split("-");
+//            int cameraId = Integer.parseInt(info[1]);
+            int cameraId = 0;
+            Log.d(TAG, "cameraId : " + cameraId);
             mCameraView.setFacing(cameraId);
             if (cameraId == 0) {
-                if (isturefocous.equals("BW")){
-                    mCameraView.setAutoFocus(false);
-                }else if(isturefocous.equals("BD")){
-                    mCameraView.setAutoFocus(false);
-                }else {
-                    mCameraView.setFocusable(true);
-                    mCameraView.setAutoFocus(true);
-                }
-//                mCameraView.setAutoFocus(true);
-            }
-            if(cameraId==1){
                 mCameraView.setFocusable(true);
                 mCameraView.setAutoFocus(true);
             }
 
-
         }
         // 执行拍照
-//        getBackgroundHandler().postDelayed(() -> mCameraView.takePicture(), 1000);
         Message message = new Message();
         message.what = MSG_TAKEPICTURE;
         mHandler.sendMessageDelayed(message, 1000);
@@ -236,28 +205,13 @@ CameraActivity extends AppCompatActivity implements
         try (FileOutputStream fos = new FileOutputStream(originalFile)) {
             fos.write(data, 0, data.length);
             fos.flush();
-            Log.e("CHEN", "Picture save to " + originalFile);
-//            compressBitmap(getExternalCacheDir().getAbsolutePath(),originalFile);
-//            setResult(RESULT_OK, new Intent().setData(Uri.fromFile(originalFile)));
-//            Log.v("hqb", "hqb__CameraActivityfinish__createFile__success");
-//            finish();
+            Log.w(TAG, "Picture save to " + originalFile);
             Luban.with(this)
                     .load(originalFile)
                     .ignoreBy(100)
-
-                    .setTargetDir(getExternalCacheDir().getAbsolutePath())
-                    .setRenameListener(new OnRenameListener() {
-                        @Override
-                        public String rename(String filePath) {
-                            return mPictureName;
-                        }
-                    })
-                    .filter(new CompressionPredicate() {
-                        @Override
-                        public boolean apply(String path) {
-                            return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                        }
-                    })
+                    .setTargetDir(Objects.requireNonNull(getExternalCacheDir()).getAbsolutePath())
+                    .setRenameListener(filePath -> mPictureName)
+                    .filter(path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")))
                     .setCompressListener(new OnCompressListener() {
                         @Override
                         public void onStart() {
@@ -284,8 +238,8 @@ CameraActivity extends AppCompatActivity implements
                     }).launch();
 
         } catch (IOException e) {
-            Log.e("CHEN", "Cannot write to " + originalFile, e);
-            Log.e("CHEN", "hqb__CameraActivityfinish__createFile__failed");
+            Log.w(TAG, "Cannot write to " + originalFile, e);
+            Log.v("hqb", "hqb CameraActivityfinish createFile failed");
             setResult(RESULT_CANCELED);
             finish();
         }

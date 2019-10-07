@@ -1,14 +1,10 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
-import android.content.Context;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dinghmcn.android.wificonnectclient.MainActivity;
 
@@ -20,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +28,6 @@ import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileOutputStream;
 
 import static com.dinghmcn.android.wificonnectclient.MainActivity.CMD_CODE;
-import static com.dinghmcn.android.wificonnectclient.MainActivity.getDeviceSerial;
 
 /**
  * 管理与服务器的交互
@@ -66,9 +62,9 @@ public class ConnectManagerUtils {
      */
     public static final int COMMAND_ERROR = 4;
 
-	public static final int COMMAND_SEQ = 1000;
+    public static final int COMMAND_SEQ = 1000;
 
-	//心跳指令
+    //心跳指令
     public static final int COMMAND_ALIVE = 1001;
 
     private static final String TAG = ConnectManagerUtils.class.getSimpleName();
@@ -82,6 +78,7 @@ public class ConnectManagerUtils {
     private Handler mMainHandler;
 
     private InetSocketAddress mInetSocketAddress;
+    private int mSocketPort = -1;
     private Socket mSocket;
     @Nullable
     private ExecutorService mThreadPool;
@@ -89,12 +86,22 @@ public class ConnectManagerUtils {
     private InputStream is;
     private OutputStream out;
 
-    private ConnectManagerUtils(@Nullable Handler handler, InetSocketAddress inetSocketAddress) {
+    private ConnectManagerUtils(@Nullable Handler handler, int port,
+                                InetSocketAddress inetSocketAddress) {
         mMainHandler = handler;
         mInetSocketAddress = inetSocketAddress;
+        mSocketPort = port;
         // 初始化线程池
         mThreadPool = new ThreadPoolExecutor(5, 9, 5, TimeUnit.SECONDS,
                 new LinkedBlockingDeque<>(), r -> new Thread(r, "ConnectManagerUtils"));
+    }
+
+    private ConnectManagerUtils(@Nullable Handler handler, InetSocketAddress inetSocketAddress) {
+        this(handler, -1, inetSocketAddress);
+    }
+
+    private ConnectManagerUtils(@Nullable Handler handler, int port) {
+        this(handler, port, null);
     }
 
     /**
@@ -108,6 +115,13 @@ public class ConnectManagerUtils {
                                                   InetSocketAddress inetSocketAddress) {
         if (null == instance) {
             instance = new ConnectManagerUtils(handler, inetSocketAddress);
+        }
+        return instance;
+    }
+
+    public static ConnectManagerUtils newInstance(Handler handler, int port) {
+        if (null == instance) {
+            instance = new ConnectManagerUtils(handler, port);
         }
         return instance;
     }
@@ -148,7 +162,7 @@ public class ConnectManagerUtils {
             while (mConnected && !mSocket.isClosed() && mSocket.isConnected()
                     && !mSocket.isInputShutdown()) {
                 Log.d(TAG, "Start receive message.");
-				String command = null;
+                String command = null;
                 try {
                     is = mSocket.getInputStream();
                     byte[] tempBuffer = new byte[2048];
@@ -168,30 +182,28 @@ public class ConnectManagerUtils {
                     Log.d(TAG, "hqb Command:" + command);
                     // 处理接收到的消息
                     if (!command.isEmpty()) {
-						if(command.contains("Seq=")) {
+                        if (command.contains("Seq=")) {
                             sendMessage(EnumCommand.SEQ.ordinal(), COMMAND_SEQ, command);
-                        }
-                        else if (command.contains("Alive"))
-                        {
+                        } else if (command.contains("Alive")) {
                             sendMessage(EnumCommand.Alive.ordinal(), COMMAND_ALIVE, command);
-						}else {
-							parsingCommand(command);
-							sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_SEND, command);
-						}
+                        } else {
+                            parsingCommand(command);
+                            sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_SEND, command);
+                        }
                     } else {
                         sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_ERROR);
                     }
                 } catch (Exception e) {
                     Log.d(TAG, "hqb Receive message error.");
 //                    try {
-//						if(!TextUtils.isEmpty(command)){
-//							if(command.contains("Seq=")){
-//								sendMessage(EnumCommand.SEQ.ordinal(), COMMAND_SEQ, command);
-//							}
-//						}
-//					}catch (Exception e1){
-//                    	e1.printStackTrace();
-//					}
+//                        if(!TextUtils.isEmpty(command)){
+//                            if(command.contains("Seq=")){
+//                                sendMessage(EnumCommand.SEQ.ordinal(), COMMAND_SEQ, command);
+//                            }
+//                        }
+//                    }catch (Exception e1){
+//                        e1.printStackTrace();
+//                    }
                     e.printStackTrace();
                 }
             }
@@ -222,56 +234,56 @@ public class ConnectManagerUtils {
             int retry = 0;
             int maxretry = 3;
 
-//            while (retry < maxretry) {
-//                start = System.currentTimeMillis();
-//                // 开启wifi
-//                while (System.currentTimeMillis() < start + delayedTime ) {
-//                    if (wifiManagerUtils.isWifiEnabled()) {
-//                        if (!wifiManagerUtils.isWifiConnected(wifiSsid)) {
-//                            wifiManagerUtils.connectWifi(wifiSsid, wifiPassWord);
-//                            try {
-//                                Thread.sleep(500);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        } else {
-//                            break;
-//                        }
-//                    } else {
-//                        wifiManagerUtils.openWifi();
-//                        try {
-//                            ShowMessage( "Open wifi!");
-//                            Thread.sleep(500);
-//                            continue;
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//                Log.d(TAG, "Connect server1");
-//                if (wifiManagerUtils.isWifiConnected(wifiSsid)) {
-//                    ShowMessage( "Connect wifi success!");
-//                    break;
-//                } else {
-//                    retry++;
-//                    ShowMessage( "Retry connect wifi, times:" + retry);
-//                }
-//            }
-            if (retry == maxretry)
-            {
-                ShowMessage( "Connect wifi failed,try reopen");
+            while (retry < maxretry) {
+                start = System.currentTimeMillis();
+                // 开启wifi
+                while (System.currentTimeMillis() < start + delayedTime) {
+                    if (wifiManagerUtils.isWifiEnabled()) {
+                        if (!wifiManagerUtils.isWifiConnected(wifiSsid)) {
+                            wifiManagerUtils.connectWifi(wifiSsid, wifiPassWord);
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        wifiManagerUtils.openWifi();
+                        try {
+                            ShowMessage("Open wifi!");
+                            Thread.sleep(500);
+                            continue;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                Log.d(TAG, "Connect server1");
+                if (wifiManagerUtils.isWifiConnected(wifiSsid)) {
+                    ShowMessage("Connect wifi success!");
+                    break;
+                } else {
+                    retry++;
+                    ShowMessage("Retry connect wifi, times:" + retry);
+                }
+            }
+            if (retry == maxretry) {
+                ShowMessage("Connect wifi failed,try reopen");
             }
 
 
             // 判断是否能连接服务器
+            Log.d(TAG, "Start ping:" + mInetSocketAddress.getHostName());
             start = System.currentTimeMillis();
             while (System.currentTimeMillis() < start + delayedTime) {
                 Process process = null;
                 try {
                     process = Runtime.getRuntime()
-                            .exec(
-                                    "/system/bin/ping -c 1 -w 100 "
-                                            + mInetSocketAddress.getHostName());
+                            .exec("/system/bin/ping -c 1 -w 100 "
+                                    + mInetSocketAddress.getHostName());
+                    Log.d(TAG, "ping:" + mInetSocketAddress.getHostName());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -279,7 +291,10 @@ public class ConnectManagerUtils {
                 try {
                     status = process != null ? process.waitFor() : 0;
                     if (status == 0) {
+                        Log.d(TAG, "ping success:" + mInetSocketAddress.getHostName());
                         break;
+                    } else {
+                        Log.d(TAG, "ping failed:" + mInetSocketAddress.getHostName());
                     }
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -307,14 +322,31 @@ public class ConnectManagerUtils {
         });
     }
 
+    public void connectClient() {
+        mThreadPool.execute(() -> {
+            try {
+                mSocket = new ServerSocket(mSocketPort).accept();
+                Log.d(TAG, "Connect Client");
+
+                // 连接成功开始接收信息
+                mConnected = true;
+                receiveMessageFromServer();
+                sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_SUCCESS);
+            } catch (IOException e) {
+                e.printStackTrace();
+                sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_FAILED);
+            }
+        });
+    }
+
     /**
      * 发送文件给服务器
      *
      * @param file    the file uri
      * @param message the message
      */
-    public void sendFileToServer(Context context,File file, String message) {
-        Log.e("CHEN", "Send File :" + file.getAbsolutePath());
+    public void sendFileToServer(File file, String message) {
+        Log.d(TAG, "Send File :" + file.getAbsolutePath());
         assert mThreadPool != null;
         mThreadPool.execute(() -> {
             InputStream in = null;
@@ -326,13 +358,14 @@ public class ConnectManagerUtils {
                 }
                 // 使用SMB把文件传送到指定位置
 //                String remoteUrl = "smb://software:*@192.168.1.240/software_2017/tmp";
-				String remoteUrl = "smb://test:123@192.168.1.200/Image/CameraTemp";
+                String remoteUrl = "smb://test:123@192.168.1.200/Image/CameraTemp";
                 String sn = VersionUtils.getSerialNumber();
-                SmbFile  remoteFile = new SmbFile(remoteUrl + "/" + sn + "-" + file.getName());
+                SmbFile remoteFile = new SmbFile(remoteUrl + "/" + sn + "-" + file.getName());
                 in = new BufferedInputStream(new FileInputStream(file));
                 out = new BufferedOutputStream(new SmbFileOutputStream(remoteFile));
-
-
+//                if(out==null){
+//                    DisplayToast("请保证smb://test:123@192.168.1.200/Image/CameraTemp地址正确");
+//                }
                 byte[] buffer = new byte[1024 * 4];
                 while ((in.read(buffer, 0, buffer.length)) != -1) {
                     out.write(buffer);
@@ -342,20 +375,8 @@ public class ConnectManagerUtils {
 //                if (null != message) {
 //                    sendMessageToServer(message);
 //                }
-                Log.e("CHEN", "sendFileToServer: success" );
             } catch (IOException e) {
-                //使用Toast来显示异常信息
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Looper.prepare();
-                        Toast.makeText(context, "远程共享文件纯文本密码已禁用.", Toast.LENGTH_LONG).show();
-                        Looper.loop();
-                    }
-                }.start();//                DisplayToast();
                 e.printStackTrace();
-                Log.e("CHEN", "sendFileToServer: fail" );
-
             } finally {
                 try {
                     if (null != in) {
@@ -369,30 +390,6 @@ public class ConnectManagerUtils {
                 }
             }
         });
-    }
-    /**
-     * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
-     *
-     * @param ex
-     * @return true:如果处理了该异常信息;否则返回false.
-     */
-    private boolean handleException(Throwable ex) {
-        if (ex == null) {
-            return false;
-        }
-
-        //收集设备参数信息
-//        collectDeviceInfo(mContext);
-        //保存日志文件
-//        saveCrashInfo2File(ex);
-        return true;
-    }
-    public void DisplayToast(String str)
-
-    {
-
-
-
     }
 
     /**
@@ -460,37 +457,37 @@ public class ConnectManagerUtils {
         });
     }
 
-	/**
-	 * 发送消息给服务器
-	 *
-	 * @param message the message
-	 */
-	public void sendMessageToServerNotJson(final String message) {
-		Log.d(TAG, "Send error message :" + message);
-		assert mThreadPool != null;
-		mThreadPool.execute(() -> {
-			try {
-				Log.d(TAG, "Socket status:" + !mConnected + mSocket.isClosed() + !mSocket.isConnected()
-						+ mSocket.isOutputShutdown());
-				// 判断连接是否正常
-				if (!mConnected || mSocket.isClosed() || !mSocket.isConnected()
-						|| mSocket.isOutputShutdown()) {
-					sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_CLOSED);
-					return;
-				}
-				out = mSocket.getOutputStream();
-				byte[] bytes = message.replace("\\", "").getBytes(StandardCharsets.UTF_8);
+    /**
+     * 发送消息给服务器
+     *
+     * @param message the message
+     */
+    public void sendMessageToServerNotJson(final String message) {
+        Log.d(TAG, "Send error message :" + message);
+        assert mThreadPool != null;
+        mThreadPool.execute(() -> {
+            try {
+                Log.d(TAG, "Socket status:" + !mConnected + mSocket.isClosed() + !mSocket.isConnected()
+                        + mSocket.isOutputShutdown());
+                // 判断连接是否正常
+                if (!mConnected || mSocket.isClosed() || !mSocket.isConnected()
+                        || mSocket.isOutputShutdown()) {
+                    sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_CLOSED);
+                    return;
+                }
+                out = mSocket.getOutputStream();
+                byte[] bytes = message.replace("\\", "").getBytes(StandardCharsets.UTF_8);
 
-				byte[] buffer = new byte[bytes.length + 1];
-				buffer[0] = 0;
-				System.arraycopy(bytes, 0, buffer, 1, buffer.length - 1);
-				out.write(buffer);
-				out.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-	}
+                byte[] buffer = new byte[bytes.length + 1];
+                buffer[0] = 0;
+                System.arraycopy(bytes, 0, buffer, 1, buffer.length - 1);
+                out.write(buffer);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     private void sendMessage(int what, int arg1) {
         sendMessage(what, arg1, null);
@@ -498,6 +495,7 @@ public class ConnectManagerUtils {
 
     /**
      * 处理命令信息
+     *
      * @param commands
      */
     private void parsingCommand(String commands) {
@@ -510,6 +508,7 @@ public class ConnectManagerUtils {
 
     /**
      * 处理消息
+     *
      * @param what
      * @param arg1
      * @param obj
@@ -524,10 +523,10 @@ public class ConnectManagerUtils {
         }
     }
 
-    private void ShowMessage(String msg)
-    {
+    private void ShowMessage(String msg) {
         MainActivity.Instance.ShowMessage(msg);
     }
+
     /**
      * The enum Enum command.
      */
@@ -541,7 +540,7 @@ public class ConnectManagerUtils {
          */
         COMMAND,
 
-		SEQ,
+        SEQ,
 
         Alive
     }

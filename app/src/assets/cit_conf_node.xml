@@ -2,209 +2,82 @@
 <config>
     <properties>
         <!--version-->
-        <property 
-            name="model" 
-            value="ro.product.model">
-        </property>
-        <property 
-            name="internaledition" 
-            value="ro.product.internaledition">
-        </property>
-        <property 
-            name="baseband" 
-            value="gsm.version.baseband">
-        </property>
-        <property 
-            name="software_title" 
-            value="ro.product.version.software">
-        </property>
-        <property 
-            name="software_time" 
-            value="ro.build.version.incremental">
-        </property>
-        <property 
-            name="software_buildtime" 
-            value="ro.product.date">
-        </property>
-        <property 
-            name="data3_2499" 
-            value="gsm.sim.data3">
-        </property>
+        <property name="model" value="ro.product.model"></property>
+        <property name="internaledition" value="ro.product.internaledition"></property>
+        <property name="baseband" value="gsm.version.baseband"></property>
+        <property name="software_title" value="ro.product.version.software"></property>
+        <property name="software_time" value="ro.build.version.incremental"></property>
+        <property name="software_buildtime" value="ro.product.date"></property>
+        <property name="data3_2499" value="gsm.sim.data3"></property>
     </properties>
 
     <methods>
         <!--version-->
-        <method 
-            name="qcrilhook_factory_test_process" 
-            value="FactoryTestProcess">
-        </method>
-        <method 
-            name="qcnvitem_read2497" 
-            value="get_NV2497_sn_number">
-        </method>
+        <method name="qcrilhook_factory_test_process" value="FactoryTestProcess"></method>
+        <method name="qcnvitem_read2497" value="get_NV2497_sn_number"></method>
         <!--test_activity-->
-        <method 
-            name="qcrilhook_factory_write2499" 
-            value="writeNvFactoryData">
-        </method>
+        <method name="qcrilhook_factory_write2499" value="writeNvFactoryData"></method>
         <!--p_sensor_calibration-->
-        <method 
-            name="qcnvitems_write_p_sensor_calibration" 
-            value="set_p_sensor">
-        </method>-->
-        <method 
-            name="qcnvitems_write_g_sensor_calibration" 
-            value="set_g_sensor">
-        </method>-->
-        <method 
-            name="qcnvitems_write_gyro_sensor_calibration" 
-            value="set_gyro_sensor">
-        </method>-->
+        <method name="qcnvitems_write_p_sensor_calibration" value="set_p_sensor"></method>-->
+        <method name="qcnvitems_write_g_sensor_calibration" value="set_g_sensor"></method>-->
+        <method name="qcnvitems_write_gyro_sensor_calibration" value="set_gyro_sensor"></method>-->
     </methods>
     <nodes>
         <!--version-->
-        <node 
-            name="hw_subtype" 
-            value="/sys/devices/soc0/platform_subtype" 
-            permission="O_RDONLY" 
-            operation="read">
-        </node>
-        <node 
-            name="hw_version" 
-            value="/sys/devices/soc0/platform_version" 
-            permission="O_RDONLY" 
-            operation="read">
-        </node>
+        <node name="hw_subtype" operation="read" permission="O_RDONLY"
+            value="/sys/devices/soc0/platform_subtype"></node>
+        <node name="hw_version" operation="read" permission="O_RDONLY"
+            value="/sys/devices/soc0/platform_version"></node>
         <!--button_backlight-->
-        <node 
-            name="button_backlight" 
-            value="/sys/class/leds/button_backlight/brightness" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="button_backlight" operation="read"
+            permission="O_RDWR" value="/sys/class/leds/button_backlight/brightness"></node>
         <!--flashlight-->
-        <node 
-            name="flashlight" 
-            value="/sys/class/leds/torch-light0/brightness" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="flashlight" operation="read" permission="O_RDWR"
+            value="/sys/class/leds/torch-light0/brightness"></node>
         <!--irled-->
-        <node 
-            name="irled" 
-            value="/sys/class/leds/ir-led-pwm/brightness" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="irled" operation="read" permission="O_RDWR"
+            value="/sys/class/leds/ir-led-pwm/brightness"></node>
         <!--battery_charge_State-->
-        <node 
-            name="electricity" 
-            value="/sys/class/power_supply/battery/current_now" 
-            permission="O_RDONLY" 
-            operation="read">
-        </node>
-        <node 
-            name="voltage" 
-            value="/sys/class/power_supply/battery/voltage_now" 
-            permission="O_RDONLY" 
-            operation="read">
-        </node>
-        <node 
-            name="temperature" 
-            value="/sys/class/power_supply/bms/temp"
-            permission="O_RDONLY" 
-            operation="read">
-        </node>
+        <node name="electricity" operation="read"
+            permission="O_RDONLY" value="/sys/class/power_supply/battery/current_now"></node>
+        <node name="voltage" operation="read"
+            permission="O_RDONLY" value="/sys/class/power_supply/battery/voltage_now"></node>
+        <node name="temperature" operation="read" permission="O_RDONLY"
+            value="/sys/class/power_supply/bms/temp"></node>
         <!--flashlight-->
-        <node 
-            name="led_r" 
-            value="/sys/class/leds/red/brightness"
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="led_g" 
-            value="/sys/class/leds/green/brightness"
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="led_o" 
-            value="/sys/class/leds/blue/brightness"
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="led_r" operation="read" permission="O_RDWR"
+            value="/sys/class/leds/red/brightness"></node>
+        <node name="led_g" operation="read" permission="O_RDWR"
+            value="/sys/class/leds/green/brightness"></node>
+        <node name="led_o" operation="read" permission="O_RDWR"
+            value="/sys/class/leds/blue/brightness"></node>
 
         <!--sensors_node-->
         <!--sensors_node_gyro-->
-        <node 
-            name="gyro_calibration" 
-            value="/sys/class/sensors/MPU6050-gyro/self_test" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="gyro_x" 
-            value="/sys/class/input/input1/offset_x" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="gyro_y" 
-            value="/sys/class/input/input1/offset_y" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="gyro_z" 
-            value="/sys/class/input/input1/offset_z" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="gyro_calibration" operation="read"
+            permission="O_RDWR" value="/sys/class/sensors/MPU6050-gyro/self_test"></node>
+        <node name="gyro_x" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input1/offset_x"></node>
+        <node name="gyro_y" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input1/offset_y"></node>
+        <node name="gyro_z" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input1/offset_z"></node>
         <!--sensors_node_accel-->
-        <node 
-            name="gsensor_calibration" 
-            value="/sys/class/sensors/MPU6050-accel/self_test" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="gsensor_x" 
-            value="/sys/class/input/input0/offset_x" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="gsensor_y" 
-            value="/sys/class/input/input0/offset_y" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="gsensor_z" 
-            value="/sys/class/input/input0/offset_z" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="gsensor_calibration" operation="read"
+            permission="O_RDWR" value="/sys/class/sensors/MPU6050-accel/self_test"></node>
+        <node name="gsensor_x" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input0/offset_x"></node>
+        <node name="gsensor_y" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input0/offset_y"></node>
+        <node name="gsensor_z" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input0/offset_z"></node>
         <!--sensors_node_psensor-->
-        <node 
-            name="psensor_calibration" 
-            value="/sys/class/input/input3/ps_citvalue" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="psensor_near" 
-            value="/data/psensor/psensor_near" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
-        <node 
-            name="psensor_far" 
-            value="/sys/class/input/input4/ps_5_cal_value" 
-            permission="O_RDWR" 
-            operation="read">
-        </node>
+        <node name="psensor_calibration" operation="read"
+            permission="O_RDWR" value="/sys/class/input/input3/ps_citvalue"></node>
+        <node name="psensor_near" operation="read" permission="O_RDWR"
+            value="/data/psensor/psensor_near"></node>
+        <node name="psensor_far" operation="read" permission="O_RDWR"
+            value="/sys/class/input/input4/ps_5_cal_value"></node>
 
     </nodes>
 </config>

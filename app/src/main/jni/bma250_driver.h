@@ -20,20 +20,20 @@
 
 #define BMA250_IOC_MAGIC 'B'
 
-#define BMA250_SOFT_RESET				               _IO(BMA250_IOC_MAGIC,0)
-#define BMA250_SET_RANGE			                   _IOWR(BMA250_IOC_MAGIC,1, unsigned char)
-#define BMA250_GET_RANGE			                   _IOWR(BMA250_IOC_MAGIC,2, unsigned char)
-#define BMA250_SET_MODE				                   _IOWR(BMA250_IOC_MAGIC,3, unsigned char)
-#define BMA250_GET_MODE				                   _IOWR(BMA250_IOC_MAGIC,4, unsigned char)
-#define BMA250_SET_BANDWIDTH		                   _IOWR(BMA250_IOC_MAGIC,5, unsigned char)
-#define BMA250_GET_BANDWIDTH		                   _IOWR(BMA250_IOC_MAGIC,6, unsigned char)
+#define BMA250_SOFT_RESET                               _IO(BMA250_IOC_MAGIC,0)
+#define BMA250_SET_RANGE                               _IOWR(BMA250_IOC_MAGIC,1, unsigned char)
+#define BMA250_GET_RANGE                               _IOWR(BMA250_IOC_MAGIC,2, unsigned char)
+#define BMA250_SET_MODE                                   _IOWR(BMA250_IOC_MAGIC,3, unsigned char)
+#define BMA250_GET_MODE                                   _IOWR(BMA250_IOC_MAGIC,4, unsigned char)
+#define BMA250_SET_BANDWIDTH                           _IOWR(BMA250_IOC_MAGIC,5, unsigned char)
+#define BMA250_GET_BANDWIDTH                           _IOWR(BMA250_IOC_MAGIC,6, unsigned char)
 #define BMA250_WRITE_REG                               _IOWR(BMA250_IOC_MAGIC,7, unsigned char)
 #define BMA250_READ_REG                                _IOWR(BMA250_IOC_MAGIC,8, unsigned char)
-#define BMA250_RESET_INTERRUPT		                   _IO(BMA250_IOC_MAGIC,9)
-#define BMA250_READ_ACCEL_X			                   _IOWR(BMA250_IOC_MAGIC,10,short)
-#define BMA250_READ_ACCEL_Y			                   _IOWR(BMA250_IOC_MAGIC,11,short)
-#define BMA250_READ_ACCEL_Z			                   _IOWR(BMA250_IOC_MAGIC,12,short)
-#define BMA250_READ_ACCEL_XYZ		                   _IOWR(BMA250_IOC_MAGIC,13,short)
+#define BMA250_RESET_INTERRUPT                           _IO(BMA250_IOC_MAGIC,9)
+#define BMA250_READ_ACCEL_X                               _IOWR(BMA250_IOC_MAGIC,10,short)
+#define BMA250_READ_ACCEL_Y                               _IOWR(BMA250_IOC_MAGIC,11,short)
+#define BMA250_READ_ACCEL_Z                               _IOWR(BMA250_IOC_MAGIC,12,short)
+#define BMA250_READ_ACCEL_XYZ                           _IOWR(BMA250_IOC_MAGIC,13,short)
 #define BMA250_GET_INTERRUPTSTATUS1                    _IOWR(BMA250_IOC_MAGIC,16, unsigned char)
 #define BMA250_GET_INTERRUPTSTATUS2                    _IOWR(BMA250_IOC_MAGIC,17, unsigned char)
 #define BMA250_GET_LOW_G_INTERRUPT                     _IOWR(BMA250_IOC_MAGIC,18, unsigned char)
@@ -170,10 +170,10 @@
 #define BMA250_GET_UPDATE_IMAGE_STATUS                 _IOWR(BMA250_IOC_MAGIC,148, unsigned char)
 #define BMA250_FAST_CALIBRATION                        _IOWR(BMA250_IOC_MAGIC,149, unsigned char)
 
-#define	BMA250_MAX_OFFSET_X				60
-#define	BMA250_MAX_OFFSET_Y				60
+#define    BMA250_MAX_OFFSET_X                60
+#define    BMA250_MAX_OFFSET_Y                60
 
-#define BMA250_IOC_MAXNR				149
+#define BMA250_IOC_MAXNR                149
 
 #define ABS(a)                ((a) > 0 ? (a): -(a))
 

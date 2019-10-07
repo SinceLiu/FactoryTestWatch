@@ -8,62 +8,43 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.dinghmcn.android.wificonnectclient.R;
+import com.google.gson.internal.bind.TreeTypeAdapter;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static android.content.Context.BATTERY_SERVICE;
 
 /**
  * 获取电池相关信息
+ *
  * @author zl121325
  * @date 2019/4/10
  */
 public class BatteryChargeUtils {
+    private final String TAG = getClass().getSimpleName();
+    @SuppressLint("StaticFieldLeak")
+    private static BatteryChargeUtils instance = null;
     private Context mContext;
     private String batteryStatus;
     private String quality;
     private boolean isChargingPass = false;
-    @SuppressLint("StaticFieldLeak")
-    private static BatteryChargeUtils instance = null;
     private int plugType;
     private int status;
     private int mLevel;
     private int voltage;
     private int temperature;
     private BatteryManager batteryManager;
-
-    private BatteryChargeUtils(Context mContext) {
-        this.mContext = mContext;
-        batteryManager = (BatteryManager) mContext.getSystemService(BATTERY_SERVICE);
-        // 注册电池事件监听器
-        mContext.registerReceiver(mChargeInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-    }
-
-    /**
-     * Gets instance.
-     *
-     * @param context the context
-     * @return the instance
-     */
-    public static BatteryChargeUtils getInstance(@NonNull Context context) {
-        if (instance == null) {
-            instance = new BatteryChargeUtils(context);
-        }
-        return instance;
-    }
-
-    /**
-     * 移除监听器
-     */
-    public void unregisterReceiver() {
-        mContext.unregisterReceiver(mChargeInfoReceiver);
-    }
-
     private BroadcastReceiver mChargeInfoReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -101,41 +82,59 @@ public class BatteryChargeUtils {
         }
     };
 
+    private BatteryChargeUtils(Context mContext) {
+        this.mContext = mContext;
+        batteryManager = (BatteryManager) mContext.getSystemService(BATTERY_SERVICE);
+        // 注册电池事件监听器
+        mContext.registerReceiver(mChargeInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
+
+    /**
+     * Gets instance.
+     *
+     * @param context the context
+     * @return the instance
+     */
+    public static BatteryChargeUtils getInstance(@NonNull Context context) {
+        if (instance == null) {
+            instance = new BatteryChargeUtils(context);
+        }
+        return instance;
+    }
+
+    /**
+     * 移除监听器
+     */
+    public void unregisterReceiver() {
+        mContext.unregisterReceiver(mChargeInfoReceiver);
+    }
+
     /**
      * 当前充电电流 mA
      *
      * @return the current charging current
      */
-
-    public int getCurrentChargingCurrent() {
-        int result = 0;
-        BufferedReader br = null;
-        try {
-            String line;
-            br = new BufferedReader(new FileReader("/sys/class/power_supply/battery/BatteryAverageCurrent"));
-            if ((line = br.readLine()) != null) {
-                result = Integer.parseInt(line);
-            }
-
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public double getCurrentChargingCurrent() {
+        double result1 = 0, result2 = 0;
 
         if (Build.VERSION.SDK_INT > 21) {
-            return batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
+            result1 = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
+            Log.d(TAG, "CURRENT1:" + result1);
+            if (result1 != 0) {
+                return result1;
+            }
         }
-        return result;
+
+        try {
+            result2 = getValue("/sys/class/power_supply/battery/BatteryAverageCurrent");
+            Log.d(TAG, "CURRENT2:" + result2);
+            if (result2 != 0) {
+                return result2;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     /**
@@ -181,8 +180,9 @@ public class BatteryChargeUtils {
      */
     public int getmLevel() {
         int battery = 0;
-        if (Build.VERSION.SDK_INT > 21)
+        if (Build.VERSION.SDK_INT > 21) {
             battery = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER);
+        }
         if (mLevel != 0) {
             return mLevel;
         } else {
@@ -215,5 +215,64 @@ public class BatteryChargeUtils {
      */
     public boolean isChargingPass() {
         return isChargingPass;
+    }
+
+    public Double getCpuTemperature() {
+        try {
+            return getValue("/sys/class/thermal/thermal_zone1/temp")/1000;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public String getAdc() {
+        byte [] buff = new byte[50];
+        try {
+            Class<?> c = null;
+            c = Class.forName("android.util.AdcCheckNative");
+            // open
+            Method open = c.getMethod("openDev");
+            open.invoke(c);
+            //get
+            Method get = c.getMethod("SetAdcCheck", byte[].class);
+            get.invoke(c, buff);
+            //close
+            Method close = c.getMethod("closeDev");
+            close.invoke(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new String(buff).trim();
+    }
+
+    public static Double getValue(String path) throws FileNotFoundException {
+        String str;
+        try {
+            File file = new File(path);
+            FileInputStream inputStream = new FileInputStream(file);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            str = bufferedReader.readLine();
+            bufferedReader.close();
+            inputStreamReader.close();
+            inputStream.close();
+            Double value;
+            if (str == null) {
+                return 0.0;
+            }
+            try {
+                value = Double.parseDouble(str);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                value = null;
+            }
+            return value;
+        } catch (FileNotFoundException e1) {
+            throw e1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
     }
 }

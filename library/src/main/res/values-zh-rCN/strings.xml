@@ -30,7 +30,6 @@
     <!-- priximity sensor -->
     <!-- light sensor -->
     <!-- gps -->
-    <string name="gps_open_error">"GPS打开出现错误！"</string>
     <!-- wifi -->
     <!-- BlueTooth -->
     <!-- Version -->

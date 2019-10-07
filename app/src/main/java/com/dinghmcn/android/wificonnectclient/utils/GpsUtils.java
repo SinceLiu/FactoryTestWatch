@@ -1,375 +1,248 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
-import android.Manifest;
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.GpsSatellite;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dinghmcn.android.wificonnectclient.MainActivity;
-import com.dinghmcn.android.wificonnectclient.R;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static android.content.Context.LOCATION_SERVICE;
+import java.util.List;
+import java.util.Locale;
 
 /**
- * Created by zl121325 on 2019/4/14.
+ * Created by chenzhi on 2017/12/13 0013.
+ * <p>
+ * 如果需要适配6.0以上系统请处理权限问题
  */
-
+@SuppressLint("MissingPermission")
 public class GpsUtils {
-    Context mContext;
-    private LocationManager m_mgr;
-    private Location m_location;
-    int MAX_SATELITE_COUNT = 50;
-    private GpsStatus m_gpsStatus;
-    GpsInfo mGpsInfo[] = new GpsInfo[MAX_SATELITE_COUNT];
-    String strGpsFilePaht = "";
-    boolean m_isGpsOpen = false;
-    private boolean mStartLogGpsData = false;
-    private int mSecond = 0;
-    st_TimerTask timerTask;
-    Timer st_timer;
-    private int mStateliteCount;
-    private int mLocatetime = 0;
-    AlertDialog gpsDialog;
-    private Handler hGpsHand = new Handler() {
+
+    private static final String TAG = "GPSUtils";
+    private static LocationManager mLocationManager;
+    private static int mCount = 0;
+
+    private static Location mLocation = null;
+
+    private static Activity mContext;
+
+    private static GpsUtils instance = null;
+    /**
+     * 位置监听
+     */
+    private static LocationListener locationListener = new LocationListener() {
+
+        //位置信息变化时触发
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
+        public void onLocationChanged(Location location) {
+            mLocation = location;
+            Log.i(TAG, "时间：" + location.getTime());
+            Log.i(TAG, "经度：" + location.getLongitude());
+            Log.i(TAG, "纬度：" + location.getLatitude());
+            Log.i(TAG, "海拔：" + location.getAltitude());
+        }
+
+        //GPS状态变化时触发
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            switch (status) {
+                // GPS状态为可见时
+                case LocationProvider.AVAILABLE:
+                    Log.i(TAG, "当前GPS状态为可见状态");
+                    break;
+                // GPS状态为服务区外时
+                case LocationProvider.OUT_OF_SERVICE:
+                    Log.i(TAG, "当前GPS状态为服务区外状态");
+                    break;
+                // GPS状态为暂停服务时
+                case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                    Log.i(TAG, "当前GPS状态为暂停服务状态");
+                    break;
+            }
+        }
+
+        //GPS开启时触发
+        @Override
+        public void onProviderEnabled(String provider) {
+            Location location = mLocationManager.getLastKnownLocation(provider);
+            mLocation = location;
+        }
+
+        //GPS禁用时触发
+        @Override
+        public void onProviderDisabled(String provider) {
+            mLocation = null;
         }
     };
-    private static GpsUtils instance =null;
-    public GpsUtils(Context mContext) {
-        this.mContext = mContext;
-        initGpsService();
-    }
+    // 状态监听
+    GpsStatus.Listener listener = new GpsStatus.Listener() {
+        @Override
+        public void onGpsStatusChanged(int event) {
+            switch (event) {
+                // 第一次定位
+                case GpsStatus.GPS_EVENT_FIRST_FIX:
+                    Log.i(TAG, "第一次定位");
+                    break;
+                // 卫星状态改变
+                case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
+                    Log.i(TAG, "卫星状态改变");
+                    GpsStatus gpsStatus = mLocationManager.getGpsStatus(null);
+                    // 创建一个迭代器保存所有卫星
+                    Iterator<GpsSatellite> iters = gpsStatus.getSatellites().iterator();
+                    int count = 0;
+                    while (iters.hasNext()) {
+                        iters.next();
+                        count++;
+                    }
+                    Log.i(TAG, "搜索到卫星颗数：" + count + "/" + mCount);
+                    mCount = count > mCount ? count : mCount;
+                    break;
+                // 定位启动
+                case GpsStatus.GPS_EVENT_STARTED:
+                    Log.i(TAG, "定位启动");
+                    break;
+                // 定位结束
+                case GpsStatus.GPS_EVENT_STOPPED:
+                    Log.i(TAG, "定位结束");
+                    break;
+            }
+        }
+    };
 
-    public static GpsUtils getInstance(Context mContext){
-        if (instance==null){
-            instance=new GpsUtils(mContext);
-        }
-        return instance;
-    }
-    private void initGpsService() {
-        strGpsFilePaht = "/data/GpsData.txt";
-        boolean bdeleteFile = deleteGpsDataFile(strGpsFilePaht);
-        Log.d("Gps", "The bdeleteFile = " + bdeleteFile);
-        //}
-        Log.w("initGpsService: ","111" );
-        m_mgr = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
-        if (m_mgr == null) {
-            Log.i("lvhongshan_gps", "LocationManager is null");
+    private GpsUtils(Activity context) {
+        mContext = context;
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
-        } else {
-            Log.i("lvhongshan_gps", "LocationManager is not null");
-        }
-        if (!m_mgr.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            m_isGpsOpen = true;
-            openGPS();
-        }
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        // 判断GPS是否正常启动
+        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(context, "请开启GPS导航...", Toast.LENGTH_SHORT).show();
+            // 返回开启GPS导航设置界面
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            context.startActivityForResult(intent, 0);
             return;
         }
-        m_mgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1,
-                locationListener);
-        timerTask = new st_TimerTask();
-        st_timer = new Timer();
-        st_timer.schedule(timerTask, 100, 1000);
-        boolean bsucess = m_mgr.addGpsStatusListener(statusListener);
 
-        Log.e("Gps", "Add the statusListner is " + bsucess);
-
-        if (!bsucess) {
-            Toast.makeText(mContext, R.string.gps_open_error, Toast.LENGTH_SHORT).show();
+        // 为获取地理位置信息时设置查询条件
+        String bestProvider = mLocationManager.getBestProvider(getCriteria(), true);
+        // 获取位置信息
+        // 如果不设置查询要求，getLastKnownLocation方法传人的参数为LocationManager.GPS_PROVIDER
+        if (bestProvider != null) {
+            Location location = mLocationManager.getLastKnownLocation(bestProvider);
+//        getLocationData(location);
+            mLocation = location;
         }
-        bsucess = m_mgr.addNmeaListener(mNmeaListener);
-        Log.e("Gps", "Add the statusListner is " + bsucess);
-        if (!bsucess) {
-            Toast.makeText(mContext, R.string.gps_open_error, Toast.LENGTH_SHORT).show();
-        }
+        // 监听状态
+        mLocationManager.addGpsStatusListener(listener);
 
-        m_location = m_mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        // 绑定监听，有4个参数
+        // 参数1，设备：有GPS_PROVIDER和NETWORK_PROVIDER两种
+        // 参数2，位置信息更新周期，单位毫秒
+        // 参数3，位置变化最小距离：当位置距离变化超过此值时，将更新位置信息
+        // 参数4，监听
+        // 备注：参数2和3，如果参数3不为0，则以参数3为准；参数3为0，则通过时间来定时更新；两者为0，则随时刷新
 
-        if(m_location==null) {
-            Log.i("lvhongshan_gps", "Location is null");
-        } else {
-            Log.i("lvhongshan_gps", "Location is not null");
-        }
-        updateWithNewLocation(m_location);
+        // 1秒更新一次，或最小位移变化超过1米更新一次；
+        // 注意：此处更新准确度非常低，推荐在service里面启动一个Thread，在run中sleep(10000);然后执行handler.sendMessage(),更新位置
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
     }
 
-    private final LocationListener locationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            updateWithNewLocation(location);
-            Log.d("Gps", "lvhongshan the onLocationChanged is exced");
+    public static GpsUtils getInstance(Activity context) {
+        if (instance == null) {
+            instance = new GpsUtils(context);
         }
 
-        public void onProviderDisabled(String provider) {
-            updateWithNewLocation(null);
-            Log.d("Gps", "lvhongshan the onProviderDisabled is exced");
-        }
-
-        public void onProviderEnabled(String provider) {
-            Log.d("Gps", "lvhongshan the onProviderEnabled is exced");
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            Log.d("Gps", "lvhongshan the onStatusChanged is exced");
-        }
-    };
-
-    private void updateWithNewLocation(Location location) {
-        if (location!=null){
-            Log.w( "updateWithNewLocation: ",location.toString() );
-        }
+        return instance;
     }
 
-    private boolean deleteGpsDataFile(String strGpsFilePaht) {
-        boolean bDelete = true;
-        File file = new File(strGpsFilePaht);
-        if (file.exists()) {
-            bDelete = file.delete();
-        } else {
-            return false;
+    /**
+     * 返回查询条件
+     *
+     * @return
+     */
+    private static Criteria getCriteria() {
+        Criteria criteria = new Criteria();
+        // 设置定位精确度 Criteria.ACCURACY_COARSE比较粗略，Criteria.ACCURACY_FINE则比较精细
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        // 设置是否要求速度
+        criteria.setSpeedRequired(false);
+        // 设置是否允许运营商收费
+        criteria.setCostAllowed(false);
+        // 设置是否需要方位信息
+        criteria.setBearingRequired(false);
+        // 设置是否需要海拔信息
+        criteria.setAltitudeRequired(false);
+        // 设置对电源的需求
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        return criteria;
+    }
+
+    /**
+     * @return Location--->getLongitude()获取经度/getLatitude()获取纬度
+     */
+    public static Location getLocation() {
+        if (mLocation == null) {
+            Log.e("GPSUtils", "setLocationData: 获取当前位置信息为空");
+            return null;
         }
-        return bDelete;
+        return mLocation;
     }
 
-    private final GpsStatus.NmeaListener mNmeaListener = new GpsStatus.NmeaListener() {
-
-        public void onNmeaReceived(long timestamp, String nmea) {
-            //if(isSDcardexist()){
-            if (getLogGpsData()) {
-                updateNmeaStatus(nmea);
-                writeNeamDatainfile(nmea);
-            }
-            //}else{
-            //Log.d("Gps","The sdcard is not exist");
-            //}
+    public static String getLocalCity() {
+        if (mLocation == null) {
+            Log.e("GPSUtils", "getLocalCity: 获取城市信息为空");
+            return "";
         }
-    };
+        List<Address> result = getAddress(mLocation);
 
-    private synchronized boolean getLogGpsData() {
-        return mStartLogGpsData;
+        String city = "";
+        if (result != null && result.size() > 0) {
+            city = result.get(0).getLocality();//获取城市
+        }
+        return city;
     }
 
-    private void updateNmeaStatus(String strNmea) {
-        Log.d("GPS", "GPS:data = " + strNmea);
+    public static String getAddressStr() {
+        if (mLocation == null) {
+            Log.e("GPSUtils", "getAddressStr: 获取详细地址信息为空");
+            return "";
+        }
+        List<Address> result = getAddress(mLocation);
+
+        String address = "";
+        if (result != null && result.size() > 0) {
+            address = result.get(0).getAddressLine(0);//获取详细地址
+        }
+        return address;
     }
 
-    private boolean writeNeamDatainfile(String strNmea) {
-        boolean bresult = true;
+    // 获取地址信息
+    private static List<Address> getAddress(Location location) {
+        List<Address> result = null;
         try {
-            File gpsFile = new File(strGpsFilePaht);
-            FileWriter fileWriter = new FileWriter(gpsFile, true);
-
-            boolean bcanWrite = gpsFile.canWrite();
-            if (bcanWrite) {
-                Log.i("lvhongshan_gps", "writeNeamDatainfile is success");
-                fileWriter.append(strNmea + "\r\n");
-                fileWriter.flush();
+            if (location != null) {
+                Geocoder gc = new Geocoder(mContext, Locale.getDefault());
+                result = gc.getFromLocation(location.getLatitude(),
+                        location.getLongitude(), 1);
             }
-            fileWriter.close();
-
-        } catch (IOException e) {
-            bresult = false;
-            Log.e("LOG_TAG", e.getLocalizedMessage());
-        } finally {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        return bresult;
+        return result;
     }
 
-    private void openGPS() {
-//        boolean enabled = true;
-//        Settings.Secure.setLocationProviderEnabled(mContext.getContentResolver(),
-//                LocationManager.NETWORK_PROVIDER, enabled);
-//        Settings.Secure.setLocationProviderEnabled(mContext.getContentResolver(),
-//                LocationManager.GPS_PROVIDER, enabled);
-        initGPS();
+    public static int getCount() {
+        return mCount;
     }
-
-    private void initGPS() {
-        if (!m_mgr.isProviderEnabled(LocationManager.GPS_PROVIDER)&&!m_mgr.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-//            builder.setCancelable(false);
-//            builder.setMessage("打开GPS");
-//            builder.setPositiveButton("确定",
-//                    new android.content.DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface arg0, int arg1) {
-//                            // 转到手机设置界面，用户设置GPS
-//                            Intent intent = new Intent(
-//                                    Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                            MainActivity activity= (MainActivity) mContext;
-//                            activity.startActivityForResult(intent, 0x21); // 设置完成后返回到原来的界面
-//                            arg0.dismiss();
-//                            gpsDialog=null;
-//                        }
-//                    });
-//            builder.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface arg0, int arg1) {
-//                    arg0.dismiss();
-//                    gpsDialog=null;
-//                }
-//            } );
-//            gpsDialog=builder.create();
-//            gpsDialog.show();
-            Settings.Secure.setLocationProviderEnabled(mContext.getContentResolver(),LocationManager.GPS_PROVIDER,true);
-        }
-    }
-    private class GpsInfo {
-        int prn;
-        int iID;
-        private float fAzimuth;
-        private float fElevation;
-        private float snr;
-
-        public GpsInfo() {
-            prn = 0;
-            iID = 0;
-            fAzimuth = 0;
-            fElevation = 0;
-            snr = 0;
-        }
-    }
-
-    class st_TimerTask extends TimerTask {
-
-        public void run() {
-            mSecond++;
-            hGpsHand.sendEmptyMessage(0);
-        }
-
-    }
-
-    private void removeRecive() {
-        m_mgr.removeUpdates(locationListener);
-        m_mgr.removeGpsStatusListener(statusListener);
-        m_mgr.removeNmeaListener(mNmeaListener);
-        st_timer.cancel();
-    }
-
-    private GpsStatus.Listener statusListener = new GpsStatus.Listener() {
-        public void onGpsStatusChanged(int event) {
-            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                Log.w( "onGpsStatusChanged: ","111" );
-                return;
-            }
-            m_gpsStatus = m_mgr.getGpsStatus(null);
-            Log.w( "onGpsStatusChanged: ",event+"----" );
-            switch (event) {
-                case GpsStatus.GPS_EVENT_FIRST_FIX:
-                    int nfixTime = m_gpsStatus.getTimeToFirstFix();
-                    st_timer.cancel();
-                    setLogGpsData(true);
-                    Log.d("Gps", "GpsStatus.GPS_EVENT_FIRST_FIX the fix Time is " + nfixTime);
-                    break;
-                case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
-                    Log.d("Gps", "GpsStatus.GPS_EVENT_SATELLITE_STATUS");
-                    Iterable<GpsSatellite> allSatellites;
-                    allSatellites = m_gpsStatus.getSatellites();
-                    Iterator it = allSatellites.iterator();
-                    int iCount = 0;
-                    while (it.hasNext()) {
-                        GpsSatellite satelite = (GpsSatellite) it.next();
-
-                        mGpsInfo[iCount].prn = satelite.getPrn();
-                        mGpsInfo[iCount].fAzimuth = satelite.getAzimuth();
-                        mGpsInfo[iCount].fElevation = satelite.getElevation();
-                        mGpsInfo[iCount].snr = satelite.getSnr();
-                        mGpsInfo[iCount].iID = iCount;
-
-                        iCount++;
-
-                        Log.d("Gps", "mGpsInfo[iCount].prn is " + mGpsInfo[iCount].prn);
-                        Log.d("Gps", "mGpsInfo[iCount].fAzimuth is " + mGpsInfo[iCount].fAzimuth);
-                        Log.d("Gps", "mGpsInfo[iCount].fElevation" + mGpsInfo[iCount].fElevation);
-                        Log.d("Gps", "mGpsInfo[iCount].snr" + mGpsInfo[iCount].snr);
-                        Log.d("Gps", "mGpsInfo[iCount].iID" + mGpsInfo[iCount].iID);
-
-                    }
-                    mStateliteCount = iCount;
-                    Log.d("Gps", "the mStateliteCount is" + mStateliteCount);
-                    setStateliteinfo(iCount);
-                    break;
-                case GpsStatus.GPS_EVENT_STARTED:
-                    // Event sent when the GPS system has started.
-                    Log.d("Gps", "GpsStatus.GPS_EVENT_STARTED");
-                    break;
-                case GpsStatus.GPS_EVENT_STOPPED:
-                    // Event sent when the GPS system has stopped.
-                    Log.d("Gps", "GpsStatus.GPS_EVENT_STOPPED");
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-    private void setStateliteinfo(int validsatelite) {
-        int ncount = 6;
-
-        int bdIndex = 6;
-        int gpsIndex = 0;
-        for (int i = 0; i < validsatelite; i++) {
-            if(mGpsInfo[i].prn < 32 && gpsIndex < ncount){
-                gpsIndex ++;
-            }else if(mGpsInfo[i].prn >= 32 && bdIndex < ncount * 2){
-                bdIndex ++;
-            }
-        }
-        //Modify for passButton clickable when locate success by songguangyu 20140220 start
-        if (validsatelite >= 4) {
-            mLocatetime ++;
-        }
-        if (validsatelite >= 4 && mLocatetime <= 1) {
-        }
-        //Modify for passButton clickable when locate success by songguangyu 20140220 end
-    }
-
-    public void exit(){
-        removeRecive();
-    }
-    public String getmStateliteCount() {
-        return "{Gps:"+mStateliteCount+"}";
-    }
-
-    private synchronized void setLogGpsData(boolean start) {
-        mStartLogGpsData  = start;
-    }
-
 }

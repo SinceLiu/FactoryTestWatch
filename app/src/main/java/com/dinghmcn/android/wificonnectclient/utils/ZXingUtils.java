@@ -1,4 +1,4 @@
-package com.dinghmcn.android.wificonnectclient;
+package com.dinghmcn.android.wificonnectclient.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,7 +20,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.util.Hashtable;
 
 /**
- *   生成条形码和二维码的工具
+ * 生成条形码和二维码的工具
+ * @author dinghmcn
  */
 public class ZXingUtils {
     /**

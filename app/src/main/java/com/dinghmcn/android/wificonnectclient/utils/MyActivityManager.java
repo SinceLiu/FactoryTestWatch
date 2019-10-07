@@ -3,28 +3,33 @@ package com.dinghmcn.android.wificonnectclient.utils;
 import android.app.Activity;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyActivityManager {
     private static MyActivityManager sInstance = new MyActivityManager();
-    private WeakReference<Activity> sCurrentActivityWeakRef;
+    private List<WeakReference<Activity>> mActivity;
 
     private MyActivityManager() {
+        mActivity = new ArrayList<>();
     }
 
     public static MyActivityManager getInstance() {
         return sInstance;
     }
 
-    public Activity getCurrentActivity() {
-        Activity currentActivity = null;
-        if (sCurrentActivityWeakRef != null) {
-            currentActivity = sCurrentActivityWeakRef.get();
+    public void clearAllActivity() {
+        for (WeakReference<Activity> weakReference : mActivity) {
+            try {
+                weakReference.get().finish();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return currentActivity;
     }
 
     public void setCurrentActivity(Activity activity) {
-        sCurrentActivityWeakRef = new WeakReference<Activity>(activity);
+        mActivity.add(new WeakReference<>(activity));
     }
 
 

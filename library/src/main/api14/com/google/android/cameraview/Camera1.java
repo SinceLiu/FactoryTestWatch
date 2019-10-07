@@ -298,7 +298,6 @@ class Camera1 extends CameraViewImpl {
             Camera.getCameraInfo(i, mCameraInfo);
             if (mCameraInfo.facing == mFacing) {
                 mCameraId = i;
-
                 return;
             }
         }
@@ -311,7 +310,6 @@ class Camera1 extends CameraViewImpl {
         }
         mCamera = Camera.open(mCameraId);
         mCameraParameters = mCamera.getParameters();
-
         // Supported preview sizes
         mPreviewSizes.clear();
         for (Camera.Size size : mCameraParameters.getSupportedPreviewSizes()) {
@@ -359,15 +357,11 @@ class Camera1 extends CameraViewImpl {
         mCameraParameters.setPreviewSize(size.getWidth(), size.getHeight());
         mCameraParameters.setPictureSize(pictureSize.getWidth(), pictureSize.getHeight());
         mCameraParameters.setRotation(calcCameraRotation(mDisplayOrientation));
-
         setAutoFocusInternal(mAutoFocus);
         setFlashInternal(mFlash);
         mCamera.setParameters(mCameraParameters);
         if (mShowingPreview) {
             mCamera.startPreview();
-        }
-        if (mCameraId == 1){
-            mCameraParameters.setExposureCompensation(0);
         }
     }
 

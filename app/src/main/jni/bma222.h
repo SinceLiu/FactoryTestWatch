@@ -138,7 +138,7 @@ LastLevelId=1231 */
            bus_read(reg_addr, reg_data, r_len)
 
 
-#define BMA222_DEV_NAME					 "bma222"
+#define BMA222_DEV_NAME                     "bma222"
 
 /* EasyCASE ) */
 /** bma222 I2C Address
@@ -308,18 +308,18 @@ typedef struct
 /*+ qiukj port from pw28*/
 typedef struct
 {
-	signed short		XVal;
-	signed short		YVal;
-	signed short		ZVal;
+    signed short        XVal;
+    signed short        YVal;
+    signed short        ZVal;
 }   MON_XYZ_INT, *PMON_XYZINT;
 
 typedef struct
 {
-	MON_XYZ_INT			xyz;
-	signed short		scalex;
-	signed short		scaley;
-	signed short		scalez;
-	unsigned int		resvered;
+    MON_XYZ_INT            xyz;
+    signed short        scalex;
+    signed short        scaley;
+    signed short        scalez;
+    unsigned int        resvered;
 }   MON_CAL_VAL, *PMON_CAL_VAL;
 /*- qiukj port from pw28*/
 
@@ -1237,8 +1237,8 @@ typedef struct
 
 /*+ qiukj port from pw28*/
 #define ABS(a)                ((a) > 0 ? (a): -(a))
-#define BMA222CAL_SCALE 	46 // 46=1g*cos(45) and 1g means 64 for bma222 for ponyo //181
-#define BMA222CAL_MAX_OFFSET	64
+#define BMA222CAL_SCALE     46 // 46=1g*cos(45) and 1g means 64 for bma222 for ponyo //181
+#define BMA222CAL_MAX_OFFSET    64
 /*- qiukj port from pw28*/
 
 /* EasyCASE ) */

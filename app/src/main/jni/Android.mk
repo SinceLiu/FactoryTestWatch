@@ -12,7 +12,7 @@ LOCAL_C_INCLUDES :=     \
     $(JNI_H_INCLUDE)    \
     $(call include-path-for, system-core)/cutils
 
-LOCAL_SHARED_LIBRARIES	+= libdl  \
+LOCAL_SHARED_LIBRARIES    += libdl  \
                            libutils   \
                            libcutils  
 

@@ -47,16 +47,16 @@ typedef enum
     MT8860
 }wifi_equ_type;
 
-/*wifi²âÊÔ²Ù×÷²½Öè:
-1) °Ñwl¹¤¾ß·ÅÈëdevice/hisi/pecos/ Ä¿Â¼
-2) ÔÚdevice/hisi/pecos/AndroidBoard.mkÖÐÌí¼Ó:
-	PRODUCT_COPY_FILES += \
-	        $(LOCAL_PATH)/wl:system/bin/wl
-   ÕâÑù¾Í¿ÉÒÔ°Ñwl¹¤¾ß±àÈësystem.img
-3) ÏµÍ³ÆðÀ´ºó, 
-	adb shell
-	chmod 777 /system/bin/wl
-   ÕâÑù¾Í¿ÉÒÔ¿ªÊ¼wifi²âÊÔÁË
+/*wifiï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+1) ï¿½ï¿½wlï¿½ï¿½ï¿½ß·ï¿½ï¿½ï¿½device/hisi/pecos/ Ä¿Â¼
+2) ï¿½ï¿½device/hisi/pecos/AndroidBoard.mkï¿½ï¿½ï¿½ï¿½ï¿½:
+    PRODUCT_COPY_FILES += \
+            $(LOCAL_PATH)/wl:system/bin/wl
+   ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ô°ï¿½wlï¿½ï¿½ï¿½ß±ï¿½ï¿½ï¿½system.img
+3) ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 
+    adb shell
+    chmod 777 /system/bin/wl
+   ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ô¿ï¿½Ê¼wifiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 
 /*

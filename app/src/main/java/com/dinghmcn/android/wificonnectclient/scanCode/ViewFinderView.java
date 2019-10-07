@@ -19,29 +19,25 @@ import cn.szx.simplescanner.base.IViewFinder;
  * 覆盖在相机预览上的view，包含扫码框、扫描线、扫码框周围的阴影遮罩等
  */
 public class ViewFinderView extends RelativeLayout implements IViewFinder {
+    private static final int LASER_SPEED = 22;        //扫描线的速度
+    private static final long animationDelay = 100l;
+    private final int laserColor = Color.parseColor("#FFFFFF"); //扫描线颜色
+    private final int maskColor = Color.parseColor("#60000000");
+    private final int borderColor = Color.parseColor("#FFFFFF");        //角的颜色
+    private final int borderStrokeWidth = 6;
+    protected int borderLineLength = 100;
+    protected Paint laserPaint;
+    protected Paint maskPaint;
+    protected Paint borderPaint;
     private Rect framingRect;//扫码框所占区域
     private float widthRatio = 0.6f;//扫码框宽度占view总宽度的比例
     private float heightWidthRatio = 1.0f;//扫码框的高宽比
     private int leftOffset = -1;//扫码框相对于左边的偏移量，若为负值，则扫码框会水平居中
     private int topOffset = -1;//扫码框相对于顶部的偏移量，若为负值，则扫码框会竖直居中
-
     private boolean isLaserEnabled = true;//是否显示扫描线
     private int laserAlphaIndex;
     private int[] laserActiveDistance;      //扫描线的位置数组
-    private static final int LASER_SPEED = 22;        //扫描线的速度
     private int middle = 0;
-    private static final long animationDelay = 100l;
-    private final int laserColor = Color.parseColor("#FFFFFF"); //扫描线颜色
-
-    private final int maskColor = Color.parseColor("#60000000");
-    private final int borderColor = Color.parseColor("#FFFFFF");        //角的颜色
-    private final int borderStrokeWidth = 6;
-    protected int borderLineLength = 100;
-
-    protected Paint laserPaint;
-    protected Paint maskPaint;
-    protected Paint borderPaint;
-
     private TextView mTextView;
 
     public ViewFinderView(Context context) {

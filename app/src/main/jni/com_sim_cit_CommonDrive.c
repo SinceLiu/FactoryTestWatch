@@ -72,17 +72,17 @@
 
 #define UPEK_IOCTL_MAGIC 'R'
 #define UPEK_IOCTL_POWER_ON   \
-		_IO(UPEK_IOCTL_MAGIC, 0)
+        _IO(UPEK_IOCTL_MAGIC, 0)
 #define UPEK_IOCTL_POWER_DOWN   \
-		_IO(UPEK_IOCTL_MAGIC, 1)
+        _IO(UPEK_IOCTL_MAGIC, 1)
 #define UPEK_IOCTL_RESET   \
-		_IO(UPEK_IOCTL_MAGIC, 2)
+        _IO(UPEK_IOCTL_MAGIC, 2)
 #define UPEK_IOCTL_WRITE   \
-		_IOWR(UPEK_IOCTL_MAGIC, 3, struct upek_info)
+        _IOWR(UPEK_IOCTL_MAGIC, 3, struct upek_info)
 #define UPEK_IOCTL_READ   \
-		_IOWR(UPEK_IOCTL_MAGIC, 4, struct upek_info)
+        _IOWR(UPEK_IOCTL_MAGIC, 4, struct upek_info)
 #define UPEK_IOCTL_IMAGE   \
-		_IOWR(UPEK_IOCTL_MAGIC, 5, struct image)
+        _IOWR(UPEK_IOCTL_MAGIC, 5, struct image)
 //modify for add heartbeatforPCBA by xiasiping 20140925 start
 #define HEARTBEAT_MODULE_ID "heartbeat"
 
@@ -214,87 +214,87 @@ struct heartbeat_device_t {
 //modify for add heartbeatforPCBA by xiasiping 20140925 end
 
 struct upek_info {
-	unsigned char addr;  //for address
-	unsigned char data;  //for write/read
+    unsigned char addr;  //for address
+    unsigned char data;  //for write/read
 };
 
 typedef struct
 {
-	unsigned char addr;  //for address
-	unsigned char data;  //for write/read
-	unsigned char succ;  //for succ value
-	unsigned char tri_state;  //for tri_state, 0-all, 1-low, 2-high
+    unsigned char addr;  //for address
+    unsigned char data;  //for write/read
+    unsigned char succ;  //for succ value
+    unsigned char tri_state;  //for tri_state, 0-all, 1-low, 2-high
 }upek_info_s;
 
 upek_info_s upek_info_table[23] = 
 {
-	{0x00, 0x9E, 0x9E, 0},
-	{0x01, 0x3F, 0x0F, 1},
-	{0x02, 0x05, 0x05, 1},
-	{0x04, 0x05, 0x05, 1},
-	{0x06, 0x05, 0x05, 1},
-	{0x07, 0x26, 0x06, 1},
-	{0x09, 0x4D, 0x4D, 0},
-//	{0x0A, 0x1?, 0x05, 1},	//?
-	{0x0B, 0x10, 0x10, 0},
-	{0x0C, 0x00, 0x00, 0},
-	{0x0D, 0x00, 0x00, 0},
-	{0x0E, 0x00, 0x00, 0},
-	{0x0F, 0x94, 0x98, 0},
-	{0x10, 0x00, 0x00, 0},
-	{0x12, 0xFF, 0xFF, 0},
-	{0x14, 0x01, 0x01, 0},
-	{0x15, 0x00, 0x00, 0},
-	{0x17, 0x67, 0x67, 0},
-	{0x19, 0x01, 0x01, 0},
-	{0x1A, 0x09, 0x09, 0},
-	{0x1B, 0x09, 0x09, 0},
-	{0x1C, 0x0F, 0x0F, 0},
-	{0x1D, 0x00, 0x00, 0},
-	{0x1F, 0x94, 0x98, 0}
+    {0x00, 0x9E, 0x9E, 0},
+    {0x01, 0x3F, 0x0F, 1},
+    {0x02, 0x05, 0x05, 1},
+    {0x04, 0x05, 0x05, 1},
+    {0x06, 0x05, 0x05, 1},
+    {0x07, 0x26, 0x06, 1},
+    {0x09, 0x4D, 0x4D, 0},
+//    {0x0A, 0x1?, 0x05, 1},    //?
+    {0x0B, 0x10, 0x10, 0},
+    {0x0C, 0x00, 0x00, 0},
+    {0x0D, 0x00, 0x00, 0},
+    {0x0E, 0x00, 0x00, 0},
+    {0x0F, 0x94, 0x98, 0},
+    {0x10, 0x00, 0x00, 0},
+    {0x12, 0xFF, 0xFF, 0},
+    {0x14, 0x01, 0x01, 0},
+    {0x15, 0x00, 0x00, 0},
+    {0x17, 0x67, 0x67, 0},
+    {0x19, 0x01, 0x01, 0},
+    {0x1A, 0x09, 0x09, 0},
+    {0x1B, 0x09, 0x09, 0},
+    {0x1C, 0x0F, 0x0F, 0},
+    {0x1D, 0x00, 0x00, 0},
+    {0x1F, 0x94, 0x98, 0}
 };
 
 //20130105 add for test Lkt by lvhongshan start
 /* IOCTLs for lkt encryption chip*/
-#define MSM_LKT_IOC_MAGIC 	'L'
+#define MSM_LKT_IOC_MAGIC     'L'
 
-#define MSM_LKT_RESET				_IO(MSM_LKT_IOC_MAGIC, 0)
+#define MSM_LKT_RESET                _IO(MSM_LKT_IOC_MAGIC, 0)
 
-#define MSM_LKT_SET_BIT_RATE      		_IOW(MSM_LKT_IOC_MAGIC, 1, unsigned char)
+#define MSM_LKT_SET_BIT_RATE              _IOW(MSM_LKT_IOC_MAGIC, 1, unsigned char)
 
-#define MSM_LKT_SLEEP      		                _IOW(MSM_LKT_IOC_MAGIC, 2, unsigned char)
+#define MSM_LKT_SLEEP                              _IOW(MSM_LKT_IOC_MAGIC, 2, unsigned char)
 
-#define MSM_LKT_WAKEUP      		        _IOW(MSM_LKT_IOC_MAGIC, 3, unsigned char)
+#define MSM_LKT_WAKEUP                      _IOW(MSM_LKT_IOC_MAGIC, 3, unsigned char)
 
-#define MSM_LKT_POWER      		        _IOW(MSM_LKT_IOC_MAGIC, 4, unsigned char)
+#define MSM_LKT_POWER                      _IOW(MSM_LKT_IOC_MAGIC, 4, unsigned char)
 
 /* The type of parity.  */
-#define UART_NO_PARITY		0x00
-#define UART_ODD_PARITY		0x08
-#define UART_EVEN_PARITY	0x18
+#define UART_NO_PARITY        0x00
+#define UART_ODD_PARITY        0x08
+#define UART_EVEN_PARITY    0x18
 
 /* The type of word length.  */
-#define UART_5BITS_WORD	0x00
-#define UART_6BITS_WORD	0x01
-#define UART_7BITS_WORD	0x02
-#define UART_8BITS_WORD	0x03
+#define UART_5BITS_WORD    0x00
+#define UART_6BITS_WORD    0x01
+#define UART_7BITS_WORD    0x02
+#define UART_8BITS_WORD    0x03
 
 /* The type of the length of stop bit.  */
-#define UART_1_STOP_BIT		0x00
-#define UART_2_STOP_BITS	        0x04
+#define UART_1_STOP_BIT        0x00
+#define UART_2_STOP_BITS            0x04
 
 //20130105 add for test Lkt by lvhongshan end
 
 void AddRootPermission()
 {
    /*int handle = open("/dev/threadright0", O_RDWR);
-	if(handle == -1)
-	{  	
-		__android_log_print(4, LOG_TAG, "open(threadright0) failed:fd = %d\n", handle);
+    if(handle == -1)
+    {
+        __android_log_print(4, LOG_TAG, "open(threadright0) failed:fd = %d\n", handle);
 
-	}
+    }
         __android_log_print(4, LOG_TAG, "+");
-	close(handle);*/
+    close(handle);*/
 }
 
 //modify for add heartbeatforPCBA by xiasiping 20140925 start
@@ -342,9 +342,9 @@ static int serial_set_parity(int fd, int databits, int parity, int stopbits)
         opt.c_oflag = 0;
         opt.c_iflag = 0;
 
-        opt.c_cflag &= ~CSTOPB;	//stop bit 1
-        opt.c_cflag |= CS8;		//data bit 8
-        opt.c_cflag &= ~PARENB;	//parity non
+        opt.c_cflag &= ~CSTOPB;    //stop bit 1
+        opt.c_cflag |= CS8;        //data bit 8
+        opt.c_cflag &= ~PARENB;    //parity non
         opt.c_cflag &= ~CRTSCTS;        //no flow control, need update kernel
 /*
     switch(databits) {
@@ -394,10 +394,10 @@ static int serial_set_parity(int fd, int databits, int parity, int stopbits)
             fprintf(stderr, "Unsupported stop bits\n");
             return -1; 
     }
-    if (parity != 'n')		ios.c_cflag &= ~CSTOPB;	//stop bit 1
-		ios.c_cflag |= CS8;		//data bit 8
-		ios.c_cflag &= ~PARENB;	//parity non
-		ios.c_cflag &= ~CRTSCTS;        //no flow control, need update kernel
+    if (parity != 'n')        ios.c_cflag &= ~CSTOPB;    //stop bit 1
+        ios.c_cflag |= CS8;        //data bit 8
+        ios.c_cflag &= ~PARENB;    //parity non
+        ios.c_cflag &= ~CRTSCTS;        //no flow control, need update kernel
         opt.c_iflag |= INPCK; 
         opt.c_cc[VTIME] = 0; 
         opt.c_cc[VMIN] = 0; 
@@ -532,46 +532,46 @@ static int PtestHeartBeat(int argc, char **argv)
       int flags;
         printf("[heartbeat]test serial\n"); 
         ret = serial_open();
-	flags = fcntl(ret, F_GETFL, 0);
-	fcntl(ret, F_SETFL, flags | O_NONBLOCK);
+    flags = fcntl(ret, F_GETFL, 0);
+    fcntl(ret, F_SETFL, flags | O_NONBLOCK);
         heartbeat_power_on(1);
         heartbeat_reset(0);
-	sleep(1);
-	num_read = read(fd_serial,(void *)test_buf, 1024);
-	if(num_read > 1)
-	  {
-	    printf("okokok %d\r\n", num_read);
-	    printf("%s", test_buf);
-	    flags = fcntl(ret, F_GETFL, 0);
-	    fcntl(ret, F_SETFL, flags & ~O_NONBLOCK);
+    sleep(1);
+    num_read = read(fd_serial,(void *)test_buf, 1024);
+    if(num_read > 1)
+      {
+        printf("okokok %d\r\n", num_read);
+        printf("%s", test_buf);
+        flags = fcntl(ret, F_GETFL, 0);
+        fcntl(ret, F_SETFL, flags & ~O_NONBLOCK);
 
             heartbeat_power_on(0);
             serial_close();
             return 1;
-	  }
-	else
-	  {
-	    printf("no command\r\n");
+      }
+    else
+      {
+        printf("no command\r\n");
             heartbeat_power_on(0);
             serial_close(); 
-	    return 0;
-	  }
+        return 0;
+      }
         if (ret) {
             while (1) {
-	      memset(xfer_buf, 0, 1);
+          memset(xfer_buf, 0, 1);
                 num_read = read(fd_serial, (void *)xfer_buf, 1); 
                 //printf("[heartbeat]read tty port string data\n"); 
                 //for (i=0; i<num_read; i++) {
-		  // printf("%c, ", xfer_buf[i]); 
+          // printf("%c, ", xfer_buf[i]);
                 //}
-		//                printf("\r\n ");
+        //                printf("\r\n ");
 //                printf("[heartbeat]read tty port raw data len:%d\n", num_read);
-		if(num_read < 0)
-		  {
+        if(num_read < 0)
+          {
                      printf("num_read < 0\r\n");
-		  }
-		else
-		  {
+          }
+        else
+          {
 //                        printf("%02x", xfer_buf[0]);
                         if(check_pass_len > 0)
                                 check_pass_len--;
@@ -621,14 +621,14 @@ static int PtestHeartBeat(int argc, char **argv)
                                 }
                         }
 /*
-		        for (i=0; i<num_read; i++)
+                for (i=0; i<num_read; i++)
                         {
                                 printf("%02x ", xfer_buf[i]);
                         }
 */
 //                        printf("\r\n "); 
                         
-		  }
+          }
           //      read_file(HEARTBEAT_SERIAL_FILE);
             }
         serial_close(); 
@@ -658,41 +658,41 @@ static int CtestHeartBeat(int argc, char **argv)
       int flags;
         printf("[heartbeat]test serial\n"); 
         ret = serial_open();
-	flags = fcntl(ret, F_GETFL, 0);
-	fcntl(ret, F_SETFL, flags | O_NONBLOCK);
+    flags = fcntl(ret, F_GETFL, 0);
+    fcntl(ret, F_SETFL, flags | O_NONBLOCK);
         heartbeat_power_on(1);
         heartbeat_reset(0);
-	sleep(1);
-	num_read = read(fd_serial,(void *)test_buf, 1024);
-	if(num_read > 1)
-	  {
-	    printf("okokok %d\r\n", num_read);
-	    printf("%s", test_buf);
-	    flags = fcntl(ret, F_GETFL, 0);
-	    fcntl(ret, F_SETFL, flags & ~O_NONBLOCK);
-	  }
-	else
-	  {
-	    printf("no command\r\n");
+    sleep(1);
+    num_read = read(fd_serial,(void *)test_buf, 1024);
+    if(num_read > 1)
+      {
+        printf("okokok %d\r\n", num_read);
+        printf("%s", test_buf);
+        flags = fcntl(ret, F_GETFL, 0);
+        fcntl(ret, F_SETFL, flags & ~O_NONBLOCK);
+      }
+    else
+      {
+        printf("no command\r\n");
             __android_log_print(4, LOG_TAG, "No data from Heartbeat chip!");
             return -2;
-	  }
+      }
         if (ret) {
             while (1) {
-	      memset(xfer_buf, 0, 1);
+          memset(xfer_buf, 0, 1);
                 num_read = read(fd_serial, (void *)xfer_buf, 1); 
                 //printf("[heartbeat]read tty port string data\n"); 
                 //for (i=0; i<num_read; i++) {
-		  // printf("%c, ", xfer_buf[i]); 
+          // printf("%c, ", xfer_buf[i]);
                 //}
-		//                printf("\r\n ");
+        //                printf("\r\n ");
 //                printf("[heartbeat]read tty port raw data len:%d\n", num_read);
-		if(num_read < 0)
-		  {
+        if(num_read < 0)
+          {
                      printf("num_read < 0\r\n");
-		  }
-		else
-		  {
+          }
+        else
+          {
 //                        printf("%02x", xfer_buf[0]);
                         if(check_pass_len > 0)
                                 check_pass_len--;
@@ -755,14 +755,14 @@ static int CtestHeartBeat(int argc, char **argv)
                                 }
                         }
 /*
-		        for (i=0; i<num_read; i++)
+                for (i=0; i<num_read; i++)
                         {
                                 printf("%02x ", xfer_buf[i]);
                         }
 */
 //                        printf("\r\n "); 
                         
-		  }
+          }
           //      read_file(HEARTBEAT_SERIAL_FILE);
             }
         serial_close(); 
@@ -776,53 +776,53 @@ static int CtestHeartBeat(int argc, char **argv)
 static int
 write_string(char const* path, char value[])
 {
-	int fd;
-	static int already_warned = 0;
-	fd = open(path, O_RDWR);
+    int fd;
+    static int already_warned = 0;
+    fd = open(path, O_RDWR);
 
-	if (fd >= 0) {
-		int length = strlen(value); 
-		int amt = write(fd, value, length);
-		close(fd);
-		return amt == -1 ? -errno : 0;
-	} else {
-		if (already_warned == 0) {
-			already_warned = 1;
-		}
-		return -errno;
-	}
+    if (fd >= 0) {
+        int length = strlen(value);
+        int amt = write(fd, value, length);
+        close(fd);
+        return amt == -1 ? -errno : 0;
+    } else {
+        if (already_warned == 0) {
+            already_warned = 1;
+        }
+        return -errno;
+    }
 }
 
 static int
 write_int(char const* path, int value)
 {
-	int fd;
-	static int already_warned = 0;
+    int fd;
+    static int already_warned = 0;
 
-	fd = open(path, O_RDWR);
-	if (fd >= 0) {
-		char buffer[20];
-		int bytes = sprintf(buffer, "%d\n", value);
-		int amt = write(fd, buffer, bytes);
-		close(fd);
-		return amt == -1 ? -errno : 0;
-	} else {
-		if (already_warned == 0) {
+    fd = open(path, O_RDWR);
+    if (fd >= 0) {
+        char buffer[20];
+        int bytes = sprintf(buffer, "%d\n", value);
+        int amt = write(fd, buffer, bytes);
+        close(fd);
+        return amt == -1 ? -errno : 0;
+    } else {
+        if (already_warned == 0) {
 
-			already_warned = 1;
-		}
-		return -errno;
-	}
+            already_warned = 1;
+        }
+        return -errno;
+    }
 }
 
 static void flashlightControl
 (JNIEnv *env, jobject obj, jstring value)
 {        
     int retr;
-	AddRootPermission();
-	const char *vre = (*env)->GetStringUTFChars(env,value,0);
-	retr = write_string("/sys/class/leds/torch/brightness",vre);
-	(*env)->ReleaseStringUTFChars(env,value,vre);
+    AddRootPermission();
+    const char *vre = (*env)->GetStringUTFChars(env,value,0);
+    retr = write_string("/sys/class/leds/torch/brightness",vre);
+    (*env)->ReleaseStringUTFChars(env,value,vre);
 }
 
 //Modify for CIT optimization by xiasiping 20140730 start
@@ -830,34 +830,34 @@ static void flashlightControl_d
 (JNIEnv *env, jobject obj, jstring value, jstring str)
 {
     int retr;
-	AddRootPermission();
-	const char *vre = (*env)->GetStringUTFChars(env,value,0);
-	const char *vres = (*env)->GetStringUTFChars(env,str,0);
-	retr = write_string(vres, vre);
-	(*env)->ReleaseStringUTFChars(env,value,vre);
+    AddRootPermission();
+    const char *vre = (*env)->GetStringUTFChars(env,value,0);
+    const char *vres = (*env)->GetStringUTFChars(env,str,0);
+    retr = write_string(vres, vre);
+    (*env)->ReleaseStringUTFChars(env,value,vre);
 }
 //Modify for CIT optimization by xiasiping 20140730 end
 
 static void buttonlightControl
 (JNIEnv *env, jobject obj, jint b)
 {       
-	AddRootPermission();
-	__android_log_print(4, LOG_TAG, "start exec buttonlightControl");
+    AddRootPermission();
+    __android_log_print(4, LOG_TAG, "start exec buttonlightControl");
 
-	write_int("/sys/class/leds/button_backlight/brightness", b);
+    write_int("/sys/class/leds/button_backlight/brightness", b);
 }
 
 //Modify for CIT optimization by xiasiping 20140730 start
 static void buttonlightControl_d
 (JNIEnv *env, jobject obj, jint b, jstring str)
 {
-	AddRootPermission();
+    AddRootPermission();
 
-	const char *vres = (*env)->GetStringUTFChars(env,str,0);
+    const char *vres = (*env)->GetStringUTFChars(env,str,0);
 
-	__android_log_print(4, LOG_TAG, "start exec buttonlightControl");
+    __android_log_print(4, LOG_TAG, "start exec buttonlightControl");
 
-	write_int(vres, b);
+    write_int(vres, b);
 }
 //Modify for CIT optimization by xiasiping 20140730 end
 
@@ -873,7 +873,7 @@ static void lightControl
     if(b == 0){
         retr = write_string("/sys/class/leds/red/brightness", "40");
         retb = write_string("/sys/class/leds/orange/brightness", "0");
-    	retg = write_string("/sys/class/leds/green/brightness", "0");
+        retg = write_string("/sys/class/leds/green/brightness", "0");
     }else if(b == 1){
         retr = write_string("/sys/class/leds/red/brightness", "0");
         retb = write_string("/sys/class/leds/orange/brightness", "40");
@@ -908,19 +908,19 @@ static void lightControl_d
     if(b == 0){
         retr = write_string( vrer, "40");
         retb = write_string( vreb, "0");
-    	retg = write_string( vreg, "0");
+        retg = write_string( vreg, "0");
     }else if(b == 2){
         retr = write_string( vrer, "0");
         retb = write_string( vreb, "40");
-    	retg = write_string( vreg, "0");
+        retg = write_string( vreg, "0");
     }else if(b == 1){
         retr = write_string( vrer, "0");
         retb = write_string( vreb, "0");
-    	retg = write_string( vreg, "40");
+        retg = write_string( vreg, "40");
     }else{
         retr = write_string( vrer, "0");
         retb = write_string( vreb, "0");
-    	retg = write_string( vreg, "0");
+        retg = write_string( vreg, "0");
     }
     __android_log_print(4, LOG_TAG, "retr = %d\n", retr);
     __android_log_print(4, LOG_TAG, "retb = %d\n", retb);
@@ -962,55 +962,55 @@ static void lightControlForIS
 static void backlightControl
 (JNIEnv *env, jobject obj, jint b)
 {
-	AddRootPermission();
-	__android_log_print(4, LOG_TAG, "start exec backlightControl");
+    AddRootPermission();
+    __android_log_print(4, LOG_TAG, "start exec backlightControl");
 
-	write_int("/sys/class/leds/lcd-backlight/brightness", b);
+    write_int("/sys/class/leds/lcd-backlight/brightness", b);
 }
 
 static int calibration
 (JNIEnv *env, jobject obj)
 {
-	__android_log_print(4, LOG_TAG, "calibration start");
-	AddRootPermission();
-	int fd;
-	int result;
-	int hfile;
+    __android_log_print(4, LOG_TAG, "calibration start");
+    AddRootPermission();
+    int fd;
+    int result;
+    int hfile;
 
-	fd = open("/dev/bma222", O_RDWR);
-	__android_log_print(4, LOG_TAG, "open /dev/bma222 fd = %d\n",fd);
-	if(0 <= fd)
-	{
-		result = ioctl(fd, BMA222_SET_OFFSET_RESET,NULL);
-		//Dataxyz was needed because I don't know the way to store the caldata
-		__android_log_print(4, LOG_TAG, "BMA222 BMA222_SET_OFFSET_RESET result: %d\n", result);
-		if(0 > result)
-		{
-			return -1;
-		}
-		
-		close(fd);
+    fd = open("/dev/bma222", O_RDWR);
+    __android_log_print(4, LOG_TAG, "open /dev/bma222 fd = %d\n",fd);
+    if(0 <= fd)
+    {
+        result = ioctl(fd, BMA222_SET_OFFSET_RESET,NULL);
+        //Dataxyz was needed because I don't know the way to store the caldata
+        __android_log_print(4, LOG_TAG, "BMA222 BMA222_SET_OFFSET_RESET result: %d\n", result);
+        if(0 > result)
+        {
+            return -1;
+        }
 
-		return 0;
-	}
+        close(fd);
 
-	fd = open("/dev/bma250", O_RDWR);
-	__android_log_print(4, LOG_TAG, "open /dev/bma250 fd = %d\n",fd);
-	if(0 <= fd)
-	{
-		result=ioctl(fd,BMA250_SET_OFFSET_RESET,NULL);	
-		__android_log_print(4, LOG_TAG, "BMA250 BMA250_SET_OFFSET_RESET result: %d\n", result);
-		if(0 > result)
-		{
-			return -1;
-		}
-		
-		close(fd);
+        return 0;
+    }
 
-		return 0;
-	}
-	__android_log_print(4, LOG_TAG, "calibration end");
-	return -1;
+    fd = open("/dev/bma250", O_RDWR);
+    __android_log_print(4, LOG_TAG, "open /dev/bma250 fd = %d\n",fd);
+    if(0 <= fd)
+    {
+        result=ioctl(fd,BMA250_SET_OFFSET_RESET,NULL);
+        __android_log_print(4, LOG_TAG, "BMA250 BMA250_SET_OFFSET_RESET result: %d\n", result);
+        if(0 > result)
+        {
+            return -1;
+        }
+
+        close(fd);
+
+        return 0;
+    }
+    __android_log_print(4, LOG_TAG, "calibration end");
+    return -1;
 }
 
 
@@ -1018,91 +1018,91 @@ static jfloatArray getMotionXYZ
 (JNIEnv *env, jobject obj)
 
 {
-	__android_log_print(4, LOG_TAG, "getMotionXYZ start");
-	AddRootPermission();
-	int fd;
-	int result;
-	static jfloat values[] = {0,0,0};
-	jfloatArray array =  (*env)->NewFloatArray(env,3);
+    __android_log_print(4, LOG_TAG, "getMotionXYZ start");
+    AddRootPermission();
+    int fd;
+    int result;
+    static jfloat values[] = {0,0,0};
+    jfloatArray array =  (*env)->NewFloatArray(env,3);
 
-	fd = open("/dev/bma250", O_RDWR);
-	__android_log_print(4, LOG_TAG, "open /dev/bma250 fd = %d\n",fd);
-	if(0 <= fd){
-		bma250acc_t 	Dataxyz;
-		result = ioctl(fd, BMA250_READ_ACCEL_XYZ, &Dataxyz);
-		__android_log_print(4, LOG_TAG, "open /dev/bma250 fd = %d\n",fd);
-		__android_log_print(4, LOG_TAG, "bma250 readXYZ [X %d] [Y %d] [Z %d] \n", Dataxyz.x, Dataxyz.y, Dataxyz.z);
-		values[0] = -(Dataxyz.x * (9.8/256));
+    fd = open("/dev/bma250", O_RDWR);
+    __android_log_print(4, LOG_TAG, "open /dev/bma250 fd = %d\n",fd);
+    if(0 <= fd){
+        bma250acc_t     Dataxyz;
+        result = ioctl(fd, BMA250_READ_ACCEL_XYZ, &Dataxyz);
+        __android_log_print(4, LOG_TAG, "open /dev/bma250 fd = %d\n",fd);
+        __android_log_print(4, LOG_TAG, "bma250 readXYZ [X %d] [Y %d] [Z %d] \n", Dataxyz.x, Dataxyz.y, Dataxyz.z);
+        values[0] = -(Dataxyz.x * (9.8/256));
         values[1] = -(Dataxyz.y * (9.8/256));
-		values[2] = -(Dataxyz.z * (9.8/256));
-		__android_log_print(4, LOG_TAG, "values[0] = %f", values[0]);
-		__android_log_print(4, LOG_TAG, "values[1] = %f", values[1]);
-		__android_log_print(4, LOG_TAG, "values[2] = %f", values[2]);
-		close(fd);
-		__android_log_print(4, LOG_TAG, "close /dev/bma250");
-	}
+        values[2] = -(Dataxyz.z * (9.8/256));
+        __android_log_print(4, LOG_TAG, "values[0] = %f", values[0]);
+        __android_log_print(4, LOG_TAG, "values[1] = %f", values[1]);
+        __android_log_print(4, LOG_TAG, "values[2] = %f", values[2]);
+        close(fd);
+        __android_log_print(4, LOG_TAG, "close /dev/bma250");
+    }
 
 
-	(*env)->SetFloatArrayRegion(env,array,0,3,values);
-	__android_log_print(4, LOG_TAG, "getMotionXYZ end");
-	return array;
-	
+    (*env)->SetFloatArrayRegion(env,array,0,3,values);
+    __android_log_print(4, LOG_TAG, "getMotionXYZ end");
+    return array;
+
 }
 
 static jintArray getCompassValues
 (JNIEnv *env, jobject obj)
 {
-	__android_log_print(4, LOG_TAG, "getCompassValues start");
-	AddRootPermission();
-	int fd;
-	int result;
-	static short mag[3] = {0};
+    __android_log_print(4, LOG_TAG, "getCompassValues start");
+    AddRootPermission();
+    int fd;
+    int result;
+    static short mag[3] = {0};
 
-	fd = open("/dev/akm8975_dev", O_RDWR);
-	__android_log_print(4, LOG_TAG, "open /dev/akm8975_dev fd = %d\n",fd);
-	result = ioctl(fd, ECS_IOCTL_GET_XYZ, mag);
-	int val[3] = {(int)mag[0], (int)mag[1], (int)mag[2]};
-	__android_log_print(4, LOG_TAG, "akm8975_dev Read result: %d\n", result);
-	__android_log_print(4, LOG_TAG, "val[0] = %d", val[0]);
-	__android_log_print(4, LOG_TAG, "val[1] = %d", val[1]);
-	__android_log_print(4, LOG_TAG, "val[2] = %d", val[2]);
-	
-	jintArray array =  (*env)->NewIntArray(env,3);
-	(*env)->SetIntArrayRegion(env,array,0,3,val);
-	close(fd);
-	__android_log_print(4, LOG_TAG, "close /dev/akm8975_dev");
-	__android_log_print(4, LOG_TAG, "getCompassValues end");
-	return array;
+    fd = open("/dev/akm8975_dev", O_RDWR);
+    __android_log_print(4, LOG_TAG, "open /dev/akm8975_dev fd = %d\n",fd);
+    result = ioctl(fd, ECS_IOCTL_GET_XYZ, mag);
+    int val[3] = {(int)mag[0], (int)mag[1], (int)mag[2]};
+    __android_log_print(4, LOG_TAG, "akm8975_dev Read result: %d\n", result);
+    __android_log_print(4, LOG_TAG, "val[0] = %d", val[0]);
+    __android_log_print(4, LOG_TAG, "val[1] = %d", val[1]);
+    __android_log_print(4, LOG_TAG, "val[2] = %d", val[2]);
+
+    jintArray array =  (*env)->NewIntArray(env,3);
+    (*env)->SetIntArrayRegion(env,array,0,3,val);
+    close(fd);
+    __android_log_print(4, LOG_TAG, "close /dev/akm8975_dev");
+    __android_log_print(4, LOG_TAG, "getCompassValues end");
+    return array;
 }
 
 static jintArray getOrientationValues
 (JNIEnv *env, jobject obj)
 {
-	__android_log_print(4, LOG_TAG, "getOrientationValues start");
-	AddRootPermission();
-	int fd;
-	int result;
+    __android_log_print(4, LOG_TAG, "getOrientationValues start");
+    AddRootPermission();
+    int fd;
+    int result;
 
-	int flag = 1;
-	int mag[16] = {0};
+    int flag = 1;
+    int mag[16] = {0};
 
-	fd = open("/dev/akm8975_dev", O_RDWR);
-	__android_log_print(4, LOG_TAG, "open /dev/akm8975_dev fd = %d\n",fd);
+    fd = open("/dev/akm8975_dev", O_RDWR);
+    __android_log_print(4, LOG_TAG, "open /dev/akm8975_dev fd = %d\n",fd);
 
 
-	result = ioctl(fd, ECS_IOCTL_GET_YPR, mag);
-	__android_log_print(4, LOG_TAG, "ECS_IOCTL_GET_YPR result: %d\n", result);
-	int i;
-	for(i = 0; i < 16; i++)
-	{
-		__android_log_print(4, LOG_TAG, "mag = %d\n", mag[i]); 
-	}
-	jintArray array =  (*env)->NewIntArray(env,16);
-	(*env)->SetIntArrayRegion(env,array,0,16,mag);
-	close(fd);
-	__android_log_print(4, LOG_TAG, "close /dev/akm8975_dev"); 
-	__android_log_print(4, LOG_TAG, "getOrientationValues end"); 
-	return array;
+    result = ioctl(fd, ECS_IOCTL_GET_YPR, mag);
+    __android_log_print(4, LOG_TAG, "ECS_IOCTL_GET_YPR result: %d\n", result);
+    int i;
+    for(i = 0; i < 16; i++)
+    {
+        __android_log_print(4, LOG_TAG, "mag = %d\n", mag[i]);
+    }
+    jintArray array =  (*env)->NewIntArray(env,16);
+    (*env)->SetIntArrayRegion(env,array,0,16,mag);
+    close(fd);
+    __android_log_print(4, LOG_TAG, "close /dev/akm8975_dev");
+    __android_log_print(4, LOG_TAG, "getOrientationValues end");
+    return array;
 }
 
 static jstring proximityDistance
@@ -1130,22 +1130,22 @@ static jstring proximityDistance
 static jstring lightDegree
   (JNIEnv *env, jobject obj)
   {   
-		AddRootPermission();
-  	  int handle = open("/sys/class/misc/cm3623_als/raw_als_data", O_RDONLY);
-  	  char val[10]={0};
-  	  int iret = 0;
-  	  if(handle == -1)
-	  {  	
+        AddRootPermission();
+        int handle = open("/sys/class/misc/cm3623_als/raw_als_data", O_RDONLY);
+        char val[10]={0};
+        int iret = 0;
+        if(handle == -1)
+      {
 
-		 __android_log_print(4, LOG_TAG, "open the raw_ps_data failed");
-	  }else
-	  {
-	     iret = read(handle,val,10);
-		val[9] = '\0';
-	     __android_log_print(4, LOG_TAG, "iret = %d,val = %s",iret,val);
-	  }
-	  close(handle);
-	  return (*env)->NewStringUTF(env,val);
+         __android_log_print(4, LOG_TAG, "open the raw_ps_data failed");
+      }else
+      {
+         iret = read(handle,val,10);
+        val[9] = '\0';
+         __android_log_print(4, LOG_TAG, "iret = %d,val = %s",iret,val);
+      }
+      close(handle);
+      return (*env)->NewStringUTF(env,val);
   }
 
 //wifi
@@ -1253,10 +1253,10 @@ static jintArray readwifiRxResult
 {       
         __android_log_print(4, LOG_TAG, "[readwifiRxResult] +");
         AddRootPermission();
-    	static jint reValue[] = {0,0,0};
+        static jint reValue[] = {0,0,0};
         int TotalPackets = 0;
         int per = 0;
-	
+
 
         int nRet = BCM_Read_Rx_Result(&TotalPackets,&per);
         jintArray array =  (*env)->NewIntArray(env,3);
@@ -1365,7 +1365,7 @@ static jintArray readwifiRxStatus
         static jint reValue[] = {0,0,0};
         int TotalPackets = 0;
         int per = 0;
-	
+
 
         int nRet = BCM_Read_Rx_Result(&TotalPackets,&per);
         jintArray array =  (*env)->NewIntArray(env,3);
@@ -1455,24 +1455,24 @@ static jint setWifiMacAddress
 static void setCarrierSuppressionMode
 (JNIEnv *env, jobject obj, jint enable)
 {
-	__android_log_print(4, LOG_TAG, "setCarrierSuppressionMode start");
-	AddRootPermission();
-	SetCarrierSuppressionMode(enable);
-	__android_log_print(4, LOG_TAG, "setCarrierSuppressionMode end");
+    __android_log_print(4, LOG_TAG, "setCarrierSuppressionMode start");
+    AddRootPermission();
+    SetCarrierSuppressionMode(enable);
+    __android_log_print(4, LOG_TAG, "setCarrierSuppressionMode end");
 }
 
 static int runCommand
 (JNIEnv *env, jobject obj, jstring cmd)
 {
-	int iRet;
-	__android_log_print(4, LOG_TAG, "runCommand start");
-	AddRootPermission();
-	const char *charcmd = (*env)->GetStringUTFChars(env,cmd,0);
-	iRet = RunCommand(charcmd);
-	(*env)->ReleaseStringUTFChars(env,cmd,charcmd);
-	__android_log_print(4, LOG_TAG, "[runCommand] the iRet = %d",iRet);
-	__android_log_print(4, LOG_TAG, "runCommand end");
-	return iRet;
+    int iRet;
+    __android_log_print(4, LOG_TAG, "runCommand start");
+    AddRootPermission();
+    const char *charcmd = (*env)->GetStringUTFChars(env,cmd,0);
+    iRet = RunCommand(charcmd);
+    (*env)->ReleaseStringUTFChars(env,cmd,charcmd);
+    __android_log_print(4, LOG_TAG, "[runCommand] the iRet = %d",iRet);
+    __android_log_print(4, LOG_TAG, "runCommand end");
+    return iRet;
 }*/
 
 
@@ -1580,74 +1580,74 @@ static jint getTemp_d
 static jint getCapacity
 (JNIEnv *env, jobject obj)
 {
-	AddRootPermission();
-	
-	int fd;
-	int result;
-	char buf[4];
-	
-	fd = open("/sys/class/power_supply/gaugeIC/capacity", O_RDONLY, 0);
-	__android_log_print(4, LOG_TAG, "fd = %d", fd);
-	
-	result = read(fd, buf, 4);
-	__android_log_print(4, LOG_TAG, "result = %d", result);
-	jint value = atoi(buf);
-	__android_log_print(4, LOG_TAG, "value = %d", value);
-	
-	close(fd);
+    AddRootPermission();
 
-	__android_log_print(4, LOG_TAG, "buf = %s", buf);
-	return value;
+    int fd;
+    int result;
+    char buf[4];
+
+    fd = open("/sys/class/power_supply/gaugeIC/capacity", O_RDONLY, 0);
+    __android_log_print(4, LOG_TAG, "fd = %d", fd);
+
+    result = read(fd, buf, 4);
+    __android_log_print(4, LOG_TAG, "result = %d", result);
+    jint value = atoi(buf);
+    __android_log_print(4, LOG_TAG, "value = %d", value);
+
+    close(fd);
+
+    __android_log_print(4, LOG_TAG, "buf = %s", buf);
+    return value;
 }        
 
 static jint getHardwareVersion
 (JNIEnv *env, jobject obj)
 {
-	AddRootPermission();
-	
-	int fd;
-	int result;
-	char buf[4];
-	
-	fd = open("/sys/class/power_supply/battery/batt-id", O_RDONLY, 0);
-	__android_log_print(4, LOG_TAG, "fd = %d", fd);
-	
-	result = read(fd, buf, 4);
-	__android_log_print(4, LOG_TAG, "result = %d", result);
-	__android_log_print(4, LOG_TAG, "buf = %s", buf);
-	jint value = atoi(buf);
-	__android_log_print(4, LOG_TAG, "value = %d", value);
-	
-	close(fd);
-	return value;
+    AddRootPermission();
+
+    int fd;
+    int result;
+    char buf[4];
+
+    fd = open("/sys/class/power_supply/battery/batt-id", O_RDONLY, 0);
+    __android_log_print(4, LOG_TAG, "fd = %d", fd);
+
+    result = read(fd, buf, 4);
+    __android_log_print(4, LOG_TAG, "result = %d", result);
+    __android_log_print(4, LOG_TAG, "buf = %s", buf);
+    jint value = atoi(buf);
+    __android_log_print(4, LOG_TAG, "value = %d", value);
+
+    close(fd);
+    return value;
 }  
 
 //soft test
 static jint wifiControl
 (JNIEnv *env, jobject obj,jint a,jint b){
 
-	AddRootPermission();
+    AddRootPermission();
 
-	void *handle;
-	int (*wificit)(int,int);
-	int val = 0;
-	__android_log_print(4, LOG_TAG, "start exec dlopen");
-	handle = dlopen("libbluedroid.so",RTLD_NOW);
+    void *handle;
+    int (*wificit)(int,int);
+    int val = 0;
+    __android_log_print(4, LOG_TAG, "start exec dlopen");
+    handle = dlopen("libbluedroid.so",RTLD_NOW);
 
-	__android_log_print(4, LOG_TAG, "handle = %0x",handle);
-	if(handle == NULL){
-		__android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
-		return -1;
-	}
+    __android_log_print(4, LOG_TAG, "handle = %0x",handle);
+    if(handle == NULL){
+        __android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
+        return -1;
+    }
 
-	__android_log_print(4, LOG_TAG, "dlsym exec start");
+    __android_log_print(4, LOG_TAG, "dlsym exec start");
         wificit = dlsym(handle,"wificit");
-	__android_log_print(4, LOG_TAG, "wificit exec start");
-	val = wificit(a,b);
-	__android_log_print(4, LOG_TAG, "val = %d",val);
-	dlclose(handle);
+    __android_log_print(4, LOG_TAG, "wificit exec start");
+    val = wificit(a,b);
+    __android_log_print(4, LOG_TAG, "val = %d",val);
+    dlclose(handle);
 
-	return (val);
+    return (val);
 
 }
 
@@ -1658,41 +1658,41 @@ static jint wifiControl
 
 enum
 {
-	HCITCMD_DEFAULT = 0xA0,
-	HCITCMD_KEYLED_ON = HCITCMD_DEFAULT,
-	HCITCMD_KEYLED_OFF,
-	HCITCMD_VIB_ON,
-	HCITCMD_VIB_OFF,
-	HCITCMD_CAMERA_FLASHLED_ON,
-	HCITCMD_CAMERA_FLASHLED_OFF,
-	HCITCMD_LCD_BACKLIGHT_ON,
-	HCITCMD_LCD_BACKLIGHT_OFF,
-	HCITCMD_GPIOLED_ON,
-	HCITCMD_GPIOLED_OFF,
+    HCITCMD_DEFAULT = 0xA0,
+    HCITCMD_KEYLED_ON = HCITCMD_DEFAULT,
+    HCITCMD_KEYLED_OFF,
+    HCITCMD_VIB_ON,
+    HCITCMD_VIB_OFF,
+    HCITCMD_CAMERA_FLASHLED_ON,
+    HCITCMD_CAMERA_FLASHLED_OFF,
+    HCITCMD_LCD_BACKLIGHT_ON,
+    HCITCMD_LCD_BACKLIGHT_OFF,
+    HCITCMD_GPIOLED_ON,
+    HCITCMD_GPIOLED_OFF,
     HCITCMD_BLUETOOTH_ON,
     HCITCMD_BLUETOOTH_OFF,
-	HCITCMD_MAX
+    HCITCMD_MAX
 };
 
 static void bluetoothControl
 (JNIEnv *env, jobject obj, jboolean b){
-	AddRootPermission();
+    AddRootPermission();
  //   int handle=open("/dev/hcit_misc",O_RDWR);
-//	__android_log_print(4, LOG_TAG, "bluetoothControl = %d",handle);
-	int ret;
+//    __android_log_print(4, LOG_TAG, "bluetoothControl = %d",handle);
+    int ret;
 
-	if(b)
-	{
+    if(b)
+    {
       ret = system("echo 1 > /sys/devices/platform/bt_power/rfkill/rfkill0/state");
-		__android_log_print(4, LOG_TAG, "+++++open bluetooth ret = %d",ret);
-	}
-	else
-	{
-		ret = system("echo 0 > /sys/devices/platform/bt_power/rfkill/rfkill0/state");
-		__android_log_print(4, LOG_TAG, "close bluetooth ret = %d",ret);
-	}
+        __android_log_print(4, LOG_TAG, "+++++open bluetooth ret = %d",ret);
+    }
+    else
+    {
+        ret = system("echo 0 > /sys/devices/platform/bt_power/rfkill/rfkill0/state");
+        __android_log_print(4, LOG_TAG, "close bluetooth ret = %d",ret);
+    }
 
-//	close(handle);
+//    close(handle);
 }
 
 static jint openBluetooth
@@ -1700,26 +1700,26 @@ static jint openBluetooth
 
     AddRootPermission();
 
-	void *handle;
-	int (*bluetoothag)(void);
-	int val = 0;
-	__android_log_print(4, LOG_TAG, "start exec dlopen");
-	handle = dlopen("libbluedroid.so",RTLD_NOW);
+    void *handle;
+    int (*bluetoothag)(void);
+    int val = 0;
+    __android_log_print(4, LOG_TAG, "start exec dlopen");
+    handle = dlopen("libbluedroid.so",RTLD_NOW);
 
-	__android_log_print(4, LOG_TAG, "handle = %0x",handle);
-	if(handle == NULL){
-		__android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
-		return -1;
-	}
+    __android_log_print(4, LOG_TAG, "handle = %0x",handle);
+    if(handle == NULL){
+        __android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
+        return -1;
+    }
 
-	__android_log_print(4, LOG_TAG, "dlsym exec start");
-	bluetoothag = dlsym(handle,"bluetoothcit");
-	__android_log_print(4, LOG_TAG, "bluetoothcit exec start");
-	val = bluetoothag();
-	__android_log_print(4, LOG_TAG, "val = %d",val);
-	dlclose(handle);
+    __android_log_print(4, LOG_TAG, "dlsym exec start");
+    bluetoothag = dlsym(handle,"bluetoothcit");
+    __android_log_print(4, LOG_TAG, "bluetoothcit exec start");
+    val = bluetoothag();
+    __android_log_print(4, LOG_TAG, "val = %d",val);
+    dlclose(handle);
 
-	return (val);
+    return (val);
 }
 
 
@@ -1727,24 +1727,24 @@ static jint openBluetooth
 static jintArray excemotcal
 (JNIEnv *env, jobject obj)
 {
-	void *handle;
+    void *handle;
         static jint nValue[] = {0,0,0,0};
         static jint reValue[] = {0,0,0,0,0};
-	int (*mot_cal_user)(int[]);
-	int val = 0;
+    int (*mot_cal_user)(int[]);
+    int val = 0;
         __android_log_print(4, LOG_TAG, "start exec dlopen");
-	handle = dlopen("mot_cal.so",RTLD_NOW);
+    handle = dlopen("mot_cal.so",RTLD_NOW);
        
         __android_log_print(4, LOG_TAG, "handle = %0x",handle);
-	if(handle == NULL){
+    if(handle == NULL){
           __android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
           return (jintArray)-1;
-	}
+    }
          
         __android_log_print(4, LOG_TAG, "dlsym exec start");
-	mot_cal_user = dlsym(handle,"mot_cal_user");
+    mot_cal_user = dlsym(handle,"mot_cal_user");
         __android_log_print(4, LOG_TAG, "mot_cal exec start");
-	val = mot_cal_user(nValue);
+    val = mot_cal_user(nValue);
         
 
        jintArray array =  (*env)->NewIntArray(env,5);
@@ -1761,35 +1761,35 @@ static jintArray excemotcal
         
        (*env)->SetIntArrayRegion(env,array,0,5,reValue);
         __android_log_print(4, LOG_TAG, "val = %d,x = %d,y = %d,z = %d,k = %d",val,nValue[0],nValue[1],nValue[2],nValue[3]);
-	dlclose(handle);
+    dlclose(handle);
 
-	return array;
+    return array;
 }
 //##HW 校准
 static jintArray execHcalibration
 (JNIEnv *env, jobject obj)
 {
-	void *handle;
+    void *handle;
 
         static jint nValue[] = {0,0,0,0};
         static jint reValue[] = {0,0,0,0,0};
 
-	int (*mot_cal_factory_Step2)(int[]);
-	int val = 0;
-	__android_log_print(4, LOG_TAG, "start exec dlopen");
-	handle = dlopen("mot_cal.so",RTLD_NOW);
+    int (*mot_cal_factory_Step2)(int[]);
+    int val = 0;
+    __android_log_print(4, LOG_TAG, "start exec dlopen");
+    handle = dlopen("mot_cal.so",RTLD_NOW);
 
-	__android_log_print(4, LOG_TAG, "handle = %0x",handle);
-	if(handle == NULL){
-		__android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
-		return (jintArray)-1;
-	}
+    __android_log_print(4, LOG_TAG, "handle = %0x",handle);
+    if(handle == NULL){
+        __android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
+        return (jintArray)-1;
+    }
 
-       	__android_log_print(4, LOG_TAG, "dlsym exec start");
-	mot_cal_factory_Step2 = dlsym(handle,"mot_cal_factory_Step2");
-	__android_log_print(4, LOG_TAG, "mot_cal exec start");
-	val = mot_cal_factory_Step2(nValue);
-	__android_log_print(4, LOG_TAG, "val = %d",val);
+           __android_log_print(4, LOG_TAG, "dlsym exec start");
+    mot_cal_factory_Step2 = dlsym(handle,"mot_cal_factory_Step2");
+    __android_log_print(4, LOG_TAG, "mot_cal exec start");
+    val = mot_cal_factory_Step2(nValue);
+    __android_log_print(4, LOG_TAG, "val = %d",val);
        jintArray array =  (*env)->NewIntArray(env,5);
        reValue[0] = val;
 //       for(int i = 1;i < 5;i ++){
@@ -1802,152 +1802,152 @@ static jintArray execHcalibration
         
        (*env)->SetIntArrayRegion(env,array,0,5,reValue);
         __android_log_print(4, LOG_TAG, "val = %d,x = %d,y = %d,z = %d,k = %d",val,nValue[0],nValue[1],nValue[2],nValue[3]);
-	dlclose(handle);
+    dlclose(handle);
 
-	return array;
+    return array;
 }
 static jint execVcalibration
 (JNIEnv *env, jobject obj)
 {
-	
-	int hand=0;
-	int fd=0;
-	int result=0;
 
-	bma250acc_t Dataxyz;
-	AddRootPermission();
-	__android_log_print(4, LOG_TAG,"AddRootPermission");
+    int hand=0;
+    int fd=0;
+    int result=0;
 
-	fd = open("/dev/bma250", O_RDWR);
+    bma250acc_t Dataxyz;
+    AddRootPermission();
+    __android_log_print(4, LOG_TAG,"AddRootPermission");
 
-	if(fd>=0){
+    fd = open("/dev/bma250", O_RDWR);
 
-	__android_log_print(4, LOG_TAG,"open /dev/bma250 sucess");
+    if(fd>=0){
 
-	result = ioctl(fd, BMA250_READ_ACCEL_XYZ, &Dataxyz);
+    __android_log_print(4, LOG_TAG,"open /dev/bma250 sucess");
 
- 	//printf("bma250 readXYZ [X %d] [Y %d] [Z %d] \n", Dataxyz.x, Dataxyz.y, Dataxyz.z);
+    result = ioctl(fd, BMA250_READ_ACCEL_XYZ, &Dataxyz);
 
-	__android_log_print(4, LOG_TAG,"x=[X %d],y=[Y %d],z=[Z %d]\n",Dataxyz.x, Dataxyz.y, Dataxyz.z);
+     //printf("bma250 readXYZ [X %d] [Y %d] [Z %d] \n", Dataxyz.x, Dataxyz.y, Dataxyz.z);
 
-	double result=fabs((double)Dataxyz.z);
+    __android_log_print(4, LOG_TAG,"x=[X %d],y=[Y %d],z=[Z %d]\n",Dataxyz.x, Dataxyz.y, Dataxyz.z);
 
-	return (int)result;
+    double result=fabs((double)Dataxyz.z);
 
-	}else{
+    return (int)result;
 
-	__android_log_print(4, LOG_TAG,"open /dev/bma250 fail!");
+    }else{
 
-	return -1;
+    __android_log_print(4, LOG_TAG,"open /dev/bma250 fail!");
 
-	}
-	
+    return -1;
+
+    }
+
 }
 //copy GPS Data
 
 long filesize(FILE *stream)
 {
-	long curpos, length;
-	curpos = ftell(stream);
-	fseek(stream, 0L, SEEK_END);
-	length = ftell(stream);
-	fseek(stream, curpos, SEEK_SET);
-	return length;
+    long curpos, length;
+    curpos = ftell(stream);
+    fseek(stream, 0L, SEEK_END);
+    length = ftell(stream);
+    fseek(stream, curpos, SEEK_SET);
+    return length;
 }
 
 
 
 int copyfile(const char* src,const char* dest)
 {
-	    FILE *fp1,*fp2;
-	    int fsize,isdeteled,factread;
-	    static unsigned char buffer[SIZEOFBUFFER];
-	    isdeteled=remove(dest);
-		if(isdeteled==0){
-			__android_log_print(4, LOG_TAG, "delete sucess!");
-		}
-	    fp1=fopen(src,"rb");
-	    fp2=fopen(dest,"wb+");
-	    if (!fp1 || !fp2) return 0;
-	    for (fsize=filesize(fp1);fsize>0;fsize-=SIZEOFBUFFER)
-	    {
-		factread=fread(buffer,1,SIZEOFBUFFER,fp1);
-		fwrite(buffer,factread,1,fp2);
-	    }
-	    //isdeteled=remove(src);
-		//if(isdeteled==0){
-			//__android_log_print(4, LOG_TAG, "delete sucess!");
-		//}
-	    fclose(fp1);
-	    fclose(fp2);
-	    return 1;
+        FILE *fp1,*fp2;
+        int fsize,isdeteled,factread;
+        static unsigned char buffer[SIZEOFBUFFER];
+        isdeteled=remove(dest);
+        if(isdeteled==0){
+            __android_log_print(4, LOG_TAG, "delete sucess!");
+        }
+        fp1=fopen(src,"rb");
+        fp2=fopen(dest,"wb+");
+        if (!fp1 || !fp2) return 0;
+        for (fsize=filesize(fp1);fsize>0;fsize-=SIZEOFBUFFER)
+        {
+        factread=fread(buffer,1,SIZEOFBUFFER,fp1);
+        fwrite(buffer,factread,1,fp2);
+        }
+        //isdeteled=remove(src);
+        //if(isdeteled==0){
+            //__android_log_print(4, LOG_TAG, "delete sucess!");
+        //}
+        fclose(fp1);
+        fclose(fp2);
+        return 1;
 }
 
 static void copyFile
 (JNIEnv *env, jobject obj, jstring from,jstring to)
 {
-	const char* c_from=(*env)->GetStringUTFChars(env,from,NULL);
-	const char* c_to=(*env)->GetStringUTFChars(env,to,NULL);
+    const char* c_from=(*env)->GetStringUTFChars(env,from,NULL);
+    const char* c_to=(*env)->GetStringUTFChars(env,to,NULL);
 
-	AddRootPermission();
-	copyfile(c_from,c_to);
-	(*env)->ReleaseStringUTFChars(env,from,c_from);
-	(*env)->ReleaseStringUTFChars(env,to,c_to);
+    AddRootPermission();
+    copyfile(c_from,c_to);
+    (*env)->ReleaseStringUTFChars(env,from,c_from);
+    (*env)->ReleaseStringUTFChars(env,to,c_to);
 }
 
 static jint proximityCalibration
 (JNIEnv *env, jobject obj, jint value)
 {
-	
-/*	int handle;
-	int result = -1;
-	int val = 0;
-	
-	if(value == 30){
-		handle = open("/dev/cm3623_ps", O_RDONLY);
-		__android_log_print(4, LOG_TAG, "proximityCalibration handle 30: %d\n", handle);
+
+/*    int handle;
+    int result = -1;
+    int val = 0;
+
+    if(value == 30){
+        handle = open("/dev/cm3623_ps", O_RDONLY);
+        __android_log_print(4, LOG_TAG, "proximityCalibration handle 30: %d\n", handle);
                 __android_log_print(4, LOG_TAG, "error: %s\n", strerror(errno));
-		   
-		result = ioctl(handle, CM3623_CALI_35, &val);
-		__android_log_print(4, LOG_TAG, "proximityCalibration 35 result: %d\n", result);
-	}else if(value == 0){
-		handle = open("/dev/cm3623_ps", O_RDONLY);
-		__android_log_print(4, LOG_TAG, "proximityCalibration handle 0: %d\n", handle);
-		
-		result = ioctl(handle, CM3623_CALI_0, &val);
-		__android_log_print(4, LOG_TAG, "proximityCalibration 0 result: %d\n", result);
-	}
 
-	__android_log_print(4, LOG_TAG, "proximityCalibration result: %d\n", result);
-	__android_log_print(4, LOG_TAG, "proximityCalibration val: %d, %d\n", val);
-	
-	close(handle);
-	return val;*/
-	
-	int handle;
-	int val = 0;
-	int result = -1;
+        result = ioctl(handle, CM3623_CALI_35, &val);
+        __android_log_print(4, LOG_TAG, "proximityCalibration 35 result: %d\n", result);
+    }else if(value == 0){
+        handle = open("/dev/cm3623_ps", O_RDONLY);
+        __android_log_print(4, LOG_TAG, "proximityCalibration handle 0: %d\n", handle);
 
-	handle = open("/dev/stk3101", O_RDONLY);
-	if (handle < 0)
-	{
-		return -1;
-	}
+        result = ioctl(handle, CM3623_CALI_0, &val);
+        __android_log_print(4, LOG_TAG, "proximityCalibration 0 result: %d\n", result);
+    }
 
-	if(value == 35)
-	{
-		result = ioctl(handle, STK_CALI_30, &val);
-		__android_log_print(4, LOG_TAG, "proximityCalibration 35mm result: %d\n", result);
-	}
-	else if(value == 0)
-	{
-		result = ioctl(handle, STK_CALI_0, &val);
-		__android_log_print(4, LOG_TAG, "proximityCalibration 0mm result: %d\n", result);
-	}
-	__android_log_print(4, LOG_TAG, "proximityCalibration val: %d\n", val);
+    __android_log_print(4, LOG_TAG, "proximityCalibration result: %d\n", result);
+    __android_log_print(4, LOG_TAG, "proximityCalibration val: %d, %d\n", val);
 
-	close(handle);
-	return val;
+    close(handle);
+    return val;*/
+
+    int handle;
+    int val = 0;
+    int result = -1;
+
+    handle = open("/dev/stk3101", O_RDONLY);
+    if (handle < 0)
+    {
+        return -1;
+    }
+
+    if(value == 35)
+    {
+        result = ioctl(handle, STK_CALI_30, &val);
+        __android_log_print(4, LOG_TAG, "proximityCalibration 35mm result: %d\n", result);
+    }
+    else if(value == 0)
+    {
+        result = ioctl(handle, STK_CALI_0, &val);
+        __android_log_print(4, LOG_TAG, "proximityCalibration 0mm result: %d\n", result);
+    }
+    __android_log_print(4, LOG_TAG, "proximityCalibration val: %d\n", val);
+
+    close(handle);
+    return val;
 }
 //20121208 by lvhongshan start
 /*
@@ -1955,26 +1955,26 @@ static jintArray excemotcalH
 (JNIEnv * env, jobject jb)
 {
 #if 0
-	void *handle;
+    void *handle;
         
  
         static jint nValue[] = {0,0,0,0};
         static jint reValue[] = {0,0,0,0,0};
-	int (*mot_cal_user)(int[]);
-	int val = 0;
+    int (*mot_cal_user)(int[]);
+    int val = 0;
         __android_log_print(4, LOG_TAG, "start exec dlopen");
-	handle = dlopen("mot_cal.so",RTLD_NOW);
+    handle = dlopen("mot_cal.so",RTLD_NOW);
        
         __android_log_print(4, LOG_TAG, "handle = %0x",handle);
-	if(handle == NULL){
+    if(handle == NULL){
           __android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
           return -1;
-	}
+    }
          
     __android_log_print(4, LOG_TAG, "dlsym exec start");
-	mot_cal_user = dlsym(handle,"mot_cal_user");
+    mot_cal_user = dlsym(handle,"mot_cal_user");
     __android_log_print(4, LOG_TAG, "mot_cal exec start");
-	val = mot_cal_user(nValue);
+    val = mot_cal_user(nValue);
         
 
    jintArray array =  (*env)->NewIntArray(env,5);
@@ -1986,27 +1986,27 @@ static jintArray excemotcalH
     
    (*env)->SetIntArrayRegion(env,array,0,5,reValue);
     __android_log_print(4, LOG_TAG, "val = %d,x = %d,y = %d,z = %d,k = %d",val,nValue[0],nValue[1],nValue[2],nValue[3]);
-	dlclose(handle);
-	return array;
+    dlclose(handle);
+    return array;
 #endif
-	static jint reValue[] = {0,0,0,0,0};
-	char fastcal[3] = {0x00, 0x00, 0x02};
-	jintArray array =  (*env)->NewIntArray(env,5);
-	int err = -1;
-	int fd;
-	fd = open("/dev/bma250",O_RDWR);
-	if(fd < 0)
-	{
-		__android_log_print(4,LOG_TAG,"open /dev/bma250 failed,fd = %d",fd);
-		reValue[0] = err;
-		(*env)->SetIntArrayRegion(env,array,0,5,reValue);
-		return array;
-	}
-	err = ioctl(fd, BMA250_FAST_CALIBRATION, fastcal);
-	close(fd);
-	reValue[0] = err;
-	(*env)->SetIntArrayRegion(env,array,0,5,reValue);
-	return array;
+    static jint reValue[] = {0,0,0,0,0};
+    char fastcal[3] = {0x00, 0x00, 0x02};
+    jintArray array =  (*env)->NewIntArray(env,5);
+    int err = -1;
+    int fd;
+    fd = open("/dev/bma250",O_RDWR);
+    if(fd < 0)
+    {
+        __android_log_print(4,LOG_TAG,"open /dev/bma250 failed,fd = %d",fd);
+        reValue[0] = err;
+        (*env)->SetIntArrayRegion(env,array,0,5,reValue);
+        return array;
+    }
+    err = ioctl(fd, BMA250_FAST_CALIBRATION, fastcal);
+    close(fd);
+    reValue[0] = err;
+    (*env)->SetIntArrayRegion(env,array,0,5,reValue);
+    return array;
 }
 */
 
@@ -2014,26 +2014,26 @@ static jintArray excemotcalH
 (JNIEnv * env, jobject jb)
 {
 #if 0
-	void *handle;
+    void *handle;
         
  
         static jint nValue[] = {0,0,0,0};
         static jint reValue[] = {0,0,0,0,0};
-	int (*mot_cal_user)(int[]);
-	int val = 0;
+    int (*mot_cal_user)(int[]);
+    int val = 0;
         __android_log_print(4, LOG_TAG, "start exec dlopen");
-	handle = dlopen("mot_cal.so",RTLD_NOW);
+    handle = dlopen("mot_cal.so",RTLD_NOW);
        
         __android_log_print(4, LOG_TAG, "handle = %0x",handle);
-	if(handle == NULL){
+    if(handle == NULL){
           __android_log_print(4, LOG_TAG,"dlopen failed: %s\n", dlerror());
           return -1;
-	}
+    }
          
     __android_log_print(4, LOG_TAG, "dlsym exec start");
-	mot_cal_user = dlsym(handle,"mot_cal_user");
+    mot_cal_user = dlsym(handle,"mot_cal_user");
     __android_log_print(4, LOG_TAG, "mot_cal exec start");
-	val = mot_cal_user(nValue);
+    val = mot_cal_user(nValue);
         
 
    jintArray array =  (*env)->NewIntArray(env,5);
@@ -2045,242 +2045,242 @@ static jintArray excemotcalH
     
    (*env)->SetIntArrayRegion(env,array,0,5,reValue);
     __android_log_print(4, LOG_TAG, "val = %d,x = %d,y = %d,z = %d,k = %d",val,nValue[0],nValue[1],nValue[2],nValue[3]);
-	dlclose(handle);
-	return array;
+    dlclose(handle);
+    return array;
 #endif
-	static jint reValue[] = {0,0,0,0,0};
+    static jint reValue[] = {0,0,0,0,0};
 //20130111 modify for add BMA222 and BMA250 calibration by lvhongshan start
-//	char fastcal[3] = {0x00, 0x00, 0x02};
+//    char fastcal[3] = {0x00, 0x00, 0x02};
         unsigned long value = 0 ;
 //20130111 modify for add BMA222 and BMA250 calibration by lvhongshan end
-	jintArray array =  (*env)->NewIntArray(env,5);
-	int err = -1;
-	int fd;
-	//fd = open("/dev/bma222",O_RDWR);
-	fd = open("/dev/bma2x2",O_RDWR);
-	if(fd < 0)
-	{
-		__android_log_print(4,LOG_TAG,"open /dev/bma222 failed,fd = %d",fd);
+    jintArray array =  (*env)->NewIntArray(env,5);
+    int err = -1;
+    int fd;
+    //fd = open("/dev/bma222",O_RDWR);
+    fd = open("/dev/bma2x2",O_RDWR);
+    if(fd < 0)
+    {
+        __android_log_print(4,LOG_TAG,"open /dev/bma222 failed,fd = %d",fd);
 //20130111 modify for add BMA222 and BMA250 calibration by lvhongshan start
                 fd = open("/dev/bma250",O_RDWR);
-	        if(fd < 0)
-	        {
-		        __android_log_print(4,LOG_TAG,"open /dev/bma250 failed,fd = %d",fd);
-		        reValue[0] = err;
-		        (*env)->SetIntArrayRegion(env,array,0,5,reValue);
-		        return array;
-	        }
+            if(fd < 0)
+            {
+                __android_log_print(4,LOG_TAG,"open /dev/bma250 failed,fd = %d",fd);
+                reValue[0] = err;
+                (*env)->SetIntArrayRegion(env,array,0,5,reValue);
+                return array;
+            }
                 __android_log_print(4,LOG_TAG,"open /dev/bma250 success,fd = %d",fd);
 //              err = ioctl(fd, BMA250_FAST_CALIBRATION, fastcal);
-	        err = ioctl(fd,  BMA250_FAST_CALIBRATION, &value);
+            err = ioctl(fd,  BMA250_FAST_CALIBRATION, &value);
                 __android_log_print(4,LOG_TAG,"after ioctl,err = %d",err);
                 __android_log_print(4,LOG_TAG,"after ioctl,value = %d",value);
-	        close(fd);
-	        reValue[0] = err;
-	        (*env)->SetIntArrayRegion(env,array,0,5,reValue);
-	        return array;
-//		reValue[0] = err;
-//		(*env)->SetIntArrayRegion(env,array,0,5,reValue);
-//		return array;
-	}
+            close(fd);
+            reValue[0] = err;
+            (*env)->SetIntArrayRegion(env,array,0,5,reValue);
+            return array;
+//        reValue[0] = err;
+//        (*env)->SetIntArrayRegion(env,array,0,5,reValue);
+//        return array;
+    }
         __android_log_print(4,LOG_TAG,"open /dev/bma222 success,fd = %d",fd);
-//	err = ioctl(fd, BMA222_FAST_CALIBRATION, fastcal);
+//    err = ioctl(fd, BMA222_FAST_CALIBRATION, fastcal);
         err = ioctl(fd, BMA2x2_FAST_CALIBRATION, &value);
         __android_log_print(4,LOG_TAG,"after ioctl,err = %d",err);
         __android_log_print(4,LOG_TAG,"after ioctl,value = %d",value);
 //20130111 modify for add BMA222 and BMA250 calibration by lvhongshan end
-	close(fd);
-	reValue[0] = err;
-	(*env)->SetIntArrayRegion(env,array,0,5,reValue);
-	return array;
+    close(fd);
+    reValue[0] = err;
+    (*env)->SetIntArrayRegion(env,array,0,5,reValue);
+    return array;
 }
 //20121208 lvhongshanend
 //2011-12-06-APP-zhangyi-Modify proximity sensor test.
 static jstring getProximityPSwitch
 (JNIEnv *env, jobject obj)
 {
-	int fd;
-	int result;
-	jstring ps=NULL;
-	char buf[5]={0};
-	fd = open("/data/simcom/cm3623_ps/ps_30_nv.file", O_RDONLY);
-	__android_log_print(4, LOG_TAG, "PSwitch fd = %d", fd);
-	
-	result = read(fd, buf, sizeof(buf));
-	__android_log_print(4, LOG_TAG, "PSwitch result = %d", result);
-	__android_log_print(4, LOG_TAG, "PSwitch buf = %s", buf);
-	__android_log_print(4, LOG_TAG, "buf len = %d", strlen(buf));
-	close(fd);
-	return (*env)->NewStringUTF(env,buf);
+    int fd;
+    int result;
+    jstring ps=NULL;
+    char buf[5]={0};
+    fd = open("/data/simcom/cm3623_ps/ps_30_nv.file", O_RDONLY);
+    __android_log_print(4, LOG_TAG, "PSwitch fd = %d", fd);
+
+    result = read(fd, buf, sizeof(buf));
+    __android_log_print(4, LOG_TAG, "PSwitch result = %d", result);
+    __android_log_print(4, LOG_TAG, "PSwitch buf = %s", buf);
+    __android_log_print(4, LOG_TAG, "buf len = %d", strlen(buf));
+    close(fd);
+    return (*env)->NewStringUTF(env,buf);
 }
 
 static jint setButtonLight(JNIEnv *env, jobject obj, jboolean b)
 {
-	int result;
-	int value;
-	if(b){
-		value = 1;
-	}else{
-		value = 0;
-	}
-	result = write_int("/sys/class/leds/button-backlight/brightness", value);
-	if(result < 0){
-		return -1;
-	}
-	return 0;
+    int result;
+    int value;
+    if(b){
+        value = 1;
+    }else{
+        value = 0;
+    }
+    result = write_int("/sys/class/leds/button-backlight/brightness", value);
+    if(result < 0){
+        return -1;
+    }
+    return 0;
 }
 
 static jstring getVersion
 (JNIEnv *env, jobject obj)
 {
-	int fd;
-	char val[40] = {0};
-	struct stat buf;
-	fd = open("/sys/class/i2c-dev/i2c-2/device/2-0038/ftstpfwver", O_RDONLY);
+    int fd;
+    char val[40] = {0};
+    struct stat buf;
+    fd = open("/sys/class/i2c-dev/i2c-2/device/2-0038/ftstpfwver", O_RDONLY);
 
-	if (fd >= 0) {
-		int result = read(fd,val,40);
-		close(fd);
-	}
-	else{
-		//__android_log_print(LOG_TAG, "getVersion", "Open file failure!\n");
-	}
-	return (*env)->NewStringUTF(env,val);
+    if (fd >= 0) {
+        int result = read(fd,val,40);
+        close(fd);
+    }
+    else{
+        //__android_log_print(LOG_TAG, "getVersion", "Open file failure!\n");
+    }
+    return (*env)->NewStringUTF(env,val);
 }
 
 static int startUpgradeTouchPannelVersion
 (JNIEnv *env, jobject obj)
 {
-	int fd;
-	char name[50] = "ft5306_truly_firmware.h";
-	static int already_warned = 0;
-	fd = open("/sys/class/i2c-dev/i2c-2/device/2-0038/ftsfwupgradeapp", O_WRONLY);
-	if (fd >= 0) {
-		int amt = write(fd, name, strlen(name));
-		__android_log_print(4, LOG_TAG, "amt = %d", amt);
-		close(fd);
-		return(amt);
-	}
-	else{
-		return(-1);
-	}
+    int fd;
+    char name[50] = "ft5306_truly_firmware.h";
+    static int already_warned = 0;
+    fd = open("/sys/class/i2c-dev/i2c-2/device/2-0038/ftsfwupgradeapp", O_WRONLY);
+    if (fd >= 0) {
+        int amt = write(fd, name, strlen(name));
+        __android_log_print(4, LOG_TAG, "amt = %d", amt);
+        close(fd);
+        return(amt);
+    }
+    else{
+        return(-1);
+    }
 }
 
 static jint proximitySetCali
 (JNIEnv *env, jobject obj, jint which, jint value)
 {
-	int fd;
-	
-	char tmp[64];
-	memset(tmp, 0, 64);
+    int fd;
 
-	fd = open("/dev/stk3101", O_RDWR);
-	if (fd >= 0) 
-	{
-		int res = -1;
-		if (which == 0)
-		{
+    char tmp[64];
+    memset(tmp, 0, 64);
 
-			res = ioctl(fd, STK_SET_CALI_0, &value);
-		}
-		else if (which == 30)
-		{
-			res = ioctl(fd, STK_SET_CALI_30, &value);
-		}
+    fd = open("/dev/stk3101", O_RDWR);
+    if (fd >= 0)
+    {
+        int res = -1;
+        if (which == 0)
+        {
 
-		close(fd);
-		return res;
-	}
-	else 
-	{
-		return -1;
-	}
+            res = ioctl(fd, STK_SET_CALI_0, &value);
+        }
+        else if (which == 30)
+        {
+            res = ioctl(fd, STK_SET_CALI_30, &value);
+        }
+
+        close(fd);
+        return res;
+    }
+    else
+    {
+        return -1;
+    }
 
 }
 
 static int startFpTest
 (JNIEnv *env, jobject obj)
 {
-	int i,cnt;
-	int fd;
-	int res = -1;
-	int power_en = 0;
-	struct upek_info upek_info_org_tmp;
-	upek_info_s *upek_info_p;
+    int i,cnt;
+    int fd;
+    int res = -1;
+    int power_en = 0;
+    struct upek_info upek_info_org_tmp;
+    upek_info_s *upek_info_p;
 
-	fd = open("/dev/upek", O_RDWR);
-	if (fd >= 0)
-	{
-		//power on
-		res = ioctl(fd, UPEK_IOCTL_POWER_ON, 1);
-		if (res < 0)
-		{
-			__android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---power on fingerprint fail! \n");
-			close(fd);
-			return -1;
-		}
-	
-		cnt = sizeof(upek_info_table)/sizeof(upek_info_s);
-		upek_info_p = upek_info_table;
-		for (i=0; i<cnt; i++)
-		{
-			upek_info_org_tmp.addr = (upek_info_p+i)->addr;
-			upek_info_org_tmp.data = (upek_info_p+i)->data;
-			res = ioctl(fd, UPEK_IOCTL_WRITE, &upek_info_org_tmp);
-			if (res < 0)
-			{
-				__android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---test UPEK_IOCTL_WRITE fail! \n");
-				close(fd);
-				return -1;
-			}
+    fd = open("/dev/upek", O_RDWR);
+    if (fd >= 0)
+    {
+        //power on
+        res = ioctl(fd, UPEK_IOCTL_POWER_ON, 1);
+        if (res < 0)
+        {
+            __android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---power on fingerprint fail! \n");
+            close(fd);
+            return -1;
+        }
 
-			res = ioctl(fd, UPEK_IOCTL_READ, &upek_info_org_tmp);
-			if (res < 0)
-			{
-				__android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---test UPEK_IOCTL_READ fail! \n");
-				close(fd);
-				return -1;
-			}
-			switch((upek_info_p+i)->tri_state)
-			{
-				case 0:	//all
-				break;
+        cnt = sizeof(upek_info_table)/sizeof(upek_info_s);
+        upek_info_p = upek_info_table;
+        for (i=0; i<cnt; i++)
+        {
+            upek_info_org_tmp.addr = (upek_info_p+i)->addr;
+            upek_info_org_tmp.data = (upek_info_p+i)->data;
+            res = ioctl(fd, UPEK_IOCTL_WRITE, &upek_info_org_tmp);
+            if (res < 0)
+            {
+                __android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---test UPEK_IOCTL_WRITE fail! \n");
+                close(fd);
+                return -1;
+            }
 
-				case 1:	//low
-				upek_info_org_tmp.data &= 0xF;
-				break;
+            res = ioctl(fd, UPEK_IOCTL_READ, &upek_info_org_tmp);
+            if (res < 0)
+            {
+                __android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---test UPEK_IOCTL_READ fail! \n");
+                close(fd);
+                return -1;
+            }
+            switch((upek_info_p+i)->tri_state)
+            {
+                case 0:    //all
+                break;
 
-				case 2:	//high
-				upek_info_org_tmp.data &= 0xF0;
-				break;
-			}
+                case 1:    //low
+                upek_info_org_tmp.data &= 0xF;
+                break;
 
-			if (upek_info_org_tmp.data != (upek_info_p+i)->succ)
-			{
-				__android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---error value! \n");
-				close(fd);
-				return -1;
-			}
-			
-		}
+                case 2:    //high
+                upek_info_org_tmp.data &= 0xF0;
+                break;
+            }
 
-		//power off
-		res = ioctl(fd, UPEK_IOCTL_POWER_DOWN, 1);
-		if (res < 0)
-		{
-			__android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---power off fingerprint fail! \n");
-			close(fd);
-			return -1;
-		}
+            if (upek_info_org_tmp.data != (upek_info_p+i)->succ)
+            {
+                __android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---error value! \n");
+                close(fd);
+                return -1;
+            }
 
-		close(fd);
-		return res;
-	}
-	else 
-	{
-		__android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---open fingerprint fail! \n");
-		return -1;
-	}
+        }
+
+        //power off
+        res = ioctl(fd, UPEK_IOCTL_POWER_DOWN, 1);
+        if (res < 0)
+        {
+            __android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---power off fingerprint fail! \n");
+            close(fd);
+            return -1;
+        }
+
+        close(fd);
+        return res;
+    }
+    else
+    {
+        __android_log_print(ANDROID_LOG_VERBOSE, "---fp---", "---fp---open fingerprint fail! \n");
+        return -1;
+    }
 }
 //20130105 add for test Lkt by lvhongshan start
 /* The file descriptor for a serial device.  */
@@ -2313,59 +2313,59 @@ LTK_serial_free_device (void)
 
 int  LTK_Hex2Byte(char *buf, size_t len,unsigned char *dat0)
 {
-	int i,j,k,leth;
-	char h,l;
+    int i,j,k,leth;
+    char h,l;
 
-	leth=len;
-	printf("LTK_Hex2Byte =%d ",len);
-	leth>>=1;
-	printf("LTK_Hex2Byte leth=%d\n",leth);
-	for(k=0;k<leth;k++)
-	{
-		h=buf[2*k];
-		l=buf[2*k + 1];
-		i=16;
-		j=16;
-		if ((h<='9') && (h>='0'))
-			i=(h-'0') ;
-		if ((h<='F') && (h>='A'))
-			i=(h-'A'+10);
+    leth=len;
+    printf("LTK_Hex2Byte =%d ",len);
+    leth>>=1;
+    printf("LTK_Hex2Byte leth=%d\n",leth);
+    for(k=0;k<leth;k++)
+    {
+        h=buf[2*k];
+        l=buf[2*k + 1];
+        i=16;
+        j=16;
+        if ((h<='9') && (h>='0'))
+            i=(h-'0') ;
+        if ((h<='F') && (h>='A'))
+            i=(h-'A'+10);
 
-		if ((l<='9') && (l>='0'))
-			j=(l-'0') ;
-		if ((l<='F') && (l>='A'))
-			j=(l-'A'+10);
+        if ((l<='9') && (l>='0'))
+            j=(l-'0') ;
+        if ((l<='F') && (l>='A'))
+            j=(l-'A'+10);
 
-		if  (i+j>=32)
-		{
-			//dat0[k]=(byte)str0.GetAt(2*k);
-			return 0;
-		}else
-		{
-			dat0[k]=(i<<4)+j;
-		}
-	}
-	return (leth);
+        if  (i+j>=32)
+        {
+            //dat0[k]=(byte)str0.GetAt(2*k);
+            return 0;
+        }else
+        {
+            dat0[k]=(i<<4)+j;
+        }
+    }
+    return (leth);
 }
 
 static speed_t
 LTK_get_termios_speed (int speed)
 {
-	switch (speed)
-	{
-	case 2400: return B2400;
-	case 4800: return B4800;
-	case 9600: return B9600;
-	case 19200: return B19200;
-	case 38400: return B38400;
+    switch (speed)
+    {
+    case 2400: return B2400;
+    case 4800: return B4800;
+    case 9600: return B9600;
+    case 19200: return B19200;
+    case 38400: return B38400;
 #ifdef B57600
-	case 57600: return B57600;
+    case 57600: return B57600;
 #endif
 #ifdef B115200
-	case 115200: return B115200;
+    case 115200: return B115200;
 #endif
-	}
-	return B0;
+    }
+    return B0;
 }
 
 int
@@ -2386,15 +2386,15 @@ LTK_serial_hw_init (unsigned int speed,int word_len, int parity, int stop_bit_le
 
   /* Open the device file.  */
   serial_fd = open (serial_device,
-		    O_RDWR | O_NOCTTY
+            O_RDWR | O_NOCTTY
 #if defined(O_SYNC)
-		    /* O_SYNC is used in Linux (and some others?).  */
-		    | O_SYNC
+            /* O_SYNC is used in Linux (and some others?).  */
+            | O_SYNC
 #elif defined(O_FSYNC)
-		    /* O_FSYNC is used in FreeBSD.  */
-		    | O_FSYNC
+            /* O_FSYNC is used in FreeBSD.  */
+            | O_FSYNC
 #endif
-		    );
+            );
 
   if (serial_fd < 0)
     return 0;
@@ -2482,24 +2482,24 @@ LTK_serial_hw_init (unsigned int speed,int word_len, int parity, int stop_bit_le
 
 static void* thread_read(void* arg)
 {
-	int count	=50,len,i;
-	printf("++++++++++++++++\n");
-	while (1)
-	{
-	        //memset(buffer_r,'\0',sizeof(buffer_r));
-		len = read(serial_fd, buffer_r, sizeof(buffer_r));
-		printf("read len = %d\n",len);
+    int count    =50,len,i;
+    printf("++++++++++++++++\n");
+    while (1)
+    {
+            //memset(buffer_r,'\0',sizeof(buffer_r));
+        len = read(serial_fd, buffer_r, sizeof(buffer_r));
+        printf("read len = %d\n",len);
                 __android_log_print(4, LOG_TAG, "length: %d \n",len);
-		for(i=0;i<len;i++)
-		{
-			printf("%X ",buffer_r[i]);
-			printf("%d ",buffer_r[i]);
-			printf("%c \n",buffer_r[i]);
+        for(i=0;i<len;i++)
+        {
+            printf("%X ",buffer_r[i]);
+            printf("%d ",buffer_r[i]);
+            printf("%c \n",buffer_r[i]);
                          __android_log_print(4, LOG_TAG, "[%d] %X <--> %d",i ,buffer_r[i] ,buffer_r[i]);
-		}
-		printf("\n");
-	}
-	return NULL;
+        }
+        printf("\n");
+    }
+    return NULL;
 }
 
 static jint lktTest
@@ -2514,13 +2514,13 @@ static jint lktTest
     unsigned int loop_count=0;
     unsigned char pwr_status = 1;
 
-	LTK_serial_set_device("/dev/ttyMSM2");
-	if (!LTK_serial_hw_init (19200,UART_8BITS_WORD,UART_EVEN_PARITY,UART_2_STOP_BITS))
-	{
-		LTK_serial_free_device();
+    LTK_serial_set_device("/dev/ttyMSM2");
+    if (!LTK_serial_hw_init (19200,UART_8BITS_WORD,UART_EVEN_PARITY,UART_2_STOP_BITS))
+    {
+        LTK_serial_free_device();
                 printf("LTK_serial_hw_init fail\n");
-		return 1;
-	}
+        return 1;
+    }
 
         lkt_fd = open("/dev/lkt",O_RDWR);
         printf("open lkt %d\n",lkt_fd);
@@ -2532,7 +2532,7 @@ static jint lktTest
 
         pthread_create(&thread, NULL, thread_read, NULL);
         memset(buffer_r,'\0',sizeof(buffer_r));
-	sleep(1);//sleep(5);
+    sleep(1);//sleep(5);
 
         // reset lkt chip
         result = ioctl(lkt_fd, MSM_LKT_RESET,0);
@@ -2551,39 +2551,39 @@ static jint lktTest
             //printf("loop %d\n",loop_count);
         // send test package to LKT chip
         len = LTK_Hex2Byte("F0F6000108",sizeof("F0F6000108"),&buffer_w[0]);
-   	//len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
-	printf("write len %d\n",len);
-	printf("%X-%X-%X-%X-%X-%X-%X-%X ",
-		buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
-		,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
+       //len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
+    printf("write len %d\n",len);
+    printf("%X-%X-%X-%X-%X-%X-%X-%X ",
+        buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
+        ,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
         __android_log_print(4, LOG_TAG, "start test ");
-	writelen=write(serial_fd,buffer_w,len);
-	printf("writelen len =%d\n",writelen);
+    writelen=write(serial_fd,buffer_w,len);
+    printf("writelen len =%d\n",writelen);
         
 
         memset(buffer_r,0xFF,sizeof(buffer_r));
         memset(buffer_w,0xFF,sizeof(buffer_w));
-	sleep(1); //sleep(10);
+    sleep(1); //sleep(10);
          __android_log_print(4, LOG_TAG, "1: %X-%X-%X-%X-%X-%X-%X-%X-%X-%X-%X ",
-		buffer_r[0],buffer_r[1],buffer_r[2],buffer_r[3]
-		,buffer_r[4],buffer_r[5],buffer_r[6],buffer_r[7],buffer_r[8],buffer_r[9],buffer_r[10]);
+        buffer_r[0],buffer_r[1],buffer_r[2],buffer_r[3]
+        ,buffer_r[4],buffer_r[5],buffer_r[6],buffer_r[7],buffer_r[8],buffer_r[9],buffer_r[10]);
     if(buffer_r[0]== 246 && buffer_r[9] == 144 && buffer_r[10] == 0){
-		//F6 6F 10 10 A1 53 38 AB 26 90 0
+        //F6 6F 10 10 A1 53 38 AB 26 90 0
         
-    	tresult++;
+        tresult++;
     }
     __android_log_print(4, LOG_TAG, "reset1");
     memset(buffer_r,'\0',sizeof(buffer_r));
             //}  // for(;loop_count<1000;loop_count++)
 //20130105 modify for remove A306011122334455 by lvhongshan start
-//   	len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
-//	printf("write len %d\n",len);
-//	printf("%X-%X-%X-%X-%X-%X-%X-%X ",
-//		buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
-//		,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
+//       len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
+//    printf("write len %d\n",len);
+//    printf("%X-%X-%X-%X-%X-%X-%X-%X ",
+//        buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
+//        ,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
 //
-//	writelen=write(serial_fd,buffer_w,len);
-//	printf("writelen len =%d\n",writelen);
+//    writelen=write(serial_fd,buffer_w,len);
+//    printf("writelen len =%d\n",writelen);
 //        sleep(5);
 //20130105 modify for remove A306011122334455 by lvhongshan end
        //return result;
@@ -2605,69 +2605,69 @@ static jint lktTest
         // set PPS of LKT chip
         len = LTK_Hex2Byte("FF10947B",sizeof("FF10947B"),&buffer_w[0]);   // set PPS to 115200 bps
         printf("write len %d\n",len);
-	printf("%X-%X-%X-%X-%X-%X-%X-%X ",
-		buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
-		,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
+    printf("%X-%X-%X-%X-%X-%X-%X-%X ",
+        buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
+        ,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
 
-	writelen=write(serial_fd,buffer_w,len);
-	printf("writelen len =%d\n",writelen);
+    writelen=write(serial_fd,buffer_w,len);
+    printf("writelen len =%d\n",writelen);
 
  //       memset(buffer_r,0,sizeof(buffer_r));
 //        memset(buffer_w,0,sizeof(buffer_w));
 
-	sleep(3); //sleep(10);
+    sleep(3); //sleep(10);
         __android_log_print(4, LOG_TAG, "2: %X-%X-%X-%X-%X-%X-%X-%X ",
-		buffer_r[0],buffer_r[1],buffer_r[2],buffer_r[3]
-		,buffer_r[4],buffer_r[5],buffer_r[6],buffer_r[7]);
-	if(buffer_r[0]== 255 && buffer_r[1] == 16 && buffer_r[2] == 148 && buffer_r[3] == 123){
-			//FF10947B
+        buffer_r[0],buffer_r[1],buffer_r[2],buffer_r[3]
+        ,buffer_r[4],buffer_r[5],buffer_r[6],buffer_r[7]);
+    if(buffer_r[0]== 255 && buffer_r[1] == 16 && buffer_r[2] == 148 && buffer_r[3] == 123){
+            //FF10947B
                 
-	    	tresult++;
-	    }
+            tresult++;
+        }
          __android_log_print(4, LOG_TAG, "reset2");
          memset(buffer_r,'\0',sizeof(buffer_r));
 /*===========================================================*/
-	if (!LTK_serial_hw_init (115200,UART_8BITS_WORD,UART_EVEN_PARITY,UART_2_STOP_BITS))
-	{
-		LTK_serial_free_device();
+    if (!LTK_serial_hw_init (115200,UART_8BITS_WORD,UART_EVEN_PARITY,UART_2_STOP_BITS))
+    {
+        LTK_serial_free_device();
                 printf("LTK_serial_hw_init fail\n");
-		return -1;
-	}
+        return -1;
+    }
 
 //for(;loop_count<1000;loop_count++){
 //        printf("loop %d\n",loop_count);
         len = LTK_Hex2Byte("F0F6000108",sizeof("F0F6000108"),&buffer_w[0]);
-   	//len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
-	printf("write len %d\n",len);
-	printf("%X-%X-%X-%X-%X-%X-%X-%X ",
-		buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
-		,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
+       //len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
+    printf("write len %d\n",len);
+    printf("%X-%X-%X-%X-%X-%X-%X-%X ",
+        buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
+        ,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
 
-	writelen=write(serial_fd,buffer_w,len);
-	printf("writelen len =%d\n",writelen);
+    writelen=write(serial_fd,buffer_w,len);
+    printf("writelen len =%d\n",writelen);
 
         //memset(buffer_r,0,sizeof(buffer_r));
         //memset(buffer_w,0,sizeof(buffer_w));
         sleep(1); //sleep(10);
         __android_log_print(4, LOG_TAG, "3: %X-%X-%X-%X-%X-%X-%X-%X-%X-%X-%X ",
-		buffer_r[0],buffer_r[1],buffer_r[2],buffer_r[3]
-		,buffer_r[4],buffer_r[5],buffer_r[6],buffer_r[7],buffer_r[8],buffer_r[9],buffer_r[10]);
-	if(buffer_r[0]== 246 && buffer_r[9] == 144 && buffer_r[10] == 0){
-			//F6 6F 10 10 A1 53 38 AB 26 90 0
-		
-	    	tresult++;
-	    }
+        buffer_r[0],buffer_r[1],buffer_r[2],buffer_r[3]
+        ,buffer_r[4],buffer_r[5],buffer_r[6],buffer_r[7],buffer_r[8],buffer_r[9],buffer_r[10]);
+    if(buffer_r[0]== 246 && buffer_r[9] == 144 && buffer_r[10] == 0){
+            //F6 6F 10 10 A1 53 38 AB 26 90 0
+
+            tresult++;
+        }
          __android_log_print(4, LOG_TAG, "reset3");
          memset(buffer_r,'\0',sizeof(buffer_r));
 //20130105 modify for remove A306011122334455 by lvhongshan start
-//   	len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
-//	printf("write len %d\n",len);
-//	printf("%X-%X-%X-%X-%X-%X-%X-%X ",
-//		buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
-//		,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
+//       len = LTK_Hex2Byte("A306011122334455",sizeof("A306011122334455"),&buffer_w[0]);
+//    printf("write len %d\n",len);
+//    printf("%X-%X-%X-%X-%X-%X-%X-%X ",
+//        buffer_w[0],buffer_w[1],buffer_w[2],buffer_w[3]
+//        ,buffer_w[4],buffer_w[5],buffer_w[6],buffer_w[7]);
 //
-//	writelen=write(serial_fd,buffer_w,len);
-//	printf("writelen len =%d\n",writelen);
+//    writelen=write(serial_fd,buffer_w,len);
+//    printf("writelen len =%d\n",writelen);
 //
 //        //memset(buffer_r,0,sizeof(buffer_r));
 //        //memset(buffer_w,0,sizeof(buffer_w));
@@ -2677,7 +2677,7 @@ static jint lktTest
 
     close(lkt_fd);
     close (serial_fd);
-	__android_log_print(4, LOG_TAG, "end test result: %d ", tresult);
+    __android_log_print(4, LOG_TAG, "end test result: %d ", tresult);
     return tresult;
 }
 
@@ -3053,7 +3053,7 @@ static jstring GsensorCalibration
     if (ret < 0)
     {
         strcpy (buf_xyz,"fail");
-	//return (*env)->NewStringUTF(env,buf_xyz);
+    //return (*env)->NewStringUTF(env,buf_xyz);
     }
     read (fd_y,buf_y,10);
     read (fd_z,buf_z,10);
@@ -3144,70 +3144,70 @@ static jstring urtTtyTestTwo
 static const char *classPathName = "com/sim/cit/CommonDrive";
 
 static JNINativeMethod methods[] = {
-//  	{"flashlightControl", "(Ljava/lang/String;)V", (void*)flashlightControl },
-	{"backlightControl", "(I)V", (void*)backlightControl },
-	{"lightControl", "(I)V", (void*)lightControl },
+//      {"flashlightControl", "(Ljava/lang/String;)V", (void*)flashlightControl },
+    {"backlightControl", "(I)V", (void*)backlightControl },
+    {"lightControl", "(I)V", (void*)lightControl },
         //Modify for CIT optimization by xiasiping 20140730 start
-	{"lightControl_d", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", (void*)lightControl_d },
+    {"lightControl_d", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", (void*)lightControl_d },
         //Modify for CIT optimization by xiasiping 20140730 end
-	{"calibration", "()I", (void*)calibration },
-	{"getMotionXYZ", "()[F", (void*)getMotionXYZ },
-	{"getCompassValues", "()[I", (void*)getCompassValues },
-  	{"getOrientationValues", "()[I", (void*)getOrientationValues },
-  	{"proximityDistance", "()Ljava/lang/String;", (void*)proximityDistance },
-  	{"lightDegree", "()Ljava/lang/String;", (void*)lightDegree },
-	{"getVoltage", "()I", (void*)getVoltage },
+    {"calibration", "()I", (void*)calibration },
+    {"getMotionXYZ", "()[F", (void*)getMotionXYZ },
+    {"getCompassValues", "()[I", (void*)getCompassValues },
+      {"getOrientationValues", "()[I", (void*)getOrientationValues },
+      {"proximityDistance", "()Ljava/lang/String;", (void*)proximityDistance },
+      {"lightDegree", "()Ljava/lang/String;", (void*)lightDegree },
+    {"getVoltage", "()I", (void*)getVoltage },
         //Modify for CIT optimization by xiasiping 20140730 start
-	{"getVoltage_d", "(Ljava/lang/String;)I", (void*)getVoltage_d },
+    {"getVoltage_d", "(Ljava/lang/String;)I", (void*)getVoltage_d },
         //Modify for CIT optimization by xiasiping 20140730 end
-  	{"getCapacity", "()I", (void*)getCapacity },
-  	{"getHardwareVersion", "()I", (void*)getHardwareVersion },
-	{"wifiControl", "(II)I", (void*)wifiControl },
-  	{"bluetoothControl", "(Z)I", (void*)bluetoothControl },
-  	{"openBluetooth", "()I", (void*)openBluetooth },
-  	{"excemotcal", "()[I", (void*)excemotcal },
-	{"execVcalibration", "()I", (void*)execVcalibration },
-  	{"copyFile", "(Ljava/lang/String;Ljava/lang/String;)V", (void*)copyFile },
-	{"proximityCalibration", "(I)I", (void*)proximityCalibration },
-	{"excemotcalH", "()[I", (void*)excemotcalH },
-	/*
-	{"startWifiTestMode", "()I", (void*)startWifiTestMode },
-  	{"stopWifiTestMode", "()I", (void*)stopWifiTestMode },
-	{"InitWifiTestMode", "()I", (void*)InitWifiTestMode },
-  	{"deinitWifiTestMode", "()I", (void*)deinitWifiTestMode },
-	{"setWifiMode", "(II)I", (void*)setWifiMode },
-	{"wifiStartRx", "(I)I", (void*)wifiStartRx },
-	{"setRxEquipmentType", "(I)I", (void*)setRxEquipmentType },
-  	{"setRxTotalPacket", "(I)I", (void*)setRxTotalPacket },
-	{"wifiStopRx", "()I", (void*)wifiStopRx },
-  	{"readwifiRxResult", "()[I", (void*)readwifiRxResult },
-	{"readWifiRxRssi", "()I", (void*)readWifiRxRssi },
-	{"wifiStartTx", "(I)I", (void*)wifiStartTx },
-	{"wifiStopTx", "()I", (void*)wifiStopTx },
-	{"wifiSetTxGain", "(I)I", (void*)wifiSetTxGain },
-	{"wifiSetTxSIFS", "(I)I", (void*)wifiSetTxSIFS },
-  	{"wifiSetTxNumberofFrames", "(I)I", (void*)wifiSetTxNumberofFrames },
-	{"wifiSetPayLoadLength", "(I)I", (void*)wifiSetPayLoadLength },
-  	{"wifiSetPreamble", "(I)I", (void*)wifiSetPreamble },
-	{"readwifiRxStatus", "()[I", (void*)readwifiRxStatus },
-	{"wifiClearRxStatus", "()I", (void*)wifiClearRxStatus },
-	{"getWifiMacAddress", "()Ljava/lang/String;", (void*)getWifiMacAddress },
-	{"setWifiMacAddress", "(Ljava/lang/String;)I", (void*)setWifiMacAddress },
-	{"setCarrierSuppressionMode", "(I)V", (void*)setCarrierSuppressionMode },
-  	{"runCommand", "(Ljava/lang/String;)I", (void*)runCommand },
-  	*/
-  	{"setButtonLight", "(Z)I", (void*)setButtonLight },
-  	{"getProximityPSwitch", "()Ljava/lang/String;", (void*)getProximityPSwitch },
-  	{"getVersion", "()Ljava/lang/String;", (void*)getVersion },
-  	{"startUpgradeTouchPannelVersion", "()I", (void*)startUpgradeTouchPannelVersion },
-	{"proximitySetCali", "(II)I", (void*)proximitySetCali },
+      {"getCapacity", "()I", (void*)getCapacity },
+      {"getHardwareVersion", "()I", (void*)getHardwareVersion },
+    {"wifiControl", "(II)I", (void*)wifiControl },
+      {"bluetoothControl", "(Z)I", (void*)bluetoothControl },
+      {"openBluetooth", "()I", (void*)openBluetooth },
+      {"excemotcal", "()[I", (void*)excemotcal },
+    {"execVcalibration", "()I", (void*)execVcalibration },
+      {"copyFile", "(Ljava/lang/String;Ljava/lang/String;)V", (void*)copyFile },
+    {"proximityCalibration", "(I)I", (void*)proximityCalibration },
+    {"excemotcalH", "()[I", (void*)excemotcalH },
+    /*
+    {"startWifiTestMode", "()I", (void*)startWifiTestMode },
+      {"stopWifiTestMode", "()I", (void*)stopWifiTestMode },
+    {"InitWifiTestMode", "()I", (void*)InitWifiTestMode },
+      {"deinitWifiTestMode", "()I", (void*)deinitWifiTestMode },
+    {"setWifiMode", "(II)I", (void*)setWifiMode },
+    {"wifiStartRx", "(I)I", (void*)wifiStartRx },
+    {"setRxEquipmentType", "(I)I", (void*)setRxEquipmentType },
+      {"setRxTotalPacket", "(I)I", (void*)setRxTotalPacket },
+    {"wifiStopRx", "()I", (void*)wifiStopRx },
+      {"readwifiRxResult", "()[I", (void*)readwifiRxResult },
+    {"readWifiRxRssi", "()I", (void*)readWifiRxRssi },
+    {"wifiStartTx", "(I)I", (void*)wifiStartTx },
+    {"wifiStopTx", "()I", (void*)wifiStopTx },
+    {"wifiSetTxGain", "(I)I", (void*)wifiSetTxGain },
+    {"wifiSetTxSIFS", "(I)I", (void*)wifiSetTxSIFS },
+      {"wifiSetTxNumberofFrames", "(I)I", (void*)wifiSetTxNumberofFrames },
+    {"wifiSetPayLoadLength", "(I)I", (void*)wifiSetPayLoadLength },
+      {"wifiSetPreamble", "(I)I", (void*)wifiSetPreamble },
+    {"readwifiRxStatus", "()[I", (void*)readwifiRxStatus },
+    {"wifiClearRxStatus", "()I", (void*)wifiClearRxStatus },
+    {"getWifiMacAddress", "()Ljava/lang/String;", (void*)getWifiMacAddress },
+    {"setWifiMacAddress", "(Ljava/lang/String;)I", (void*)setWifiMacAddress },
+    {"setCarrierSuppressionMode", "(I)V", (void*)setCarrierSuppressionMode },
+      {"runCommand", "(Ljava/lang/String;)I", (void*)runCommand },
+      */
+      {"setButtonLight", "(Z)I", (void*)setButtonLight },
+      {"getProximityPSwitch", "()Ljava/lang/String;", (void*)getProximityPSwitch },
+      {"getVersion", "()Ljava/lang/String;", (void*)getVersion },
+      {"startUpgradeTouchPannelVersion", "()I", (void*)startUpgradeTouchPannelVersion },
+    {"proximitySetCali", "(II)I", (void*)proximitySetCali },
         {"getHWVersion", "()Ljava/lang/String;", (void*)getHWVersion },
         //Modify for CIT optimization by xiasiping 20140730 start
         {"getHWVersion_d", "(Ljava/lang/String;)Ljava/lang/String;", (void*)getHWVersion_d },
         //Modify for CIT optimization by xiasiping 20140730 end
-	{"getHWSubType", "()Ljava/lang/String;", (void*)getHWSubType },
+    {"getHWSubType", "()Ljava/lang/String;", (void*)getHWSubType },
         //Modify for CIT optimization by xiasiping 20140730 start
-	{"getHWSubType_d", "(Ljava/lang/String;)Ljava/lang/String;", (void*)getHWSubType_d },
+    {"getHWSubType_d", "(Ljava/lang/String;)Ljava/lang/String;", (void*)getHWSubType_d },
         //Modify for CIT optimization by xiasiping 20140730 end
     {"buttonlightControl", "(I)V", (void*)buttonlightControl },
     //Modify for CIT optimization by xiasiping 20140730 start
@@ -3219,22 +3219,22 @@ static JNINativeMethod methods[] = {
     //Modify for CIT optimization by xiasiping 20140730 end
     {"lightControlForIS", "(I)V", (void*)lightControlForIS},
         //modify for add heartbeatforPCBA by xiasiping 20140925 start
-	{"PtestHeartBeat", "()I", (void*)PtestHeartBeat },
-	{"CtestHeartBeat", "()I", (void*)CtestHeartBeat },
+    {"PtestHeartBeat", "()I", (void*)PtestHeartBeat },
+    {"CtestHeartBeat", "()I", (void*)CtestHeartBeat },
         //modify for add heartbeatforPCBA by xiasiping 20140925 end
         //Modify for P-sensor change in PA568 by xiasiping 20140919 start
-	{"getXPsensor", "()I", (void*)getXPsensor },
-	{"getXPsensor_new", "()I", (void*)getXPsensor_new },
-	{"setPsensorNear", "(Ljava/lang/String;)I", (void*)setPsensorNear },
-	{"setPsensorFar", "(Ljava/lang/String;)I", (void*)setPsensorFar },
+    {"getXPsensor", "()I", (void*)getXPsensor },
+    {"getXPsensor_new", "()I", (void*)getXPsensor_new },
+    {"setPsensorNear", "(Ljava/lang/String;)I", (void*)setPsensorNear },
+    {"setPsensorFar", "(Ljava/lang/String;)I", (void*)setPsensorFar },
         //Modify for P-sensor change in PA568 by xiasiping 20140919 end
-	{"urtTtyTestOne", "(Ljava/lang/String;)Ljava/lang/String;", (void*)urtTtyTestOne },
-	{"GsensorCalibration", "()Ljava/lang/String;", (void*)GsensorCalibration },
-	{"GyroCalibration", "()I", (void*)GyroCalibration },
-	{"getGyro_x", "()I", (void*)getGyro_x },
-	{"getGyro_y", "()I", (void*)getGyro_y },
-	{"getGyro_z", "()I", (void*)getGyro_z },
-	{"urtTtyTestTwo", "(Ljava/lang/String;)Ljava/lang/String;", (void*)urtTtyTestTwo }
+    {"urtTtyTestOne", "(Ljava/lang/String;)Ljava/lang/String;", (void*)urtTtyTestOne },
+    {"GsensorCalibration", "()Ljava/lang/String;", (void*)GsensorCalibration },
+    {"GyroCalibration", "()I", (void*)GyroCalibration },
+    {"getGyro_x", "()I", (void*)getGyro_x },
+    {"getGyro_y", "()I", (void*)getGyro_y },
+    {"getGyro_z", "()I", (void*)getGyro_z },
+    {"urtTtyTestTwo", "(Ljava/lang/String;)Ljava/lang/String;", (void*)urtTtyTestTwo }
 
 };
 
