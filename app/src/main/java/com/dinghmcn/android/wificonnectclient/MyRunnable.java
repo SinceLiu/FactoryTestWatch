@@ -5,12 +5,13 @@ public class MyRunnable implements Runnable {
     public static MainActivity Instance;
 
     private String msg;
-    public MyRunnable(String msg)
-    {
+
+    public MyRunnable(String msg) {
         this.msg = msg;
     }
-    public void run()
-    {
+
+    @Override
+    public void run() {
         Instance.outPutMessage(msg);
     }
 }

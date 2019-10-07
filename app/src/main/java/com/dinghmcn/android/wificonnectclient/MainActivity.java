@@ -4,13 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.AppOpsManager;
 import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -19,13 +14,10 @@ import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.net.Uri;
-import android.net.wifi.ScanResult;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemProperties;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -60,10 +52,8 @@ import com.dinghmcn.android.wificonnectclient.utils.ConnectManagerUtils.EnumComm
 import com.dinghmcn.android.wificonnectclient.utils.CustomPopDialog2;
 import com.dinghmcn.android.wificonnectclient.utils.GPSUtilss;
 import com.dinghmcn.android.wificonnectclient.utils.HeadsetLoopbackUtils;
-import com.dinghmcn.android.wificonnectclient.utils.IRbciService;
 import com.dinghmcn.android.wificonnectclient.utils.LogcatFileManager;
 import com.dinghmcn.android.wificonnectclient.utils.MyActivityManager;
-import com.dinghmcn.android.wificonnectclient.utils.RbciManager;
 import com.dinghmcn.android.wificonnectclient.utils.SensorManagerUtils;
 import com.dinghmcn.android.wificonnectclient.utils.SignalUtils;
 import com.dinghmcn.android.wificonnectclient.utils.StorageUtils;
@@ -83,7 +73,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -92,7 +81,6 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -181,8 +169,6 @@ public class MainActivity extends Activity {
     private final static int MY_PERMISSION_REQUEST_CONSTANT = 1001;
     private static CustomPopDialog2 dialog;
     private static boolean isScreen;
-    private RbciManager mRbciManager;
-    private IRbciService mIRbciService;
     private Intent serviceIntent;
 
 
@@ -298,10 +284,6 @@ public class MainActivity extends Activity {
         mWifiManagerUtils = WifiManagerUtils.getInstance(this);
         batteryChargeUtils = BatteryChargeUtils.getInstance(this);
         getBatteryInfo();
-
-        mRbciManager = new RbciManager(this, mIRbciService);
-
-
 
 //        mSignalUtils=SignalUtils.getInstance(this);
         bluetoothUtils = BluetoothUtils.getInstance(this);
@@ -761,8 +743,9 @@ public class MainActivity extends Activity {
                     Log.d(TAG, "move2");
                     Log.d("CHEN", "第" + (actionIndex + 1) + "个手指按下");
                     try {
-                        if (mTouchJsonObject != null)
+                        if (mTouchJsonObject != null) {
                             mTouchJsonObject.put("TWODOWN", "(" + ev.getX(1) + "," + ev.getY(1) + ")");
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -1006,7 +989,9 @@ public class MainActivity extends Activity {
                 }
                 if (!TextUtils.isEmpty(data)) {
                     int index = data.indexOf("}");
-                    if (index >= 0) data = data.substring(0, index + 1);
+                    if (index >= 0) {
+                        data = data.substring(0, index + 1);
+                    }
                     if (index < data.length() - 1) {
                         mLastPartInfo = data.substring(index + 1);
                     }

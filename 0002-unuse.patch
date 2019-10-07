@@ -1,7 +1,7 @@
 From 1a1bc2cf33b9e1bdeb15c3ce59a3fe4cad4ca8c8 Mon Sep 17 00:00:00 2001
 From: lxx <lxx@readboy.com>
 Date: Mon, 7 Oct 2019 11:54:57 +0800
-Subject: [PATCH] unuse
+Subject: [PATCH 2/2] unuse
 
 ---
  0001-rm-unuse.patch                           | 5451 -----------------
