@@ -20,26 +20,6 @@ import static android.content.ContentValues.TAG;
  * @date 2019 /4/10
  */
 public class VersionUtils {
-    @SuppressLint("StaticFieldLeak")
-    private static VersionUtils instance;
-    private Context mContext;
-
-    private VersionUtils(Context mContext) {
-        this.mContext = mContext;
-    }
-
-    /**
-     * Get instance version utils.
-     *
-     * @param mContext the m context
-     * @return the version utils
-     */
-    public static VersionUtils getInstance(Context mContext) {
-        if (instance == null) {
-            instance = new VersionUtils(mContext);
-        }
-        return instance;
-    }
 
     /**
      * Get serial number string.
@@ -48,7 +28,6 @@ public class VersionUtils {
      */
     @SuppressLint("MissingPermission")
     public static String getSerialNumber() {
-
         String serial = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -56,7 +35,6 @@ public class VersionUtils {
         } else {
             serial = SystemProperties.get("ro.serialno");
         }
-
         if (serial == null) {
             try {
                 Class<?> c = Class.forName("android.os.SystemProperties");
@@ -67,9 +45,7 @@ public class VersionUtils {
                 e.printStackTrace();
             }
         }
-
         return serial;
-
     }
 
     public String getHardwareVersion() {

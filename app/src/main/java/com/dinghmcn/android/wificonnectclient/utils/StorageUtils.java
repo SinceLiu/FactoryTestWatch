@@ -13,26 +13,10 @@ import java.text.DecimalFormat;
  * 获取存储相关信息
  */
 public class StorageUtils {
-
-    @SuppressLint("StaticFieldLeak")
-    private static StorageUtils instance;
     private Context mContext;
 
-    private StorageUtils(Context context) {
+    public StorageUtils(Context context) {
         this.mContext = context;
-    }
-
-    /**
-     * Get instance storage utils.
-     *
-     * @param mContext the m context
-     * @return the storage utils
-     */
-    public static StorageUtils getInstance(Context mContext) {
-        if (null == instance) {
-            instance = new StorageUtils(mContext);
-        }
-        return instance;
     }
 
     /**
@@ -40,7 +24,6 @@ public class StorageUtils {
      *
      * @return the rom total storage
      */
-//rom
     public String getRomTotalStorage() {
         long totalSize = 0;
         final int[] phoneSpaceVlaue = {1, 2, 4, 8, 16, 32, 64, 128};

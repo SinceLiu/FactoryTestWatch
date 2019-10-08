@@ -66,7 +66,7 @@ public final class WifiUtils {
      * 定义WifiManager对象
      */
     private WifiManager mWifiManager;
-    private static Context mContext;
+    private Context mContext;
 
     /**
      * 构造器(只能进行初始化WifiManager操作，其他靠方法定义)
@@ -96,13 +96,13 @@ public final class WifiUtils {
     /**
      * 通过获取当前连接的ssid
      */
-    public static String getSSID() {
+    public static String getSSID(Context context) {
 
         String ssid = "unknown id";
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O || Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
 
-            WifiManager mWifiManager = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             assert mWifiManager != null;
             WifiInfo info = mWifiManager.getConnectionInfo();
@@ -114,7 +114,7 @@ public final class WifiUtils {
             }
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
 
-            ConnectivityManager connManager = (ConnectivityManager) mContext.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             assert connManager != null;
             NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
             if (networkInfo.isConnected()) {
@@ -274,7 +274,7 @@ public final class WifiUtils {
             NetworkInfo.State nState = cManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
             if ((nState == NetworkInfo.State.CONNECTED)) {
                 // 获取连接的ssid
-                return getSSID();
+                return getSSID(context);
             }
         } catch (Exception e) {
             Log.e(TAG, "isConnectAphot");

@@ -1,13 +1,11 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.annotation.NonNull;
 import android.support.v4.util.ArraySet;
 import android.util.Log;
 
@@ -22,11 +20,6 @@ import static android.app.ActivityThread.TAG;
  * 获取蓝牙相关信息
  */
 public class BluetoothUtils {
-    @SuppressLint("StaticFieldLeak")
-    private static BluetoothUtils instance = null;
-    /**
-     * The M context.
-     */
     Context mContext;
     private BluetoothAdapter mBluetoothAdapter = null;
     private Set<BluetoothDevice> bluetoothDevices;
@@ -36,19 +29,15 @@ public class BluetoothUtils {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             assert action != null;
-            Log.e("czl", "onReceive: " + action);
-            Log.e("czl", "确实走了");
             switch (action) {
                 case BluetoothAdapter.ACTION_STATE_CHANGED:
                     // 蓝牙状态改变
                     if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
                         // 蓝牙开启
                         if (!mBluetoothAdapter.isDiscovering()) {
-                            Log.e("czl", "确实走了3");
                             mBluetoothAdapter.startDiscovery();
                         } else {
                             mBluetoothAdapter.startDiscovery();
-                            Log.e("czl", "确实走了2");
                         }
                     }
                     break;
@@ -64,7 +53,6 @@ public class BluetoothUtils {
                         Log.d(TAG, device.getName() + "---" + device.getAddress());
                         bluetoothDeviceAddresses.add(device.getAddress());
                         bluetoothDevices.add(device);
-                        Log.e("czl", "确实走了6" + bluetoothDevices);
                         EventBus.getDefault().post("bluetooth");
                     }
                     break;
@@ -79,23 +67,10 @@ public class BluetoothUtils {
         }
     };
 
-    private BluetoothUtils(Context mContext) {
+    public BluetoothUtils(Context mContext) {
         this.mContext = mContext;
         registerReceiver();
-    }
-
-    /**
-     * Gets instance.
-     *
-     * @param context the context
-     * @return the instance
-     */
-    public static BluetoothUtils getInstance(@NonNull Context context) {
-        if (instance == null) {
-            instance = new BluetoothUtils(context);
-        }
-
-        return instance;
+        bluetoothOpen();
     }
 
     // 监听蓝牙事件广播
@@ -110,7 +85,6 @@ public class BluetoothUtils {
         // 发现蓝牙设备
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
         mContext.registerReceiver(blueToothReceiver, intentFilter);
-        Log.e("czl", "确实走了1");
     }
 
     /**
@@ -138,20 +112,6 @@ public class BluetoothUtils {
      */
     public Set<BluetoothDevice> getBluetoothDevices() {
         return bluetoothDevices;
-    }
-
-    /**
-     * 清理
-     */
-    public void exits() {
-        mContext.unregisterReceiver(blueToothReceiver);
-        if (mBluetoothAdapter.isDiscovering()) {
-            mBluetoothAdapter.cancelDiscovery();
-        }
-        if (mBluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
-            mBluetoothAdapter.disable();
-            Log.e(TAG, "关闭蓝牙");
-        }
     }
 
     /**

@@ -34,7 +34,6 @@ import static android.content.Context.BATTERY_SERVICE;
 public class BatteryChargeUtils {
     private final String TAG = getClass().getSimpleName();
     @SuppressLint("StaticFieldLeak")
-    private static BatteryChargeUtils instance = null;
     private Context mContext;
     private String batteryStatus;
     private String quality;
@@ -46,6 +45,7 @@ public class BatteryChargeUtils {
     private int temperature;
     private BatteryManager batteryManager;
     private BroadcastReceiver mChargeInfoReceiver = new BroadcastReceiver() {
+        @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
@@ -82,24 +82,11 @@ public class BatteryChargeUtils {
         }
     };
 
-    private BatteryChargeUtils(Context mContext) {
+    public BatteryChargeUtils(Context mContext) {
         this.mContext = mContext;
         batteryManager = (BatteryManager) mContext.getSystemService(BATTERY_SERVICE);
         // 注册电池事件监听器
         mContext.registerReceiver(mChargeInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-    }
-
-    /**
-     * Gets instance.
-     *
-     * @param context the context
-     * @return the instance
-     */
-    public static BatteryChargeUtils getInstance(@NonNull Context context) {
-        if (instance == null) {
-            instance = new BatteryChargeUtils(context);
-        }
-        return instance;
     }
 
     /**
@@ -110,31 +97,24 @@ public class BatteryChargeUtils {
     }
 
     /**
-     * 当前充电电流 mA
+     * 当前电流 mA
      *
-     * @return the current charging current
+     * @return the current current
      */
     public double getCurrentChargingCurrent() {
-        double result1 = 0, result2 = 0;
-
-        if (Build.VERSION.SDK_INT > 21) {
-            result1 = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE);
-            Log.d(TAG, "CURRENT1:" + result1);
-            if (result1 != 0) {
-                return result1;
-            }
-        }
-
+        double result = 0;
+        String path1 = "/sys/devices/platform/battery/FG_Battery_CurrentConsumption";
+        String path2 = "/sys/class/power_supply/battery/current_now";
         try {
-            result2 = getValue("/sys/class/power_supply/battery/BatteryAverageCurrent");
-            Log.d(TAG, "CURRENT2:" + result2);
-            if (result2 != 0) {
-                return result2;
+            if (new File(path1).exists()) {
+                result = getValue(path1) / 10.0f;
+            } else {
+                result = getValue(path2) / 1000.0f;
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return result;
     }
 
     /**
@@ -219,7 +199,7 @@ public class BatteryChargeUtils {
 
     public Double getCpuTemperature() {
         try {
-            return getValue("/sys/class/thermal/thermal_zone1/temp")/1000;
+            return getValue("/sys/class/thermal/thermal_zone1/temp") / 1000;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -227,10 +207,9 @@ public class BatteryChargeUtils {
     }
 
     public String getAdc() {
-        byte [] buff = new byte[50];
+        byte[] buff = new byte[50];
         try {
-            Class<?> c = null;
-            c = Class.forName("android.util.AdcCheckNative");
+            Class<?> c = Class.forName("android.util.AdcCheckNative");
             // open
             Method open = c.getMethod("openDev");
             open.invoke(c);

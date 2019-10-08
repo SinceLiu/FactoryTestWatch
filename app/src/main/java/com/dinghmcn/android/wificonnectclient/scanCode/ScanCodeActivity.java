@@ -37,24 +37,23 @@ public class ScanCodeActivity extends AppCompatActivity implements ZBarScannerVi
 
         @Override
         public void run() {
-            Log.e("CHEN", "ScanCodeActivity:SSD:" + WifiUtils.getSSID());
+            Log.e("CHEN", "ScanCodeActivity:SSD:" + WifiUtils.getSSID(ScanCodeActivity.this));
             Log.e("CHEN", "ScanCodeActivity:pwd:" + password);
-            if (!TextUtils.isEmpty(WifiUtils.getSSID())
-                    && WifiUtils.getSSID().equals(netWorkName)) {//连接到了扫描的wifi
+            if (!TextUtils.isEmpty(WifiUtils.getSSID(ScanCodeActivity.this))
+                    && WifiUtils.getSSID(ScanCodeActivity.this).equals(netWorkName)) {//连接到了扫描的wifi
                 stopTimer();
                 Intent intent = new Intent(ScanCodeActivity.this, MainActivity.class);
                 intent.putExtra("ssid", netWorkName);
                 intent.putExtra("password", password);
                 startActivity(intent);  //将ssid和密码传到mainActivity
                 finish();
-            } else if (!WifiUtils.getSSID().equals(netWorkName)) {
+            } else if (!WifiUtils.getSSID(ScanCodeActivity.this).equals(netWorkName)) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(ScanCodeActivity.this, "该WIFI无法连接，已连接其他WIFI", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         }
     };

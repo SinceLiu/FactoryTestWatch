@@ -25,30 +25,13 @@ public class WifiManagerUtils {
     private static final int WIFICIPHER_WEP = 1;
     private static final int WIFICIPHER_WPA = 2;
 
-    @Nullable
-    private static WifiManagerUtils instance = null;
+    private Context mContext;
+    private WifiManager mWifiManager;
 
-    private static Context mContext;
-    private static WifiManager mWifiManager;
-
-    private WifiManagerUtils(Context context) {
+    public WifiManagerUtils(Context context) {
         mContext = context;
         mWifiManager = (WifiManager) context.getApplicationContext()
                 .getSystemService(Context.WIFI_SERVICE);
-    }
-
-    /**
-     * Gets instance.
-     *
-     * @param context the context
-     * @return the instance
-     */
-    @Nullable
-    public static WifiManagerUtils getInstance(@NonNull Context context) {
-        if (instance == null) {
-            instance = new WifiManagerUtils(context);
-        }
-        return instance;
     }
 
     /**
@@ -230,6 +213,5 @@ public class WifiManagerUtils {
      */
     public List<ScanResult> getWifis() {
         return mWifiManager.getScanResults();
-
     }
 }

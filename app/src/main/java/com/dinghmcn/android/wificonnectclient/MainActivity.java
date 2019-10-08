@@ -122,6 +122,7 @@ public class MainActivity extends Activity {
     private static JSONArray mTouchMoveJsonObject2;
     private static int mOK = 2;
     private static String cameraInfod = "";
+    //TODO static dialog?
     private static CustomPopDialog2 dialog;
     private static boolean isScreen;
     /**
@@ -331,38 +332,36 @@ public class MainActivity extends Activity {
         mConnectMessage = new SpannableStringBuilder();
         mMainHandler = new MainHandel(this);
 
-        mWifiManagerUtils = WifiManagerUtils.getInstance(this);
-        mGpsUtils = GpsUtils.getInstance(this);
-        mCallUtils = CallUtils.getInstance(this);
-        mBatteryChargeUtils = BatteryChargeUtils.getInstance(this);
-        getBatteryInfo();
-
-        mBluetoothUtils = BluetoothUtils.getInstance(this);
-        mBluetoothUtils.bluetoothOpen();
-        mHeadsetLoopbackUtils = HeadsetLoopbackUtils.getInstance(this);
+        mWifiManagerUtils = new WifiManagerUtils(this);
+        mGpsUtils = new GpsUtils(this);
+        mCallUtils = new CallUtils(this);
+        mBatteryChargeUtils = new BatteryChargeUtils(this);
+        mBluetoothUtils = new BluetoothUtils(this);
+        mHeadsetLoopbackUtils = new HeadsetLoopbackUtils(this);
         outPutMessage(getVersionName(this));
 
-
-        mVersionUtils = VersionUtils.getInstance(this);
-        mStorageUtils = StorageUtils.getInstance(this);
+        mVersionUtils = new VersionUtils();
+        mStorageUtils = new StorageUtils(this);
 
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         // 获取服务器信息
-        String ip = loadFromSDFile("socketIP.txt");
+        String ip /*= loadFromSDFile("socketIP.txt")*/;
 
 //        ip = "192.168.8.88";
 //        originalSSID = "K2P";
 //        originalPassword = "Ding3865ding";
 
-        ip = "192.168.1.253";
-        originalSSID = "factory-fqc-test1";
-        originalPassword = "readboy@fqc1";
+//        ip = "192.168.1.253";
+//        originalSSID = "factory-fqc-test1";
+//        originalPassword = "readboy@fqc1";
+        ip = "192.168.99.113";
+        originalSSID = "readboy-24.198-2.4G";
+        originalPassword = "1234567890";
 
         if (null == ip || ip.trim().isEmpty()) {
             prepareConnectServer("{\"IP\":\"192.168.1.6\",\"Port\":12345,\"SSID\":\""
                     + originalSSID + "\"," + "\"PWD\":\"" + originalPassword + "\",\"Station\":1}");
-
         } else {
             prepareConnectServer("{\"IP\":" + ip + ",\"Port\":12345,\"SSID\":\""
                     + originalSSID + "\"," + "\"PWD\":\"" + originalPassword + "\",\"Station\":1}");
@@ -741,9 +740,13 @@ public class MainActivity extends Activity {
      */
     @Override
     protected void onDestroy() {
+        Log.e("lxx", "onDestroy");
         EventBus.getDefault().unregister(this);
         try {
             ConnectManagerUtils.mConnected = false;
+            if (null != mGpsUtils) {
+                mGpsUtils.release();
+            }
             if (null != mConnectManager) {
                 mConnectManager.disconnectServer();
                 mConnectManager = null;
@@ -940,7 +943,7 @@ public class MainActivity extends Activity {
 
                 if (GET.equals(mDataModel.getOtg())) {
                     // otg
-                    USBDiskUtils usbDiskUtils = USBDiskUtils.getInstance(MainActivity.this);
+                    USBDiskUtils usbDiskUtils = new USBDiskUtils(MainActivity.this);
                     usbDiskUtils.startTest();
                     int time = mDataModel.getTimeout() * 1000;
                     postDelayed(() -> {
@@ -954,9 +957,8 @@ public class MainActivity extends Activity {
                 if (GET.equals(mDataModel.getAccelerometer()) || GET.equals(mDataModel.getLight())
                         || GET.equals(mDataModel.getProximity()) || GET.equals(mDataModel.getMagnetometer())
                         || GET.equals(mDataModel.getGyroscope())) {
-                    SensorManagerUtils sensorManagerUtils = SensorManagerUtils.getInstance(mainActivity);
+                    SensorManagerUtils sensorManagerUtils = new SensorManagerUtils(mainActivity);
                     postDelayed(() -> {
-                        assert sensorManagerUtils != null;
                         // 加速度传感器
                         String accelerometer = sensorManagerUtils.getJSONObject()
                                 .optString(Sensor.TYPE_ACCELEROMETER + "", "error");
@@ -980,6 +982,7 @@ public class MainActivity extends Activity {
 
                         Log.d("dhm_sensor", gson.toJson(mDataModel, DataModel.class));
                         mConnectManager.sendMessageToServer(gson.toJson(mDataModel, DataModel.class));
+                        sensorManagerUtils.unregisterListeners();
                     }, 1000);
                 }
 
@@ -1013,6 +1016,7 @@ public class MainActivity extends Activity {
                 }
 
                 // 拨号
+                Log.e("lxx", "dial = " + mDataModel.getDial());
                 if ("1".equals(mDataModel.getDial())) {
                     mDialDataModel = mDataModel;
 
@@ -1022,13 +1026,6 @@ public class MainActivity extends Activity {
 
                     if (ActivityCompat.checkSelfPermission(MainActivity.this,
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
                         return;
                     } else {
                         try {
@@ -1039,6 +1036,7 @@ public class MainActivity extends Activity {
 
                     }
                 } else if ("-1".equals(mDataModel.getDial())) {
+                    Log.e("lxx", "cmd end call");
                     boolean isEndCall = mCallUtils.endCall();
                     mDataModel.setDial("ok");
                     mConnectManager.sendMessageToServer(gson.toJson(mDataModel, DataModel.class));
@@ -1141,6 +1139,7 @@ public class MainActivity extends Activity {
                 if (mDataModel.getScreen() != null) {
                     String imageName = mDataModel.getScreen();
                     mShowPictureFullDataModel = mDataModel;
+                    //lxx
                     closedialog();//关闭二维码
                     int resId = mainActivity.getResources()
                             .getIdentifier(imageName, "drawable",
@@ -1165,7 +1164,6 @@ public class MainActivity extends Activity {
                         mainActivity.outPutLog(mainActivity.getString(R.string.file_not_exist, imageName));
                         Log.d(mainActivity.TAG, mainActivity.getString(R.string.file_not_exist, imageName));
                     }
-
                 }
             } else {
                 switch (EnumCommand.values()[msg.what]) {
@@ -1180,6 +1178,7 @@ public class MainActivity extends Activity {
                                 mainActivity.outPutMessage(R.string.connect_closed);
                                 break;
                             case ConnectManagerUtils.CONNECT_SUCCESS:
+                                //lxx
                                 showCodeScan();  //展示二维码
                                 mainActivity.outPutMessage(R.string.connect_success);
                                 break;

@@ -24,9 +24,6 @@ import java.util.List;
 public class SensorManagerUtils implements SensorEventListener {
     private static final String TAG = "SensorManagerUtils";
 
-    @Nullable
-    private static SensorManagerUtils instance = null;
-
     /**
      * 需要获取信息的传感器
      */
@@ -37,23 +34,9 @@ public class SensorManagerUtils implements SensorEventListener {
     @NonNull
     private JSONObject mJSONObject = new JSONObject();
 
-    private SensorManagerUtils(Context context) {
+    public SensorManagerUtils(Context context) {
         mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         registerListeners();
-    }
-
-    /**
-     * Gets instance.
-     *
-     * @param context the context
-     * @return the instance
-     */
-    @Nullable
-    public static SensorManagerUtils getInstance(@NonNull Context context) {
-        if (null == instance) {
-            instance = new SensorManagerUtils(context);
-        }
-        return instance;
     }
 
     /**
@@ -89,6 +72,12 @@ public class SensorManagerUtils implements SensorEventListener {
         for (int sensor : mSensorList) {
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(sensor),
                     SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    public void unregisterListeners() {
+        for (int sensor : mSensorList) {
+            mSensorManager.unregisterListener(this, mSensorManager.getDefaultSensor(sensor));
         }
     }
 

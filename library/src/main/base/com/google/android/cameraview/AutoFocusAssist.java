@@ -102,7 +102,6 @@ public final class AutoFocusAssist implements Camera.AutoFocusCallback {
     public synchronized void onAutoFocus(boolean success, Camera theCamera) {
         // 对焦结束, 设置非对焦中
         focusing = false;
-        Log.e("czl", success + "");
         if (mOnFocus != null) {
             mOnFocus.onFocusCallBack(success);
         }

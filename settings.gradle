@@ -1,2 +1,2 @@
-include ':app', ':library', ':myapplication',':simplescanner'
+include ':app', ':library', ':simplescanner'
 project(':library').projectDir = new File('library')

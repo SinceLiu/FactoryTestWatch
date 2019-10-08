@@ -39,18 +39,6 @@ public class USBDiskUtils {
     }
 
     /**
-     * Get instance usb disk utils.
-     *
-     * @param mContext the m context
-     * @return the usb disk utils
-     */
-    public static USBDiskUtils getInstance(Context mContext) {
-        if (instance == null)
-            instance = new USBDiskUtils(mContext);
-        return instance;
-    }
-
-    /**
      * Is mounted boolean.
      *
      * @return the boolean
