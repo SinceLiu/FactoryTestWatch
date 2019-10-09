@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('F:\\AndroidStudioWorkSpace\\WifiConnectClient\\apkKey\\readboy')
+            storeFile file('F:\\AndroidStudioWorkSpace\\FactoryTest\\apkKey\\readboy')
             storePassword '123456'
             keyAlias = 'readboy'
             keyPassword '123456'
         }
         release {
-            storeFile file('F:\\AndroidStudioWorkSpace\\WifiConnectClient\\apkKey\\readboy')
+            storeFile file('F:\\AndroidStudioWorkSpace\\FactoryTest\\apkKey\\readboy')
             storePassword '123456'
             keyAlias = 'readboy'
             keyPassword '123456'
@@ -16,11 +16,11 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.dinghmcn.android.wificonnectclient"
+        applicationId "com.readboy.factorytest"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1909301101
-        versionName '0.201909301101'
+        versionCode 191009001
+        versionName '0.191009001'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

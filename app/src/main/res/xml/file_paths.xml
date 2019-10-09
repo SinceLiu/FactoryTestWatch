@@ -2,10 +2,10 @@
 <paths>
     <files-path
         name="images"
-        path="Android/data/com.dinghmcn.android.wificonnectclient/files/Pictures/OriPicture/" />
+        path="Android/data/com.readboy.factorytest/files/Pictures/OriPicture/" />
     <external-path
         name="images"
-        path="Android/data/com.dinghmcn.android.wificonnectclient/files/Pictures/OriPicture/" />
+        path="Android/data/com.readboy.factorytest/files/Pictures/OriPicture/" />
     <external-files-path
         name="images"
         path="files/Pictures/OriPicture" />

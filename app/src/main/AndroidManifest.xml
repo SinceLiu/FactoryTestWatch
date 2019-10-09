@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.dinghmcn.android.wificonnectclient">
+    package="com.readboy.factorytest">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -73,7 +73,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.dinghmcn.android.wificonnectclient.provider"
+            android:authorities="com.readboy.factorytest.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
