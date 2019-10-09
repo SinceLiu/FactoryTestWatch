@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.MediaRecorder;
+import android.util.Log;
 
 /**
  * 录音测试
@@ -115,7 +116,6 @@ public class HeadsetLoopbackUtils {
                 mIsStartRecordSuccess = true;
                 //开始播放
                 mAudioTrack.play();
-
                 while (isRecording) {
                     //从MIC保存数据到缓冲区
                     int bufferReadResult = mAudioRecord.read(buffer, 0,

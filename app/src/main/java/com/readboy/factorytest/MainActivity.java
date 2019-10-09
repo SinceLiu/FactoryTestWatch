@@ -352,12 +352,13 @@ public class MainActivity extends Activity {
 //        originalSSID = "K2P";
 //        originalPassword = "Ding3865ding";
 
-//        ip = "192.168.1.253";
-//        originalSSID = "factory-fqc-test1";
-//        originalPassword = "readboy@fqc1";
-        ip = "192.168.99.113";
-        originalSSID = "readboy-24.198-2.4G";
-        originalPassword = "1234567890";
+        ip = "192.168.1.253";
+        originalSSID = "factory-fqc-test1";
+        originalPassword = "readboy@fqc1";
+
+//        ip = "192.168.0.110";
+//        originalSSID = "SoftReadboy2";
+//        originalPassword = "kfbrjb2@readboy.com";
 
         if (null == ip || ip.trim().isEmpty()) {
             prepareConnectServer("{\"IP\":\"192.168.1.6\",\"Port\":12345,\"SSID\":\""
@@ -1071,12 +1072,14 @@ public class MainActivity extends Activity {
                     int time = mDataModel.getTimeout() * 1000;
                     mRecordDataModel = mDataModel;
                     mHeadsetLoopbackUtils.start();
-                    postDelayed(() -> {
-                        if (mRecordDataModel != null) {
-                            mRecordDataModel
-                                    .setRecord(mHeadsetLoopbackUtils.mIsStartRecordSuccess ? "ok" : "error");
-                            mConnectManager.sendMessageToServer(gson.toJson(mRecordDataModel, DataModel.class));
-                            mHeadsetLoopbackUtils.stop();
+                    postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mRecordDataModel != null) {
+                                mRecordDataModel.setRecord(mHeadsetLoopbackUtils.mIsStartRecordSuccess ? "ok" : "error");
+                                mConnectManager.sendMessageToServer(gson.toJson(mRecordDataModel, DataModel.class));
+                                mHeadsetLoopbackUtils.stop();
+                            }
                         }
                     }, time);
                 }
