@@ -1,6 +1,5 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioManager;

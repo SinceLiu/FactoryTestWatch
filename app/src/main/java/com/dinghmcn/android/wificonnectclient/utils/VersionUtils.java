@@ -1,17 +1,10 @@
 package com.dinghmcn.android.wificonnectclient.utils;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Build;
 import android.os.SystemProperties;
-import android.text.TextUtils;
-import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.lang.reflect.Method;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * The type Version utils.

@@ -573,6 +573,8 @@ class Camera2 extends CameraViewImpl {
                 mPreviewRequestBuilder.set(CaptureRequest.FLASH_MODE,
                         CaptureRequest.FLASH_MODE_OFF);
                 break;
+            default:
+                break;
         }
     }
 
@@ -625,6 +627,8 @@ class Camera2 extends CameraViewImpl {
                     captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
                             CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
                     break;
+                default:
+                    break;
             }
             // Calculate JPEG orientation.
             @SuppressWarnings("ConstantConditions")
@@ -640,8 +644,8 @@ class Camera2 extends CameraViewImpl {
                     new CameraCaptureSession.CaptureCallback() {
                         @Override
                         public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-                                @NonNull CaptureRequest request,
-                                @NonNull TotalCaptureResult result) {
+                                                       @NonNull CaptureRequest request,
+                                                       @NonNull TotalCaptureResult result) {
                             unlockFocus();
                         }
                     }, null);
@@ -695,13 +699,13 @@ class Camera2 extends CameraViewImpl {
 
         @Override
         public void onCaptureProgressed(@NonNull CameraCaptureSession session,
-                @NonNull CaptureRequest request, @NonNull CaptureResult partialResult) {
+                                        @NonNull CaptureRequest request, @NonNull CaptureResult partialResult) {
             process(partialResult);
         }
 
         @Override
         public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-                @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
+                                       @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
             process(result);
         }
 
@@ -742,6 +746,8 @@ class Camera2 extends CameraViewImpl {
                     }
                     break;
                 }
+                default:
+                    break;
             }
         }
 

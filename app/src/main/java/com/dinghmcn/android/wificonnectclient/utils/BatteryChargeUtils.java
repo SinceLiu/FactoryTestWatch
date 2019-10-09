@@ -7,20 +7,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.dinghmcn.android.wificonnectclient.R;
-import com.google.gson.internal.bind.TreeTypeAdapter;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import static android.content.Context.BATTERY_SERVICE;

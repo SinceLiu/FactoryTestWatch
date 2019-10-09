@@ -223,8 +223,9 @@ public final class WifiUtils {
                 return "1";
             case NOPWD:
                 return "0";
+            default:
+                return "0";
         }
-        return "0";
     }
 
     /**
@@ -412,6 +413,8 @@ public final class WifiUtils {
                     wifiConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
                     wifiConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
                     wifiConfig.status = WifiConfiguration.Status.ENABLED;
+                    break;
+                default:
                     break;
             }
             return wifiConfig;

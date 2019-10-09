@@ -32,8 +32,6 @@ import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static android.content.ContentValues.TAG;
-import static android.support.v4.os.HandlerCompat.postDelayed;
-
 
 @SuppressWarnings("deprecation")
 class Camera1 extends CameraViewImpl {

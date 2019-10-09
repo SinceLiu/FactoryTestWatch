@@ -99,6 +99,8 @@ public class CameraActivity extends AppCompatActivity implements
                         mCameraView.takePicture();
                     }
                     break;
+                default:
+                    break;
             }
             return true;
         });

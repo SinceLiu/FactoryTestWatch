@@ -10,13 +10,8 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * 相机预览
@@ -148,7 +143,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         //自动对焦完成时此方法被调用
         public void onAutoFocus(boolean success, Camera camera) {
             //Log.d(TAG, "自动对焦完成");
-            Log.e(TAG, "onAutoFocustest: "+success );
+            Log.e(TAG, "onAutoFocustest: " + success);
             scheduleAutoFocus();//一秒之后再次自动对焦
         }
     };
@@ -200,6 +195,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 break;
             case Surface.ROTATION_270:
                 degrees = 270;
+                break;
+            default:
                 break;
         }
 
