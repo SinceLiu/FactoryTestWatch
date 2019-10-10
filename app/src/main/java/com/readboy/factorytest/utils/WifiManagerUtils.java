@@ -182,11 +182,8 @@ public class WifiManagerUtils {
      * @return
      */
     private int getType(@NonNull String ssid) {
-
         List<ScanResult> mScanResultList = mWifiManager.getScanResults();
-
         for (ScanResult scanResult : mScanResultList) {
-            Log.w(TAG, "getType: " + scanResult.level);
             if (ssid.equals(scanResult.SSID)) {
                 if (scanResult.capabilities.contains("WPA")) {
                     // 使用 WPA 加密

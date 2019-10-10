@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.android.cameraview.CameraView;
 
@@ -116,7 +117,12 @@ public class CameraActivity extends AppCompatActivity implements
 
         mCameraView.addCallback(mCallback);
 
-        mCameraView.start();
+        try {
+            mCameraView.start();
+        } catch (Exception e) {
+            Toast.makeText(this, "no camera!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         // 获取拍照信息
         String cameraInfo = getIntent().getStringExtra("CameraInfo");
         if (null != cameraInfo && !cameraInfo.isEmpty()) {
