@@ -361,26 +361,26 @@ class Camera1 extends CameraViewImpl {
     }
 
     /**
-     * �����������
+     * 设置相机参数
      */
     void adjustCameraParameters() {
         SortedSet<Size> sizes = mPreviewSizes.sizes(mAspectRatio);
-        //�������õĿ�߱���ɸѡ��֧�ֵ�PreviewSize
+        //根据设置的宽高比来筛选出支持的PreviewSize
         if (sizes == null) { // Not supported
             mAspectRatio = chooseAspectRatio();
             sizes = mPreviewSizes.sizes(mAspectRatio);
         }
-        //ѡȡ����ʵ�PreviewSize
+        //选取最合适的PreviewSize
         Size size = chooseOptimalSize(sizes);
         final Camera.Size currentSize = mCameraParameters.getPictureSize();
         if (currentSize.width != size.getWidth() || currentSize.height != size.getHeight()) {
             // Largest picture size in this ratio
             //Size pictureSize = mPictureSizes.sizes(mAspectRatio).last();
-            //���ݿ�߱�����ʵ������Size
+            //根据宽高比设置实际拍照Size
             Size pictureSize = null;
             SortedSet<Size> pictureSizeS = mPictureSizes.sizes(mAspectRatio);
             if (mSettingPictureSize == null) {
-                pictureSize = pictureSizeS.last(); //ѡ������Size
+                pictureSize = pictureSizeS.last(); //选择最大的Size
             } else {
                 pictureSize = chooseSuitableSize(pictureSizeS, mSettingPictureSize);
             }
