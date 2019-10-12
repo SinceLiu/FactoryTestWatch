@@ -331,6 +331,13 @@ public class CameraView extends FrameLayout {
     }
 
     /**
+     * 设定拍照分辨率，所出照片实际分辨率小于设置分辨率
+     */
+    public void setPictureSize(int width, int height) {
+        mImpl.setPictureSize(width, height);
+    }
+
+    /**
      * Gets all the aspect ratios supported by the current camera.
      */
     public Set<AspectRatio> getSupportedAspectRatios() {

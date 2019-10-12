@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.net.Uri;
@@ -450,7 +451,6 @@ public class MainActivity extends Activity {
                     mDataModel.setCamera("error");
                     mConnectManager.sendMessageToServer(gson.toJson(mDataModel, DataModel.class));
                 }
-
             } else if (resultCode == RESULT_CANCELED) {
                 outPutLog(R.string.command_file_error);
                 mConnectManager.sendMessageToServerNotJson("createFile__failed");
@@ -951,10 +951,13 @@ public class MainActivity extends Activity {
                     USBDiskUtils usbDiskUtils = new USBDiskUtils(MainActivity.this);
                     usbDiskUtils.startTest();
                     int time = mDataModel.getTimeout() * 1000;
-                    postDelayed(() -> {
-                        String result = usbDiskUtils.mIsTestSuccess ? "ok" : "error";
-                        mDataModel.setOtg(result);
-                        mConnectManager.sendMessageToServer(gson.toJson(mDataModel, DataModel.class));
+                    postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            String result = usbDiskUtils.mIsTestSuccess ? "ok" : "error";
+                            mDataModel.setOtg(result);
+                            mConnectManager.sendMessageToServer(gson.toJson(mDataModel, DataModel.class));
+                        }
                     }, time);
                 }
 

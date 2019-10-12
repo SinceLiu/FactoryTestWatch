@@ -19,8 +19,8 @@ android {
         applicationId "com.readboy.factorytest"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 191010001
-        versionName '0.191010001'
+        versionCode 191012001
+        versionName '0.191012001'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

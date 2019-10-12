@@ -348,6 +348,16 @@ class Camera2 extends CameraViewImpl {
     }
 
     /**
+     * 设置拍摄出来照片的分辨率
+     *
+     * @param width
+     * @param height
+     */
+    @Override
+    void setPictureSize(int width, int height) {
+    }
+
+    /**
      * <p>Chooses a camera ID by the specified camera facing ({@link #mFacing}).</p>
      * <p>This rewrites {@link #mCameraId}, {@link #mCameraCharacteristics}, and optionally
      * {@link #mFacing}.</p>

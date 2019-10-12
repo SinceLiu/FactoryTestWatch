@@ -74,6 +74,16 @@ class Camera1 extends CameraViewImpl {
 
     private int mDisplayOrientation;
 
+    /**
+     * 自定义的设置
+     */
+    private Size mSettingPictureSize;
+
+    /**
+     * 自定义的预览的分辨率
+     */
+    private Size mSettingPreviewSize;
+
     Camera1(Callback callback, PreviewImpl preview) {
         super(callback, preview);
         preview.setCallback(new PreviewImpl.Callback() {
@@ -289,6 +299,18 @@ class Camera1 extends CameraViewImpl {
     }
 
     /**
+     * 设置拍摄出来照片的分辨率
+     *
+     * @param width
+     * @param height
+     */
+    @Override
+    void setPictureSize(int width, int height) {
+        mSettingPictureSize = new Size(width, height);
+        adjustCameraParameters();
+    }
+
+    /**
      * This rewrites {@link #mCameraId} and {@link #mCameraInfo}.
      */
     private void chooseCamera() {
@@ -338,29 +360,58 @@ class Camera1 extends CameraViewImpl {
         return r;
     }
 
+    /**
+     * �����������
+     */
     void adjustCameraParameters() {
         SortedSet<Size> sizes = mPreviewSizes.sizes(mAspectRatio);
+        //�������õĿ�߱���ɸѡ��֧�ֵ�PreviewSize
         if (sizes == null) { // Not supported
             mAspectRatio = chooseAspectRatio();
             sizes = mPreviewSizes.sizes(mAspectRatio);
         }
+        //ѡȡ����ʵ�PreviewSize
         Size size = chooseOptimalSize(sizes);
+        final Camera.Size currentSize = mCameraParameters.getPictureSize();
+        if (currentSize.width != size.getWidth() || currentSize.height != size.getHeight()) {
+            // Largest picture size in this ratio
+            //Size pictureSize = mPictureSizes.sizes(mAspectRatio).last();
+            //���ݿ�߱�����ʵ������Size
+            Size pictureSize = null;
+            SortedSet<Size> pictureSizeS = mPictureSizes.sizes(mAspectRatio);
+            if (mSettingPictureSize == null) {
+                pictureSize = pictureSizeS.last(); //ѡ������Size
+            } else {
+                pictureSize = chooseSuitableSize(pictureSizeS, mSettingPictureSize);
+            }
+            if (mShowingPreview) {
+                mCamera.stopPreview();
+            }
+            mCameraParameters.setPreviewSize(size.getWidth(), size.getHeight());
+            mCameraParameters.setPictureSize(pictureSize.getWidth(), pictureSize.getHeight());
+            mCameraParameters.setRotation(calcCameraRotation(mDisplayOrientation));
+            setAutoFocusInternal(mAutoFocus);
+            setFlashInternal(mFlash);
+            mCamera.setParameters(mCameraParameters);
+            if (mShowingPreview) {
+                mCamera.startPreview();
+            }
+        }
+    }
 
-        // Always re-apply camera parameters
-        // Largest picture size in this ratio
-        final Size pictureSize = mPictureSizes.sizes(mAspectRatio).last();
-        if (mShowingPreview) {
-            mCamera.stopPreview();
+    /**
+     * 选择合适的pictureSize
+     */
+    private Size chooseSuitableSize(SortedSet<Size> sizes, Size desiredSize) {
+        Size result = null;
+        for (Size size : sizes) { // Iterate from small to large
+            if (desiredSize.getWidth() <= size.getWidth() && desiredSize.getHeight() <= size.getHeight()) {
+                return size;
+
+            }
+            result = size;
         }
-        mCameraParameters.setPreviewSize(size.getWidth(), size.getHeight());
-        mCameraParameters.setPictureSize(pictureSize.getWidth(), pictureSize.getHeight());
-        mCameraParameters.setRotation(calcCameraRotation(mDisplayOrientation));
-        setAutoFocusInternal(mAutoFocus);
-        setFlashInternal(mFlash);
-        mCamera.setParameters(mCameraParameters);
-        if (mShowingPreview) {
-            mCamera.startPreview();
-        }
+        return result;
     }
 
     @SuppressWarnings("SuspiciousNameCombination")

@@ -31,10 +31,8 @@ import top.zibin.luban.OnCompressListener;
  *
  * @author dinghmcn
  * @date 2018 /4/20 10:47
- * @deprecated 拍照效率好
  */
-public class CameraActivity extends AppCompatActivity implements
-        ActivityCompat.OnRequestPermissionsResultCallback {
+public class CameraActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = "CameraActivity";
     final int MSG_TAKEPICTURE = 0x1000;
     Handler mHandler;
@@ -62,7 +60,12 @@ public class CameraActivity extends AppCompatActivity implements
         public void onPictureTaken(CameraView cameraView, final byte[] data) {
             if (data != null) {
                 Log.d(TAG, "onPictureTaken " + data.length);
-                Objects.requireNonNull(getBackgroundHandler()).post(() -> createFile(data));
+                Objects.requireNonNull(getBackgroundHandler()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        createFile(data);
+                    }
+                });
             } else {
                 Log.v("hqb", "hqb__CameraActivityfinish__onPictureTaken__data is null");
                 setResult(RESULT_CANCELED);
@@ -93,17 +96,20 @@ public class CameraActivity extends AppCompatActivity implements
         mCameraView = findViewById(R.id.camera);
         mCameraView.setAutoFocus(true);
 
-        mHandler = new Handler(message -> {
-            switch (message.what) {
-                case MSG_TAKEPICTURE:
-                    if (mCameraView != null) {
-                        mCameraView.takePicture();
-                    }
-                    break;
-                default:
-                    break;
+        mHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message message) {
+                switch (message.what) {
+                    case MSG_TAKEPICTURE:
+                        if (mCameraView != null) {
+                            mCameraView.takePicture();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                return true;
             }
-            return true;
         });
 
         if (null != mCameraView) {
@@ -128,7 +134,7 @@ public class CameraActivity extends AppCompatActivity implements
         if (null != cameraInfo && !cameraInfo.isEmpty()) {
             // 保存照片名称
             mPictureName = cameraInfo + ".jpg";
-            // 前摄或后摄
+            // 前摄或后摄，手表只有前摄
 //            String[] info = cameraInfo.split("-");
 //            int cameraId = Integer.parseInt(info[1]);
             int cameraId = 0;
@@ -138,7 +144,8 @@ public class CameraActivity extends AppCompatActivity implements
                 mCameraView.setFocusable(true);
                 mCameraView.setAutoFocus(true);
             }
-
+            //A5最高只支持640*480，统一分辨率
+            mCameraView.setPictureSize(640,480);
         }
         // 执行拍照
         Message message = new Message();
@@ -168,8 +175,7 @@ public class CameraActivity extends AppCompatActivity implements
         super.onDestroy();
         // 清理
         if (mBackgroundHandler != null) {
-            mBackgroundHandler.getLooper()
-                    .quitSafely();
+            mBackgroundHandler.getLooper().quitSafely();
             mBackgroundHandler = null;
         }
 

@@ -69,6 +69,11 @@ abstract class CameraViewImpl {
 
     abstract void setDisplayOrientation(int displayOrientation);
 
+    /**
+     * 设置拍摄出来照片的分辨率
+     */
+    abstract void setPictureSize(int width,int height);
+
     interface Callback {
 
         void onCameraOpened();
