@@ -348,10 +348,6 @@ public class MainActivity extends Activity {
         // 获取服务器信息
         String ip /*= loadFromSDFile("socketIP.txt")*/;
 
-//        ip = "192.168.8.88";
-//        originalSSID = "K2P";
-//        originalPassword = "Ding3865ding";
-
         ip = "192.168.1.253";
         originalSSID = "factory-fqc-test1";
         originalPassword = "readboy@fqc1";

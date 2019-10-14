@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.readboy.factorytest.MainActivity;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -153,47 +154,51 @@ public class ConnectManagerUtils {
      */
     private void receiveMessageFromServer() {
         Log.d(TAG, "Receive message.");
-        assert mThreadPool != null;
-        mThreadPool.execute(() -> {
-            sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_RECEIVE);
-            int commandNullCount = 0;
-            // 持续接收直到连接关闭
-            while (mConnected && !mSocket.isClosed() && mSocket.isConnected()
-                    && !mSocket.isInputShutdown()) {
-                Log.d(TAG, "Start receive message.");
-                String command = null;
-                try {
-                    is = mSocket.getInputStream();
-                    byte[] tempBuffer = new byte[2048];
-                    int numReadedBytes = is.read(tempBuffer, 0, tempBuffer.length);
-                    if (numReadedBytes > 0) {
-                        command = new String(tempBuffer, 0, numReadedBytes);
-                    } else {
-                        ++commandNullCount;
-                        Log.d(TAG, "Command is null:" + commandNullCount);
-                        if (commandNullCount > 3) {
-                            sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_CLOSED);
-                            return;
+        if (mThreadPool == null) {
+            return;
+        }
+        mThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                ConnectManagerUtils.this.sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_RECEIVE);
+                int commandNullCount = 0;
+                // 持续接收直到连接关闭
+                while (mConnected && !mSocket.isClosed() && mSocket.isConnected()
+                        && !mSocket.isInputShutdown()) {
+                    Log.d(TAG, "Start receive message.");
+                    String command = null;
+                    try {
+                        is = mSocket.getInputStream();
+                        byte[] tempBuffer = new byte[2048];
+                        int numReadedBytes = is.read(tempBuffer, 0, tempBuffer.length);
+                        if (numReadedBytes > 0) {
+                            command = new String(tempBuffer, 0, numReadedBytes);
                         } else {
-                            continue;
+                            ++commandNullCount;
+                            Log.d(TAG, "Command is null:" + commandNullCount);
+                            if (commandNullCount > 3) {
+                                ConnectManagerUtils.this.sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_CLOSED);
+                                return;
+                            } else {
+                                continue;
+                            }
                         }
-                    }
-                    Log.d(TAG, "hqb Command:" + command);
-                    // 处理接收到的消息
-                    if (!command.isEmpty()) {
-                        if (command.contains("Seq=")) {
-                            sendMessage(EnumCommand.SEQ.ordinal(), COMMAND_SEQ, command);
-                        } else if (command.contains("Alive")) {
-                            sendMessage(EnumCommand.Alive.ordinal(), COMMAND_ALIVE, command);
+                        Log.d(TAG, "hqb Command:" + command);
+                        // 处理接收到的消息
+                        if (!command.isEmpty()) {
+                            if (command.contains("Seq=")) {
+                                ConnectManagerUtils.this.sendMessage(EnumCommand.SEQ.ordinal(), COMMAND_SEQ, command);
+                            } else if (command.contains("Alive")) {
+                                ConnectManagerUtils.this.sendMessage(EnumCommand.Alive.ordinal(), COMMAND_ALIVE, command);
+                            } else {
+                                ConnectManagerUtils.this.parsingCommand(command);
+                                ConnectManagerUtils.this.sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_SEND, command);
+                            }
                         } else {
-                            parsingCommand(command);
-                            sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_SEND, command);
+                            ConnectManagerUtils.this.sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_ERROR);
                         }
-                    } else {
-                        sendMessage(EnumCommand.COMMAND.ordinal(), COMMAND_ERROR);
-                    }
-                } catch (Exception e) {
-                    Log.d(TAG, "hqb Receive message error.");
+                    } catch (Exception e) {
+                        Log.d(TAG, "hqb Receive message error.");
 //                    try {
 //                        if(!TextUtils.isEmpty(command)){
 //                            if(command.contains("Seq=")){
@@ -203,13 +208,14 @@ public class ConnectManagerUtils {
 //                    }catch (Exception e1){
 //                        e1.printStackTrace();
 //                    }
-                    e.printStackTrace();
+                        e.printStackTrace();
+                    }
                 }
-            }
-            if (null != mMainHandler) {
-                sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_CLOSED);
-            }
+                if (null != mMainHandler) {
+                    ConnectManagerUtils.this.sendMessage(EnumCommand.CONNECT.ordinal(), CONNECT_CLOSED);
+                }
 
+            }
         });
     }
 
