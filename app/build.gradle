@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('F:\\AndroidStudioWorkSpace\\FactoryTest\\apkKey\\readboy')
+            storeFile file('F:\\AndroidStudioWorkSpace\\FactoryTestWatch\\apkKey\\readboy')
             storePassword '123456'
             keyAlias = 'readboy'
             keyPassword '123456'
         }
         release {
-            storeFile file('F:\\AndroidStudioWorkSpace\\FactoryTest\\apkKey\\readboy')
+            storeFile file('F:\\AndroidStudioWorkSpace\\FactoryTestWatch\\apkKey\\readboy')
             storePassword '123456'
             keyAlias = 'readboy'
             keyPassword '123456'
