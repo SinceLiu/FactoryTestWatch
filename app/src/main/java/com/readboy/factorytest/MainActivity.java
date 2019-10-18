@@ -351,9 +351,9 @@ public class MainActivity extends Activity {
 
         ip = "192.168.1.253";
         //MTK的才支持5G wifi（A6/A3/W7)
-        //5G wifi
-        originalSSID = "factory-fqc-test1";
-        originalPassword = "readboy@fqc1";
+//        //5G wifi
+//        originalSSID = "factory-fqc-test1";
+//        originalPassword = "readboy@fqc1";
         //2.4G wifi
         originalSSID = "readboy-factory-fqc-test1";
         originalPassword = "readboy@fqc1";
@@ -1041,11 +1041,14 @@ public class MainActivity extends Activity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 } else if ("-1".equals(mDataModel.getDial())) {
                     boolean isEndCall = mCallUtils.endCall();
-                    mDataModel.setDial("ok");
+                    if (isEndCall) {
+                        mDataModel.setDial("ok");
+                    } else {
+                        mDataModel.setDial("error");
+                    }
                     mConnectManager.sendMessageToServer(gson.toJson(mDataModel, DataModel.class));
                 }
 
