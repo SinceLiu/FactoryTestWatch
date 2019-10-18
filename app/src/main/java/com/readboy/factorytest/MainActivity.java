@@ -351,16 +351,16 @@ public class MainActivity extends Activity {
 
         ip = "192.168.1.253";
         //MTK的才支持5G wifi（A6/A3/W7)
-//        //5G wifi
-//        originalSSID = "factory-fqc-test1";
-//        originalPassword = "readboy@fqc1";
-        //2.4G wifi
-        originalSSID = "readboy-factory-fqc-test1";
+        //5G wifi
+        originalSSID = "factory-fqc-test1";
         originalPassword = "readboy@fqc1";
+//        //2.4G wifi
+//        originalSSID = "readboy-factory-fqc-test1";
+//        originalPassword = "readboy@fqc1";
 
-//        ip = "192.168.0.110";
-//        originalSSID = "SoftReadboy2";
-//        originalPassword = "kfbrjb2@readboy.com";
+        ip = "192.168.0.127";
+        originalSSID = "SoftReadboy2";
+        originalPassword = "kfbrjb2@readboy.com";
 
         if (null == ip || ip.trim().isEmpty()) {
             prepareConnectServer("{\"IP\":\"192.168.1.6\",\"Port\":12345,\"SSID\":\""
@@ -1027,7 +1027,6 @@ public class MainActivity extends Activity {
                 // 拨号
                 if ("1".equals(mDataModel.getDial())) {
                     mDialDataModel = mDataModel;
-
                     Intent intent1 = new Intent("android.intent.action.CALL_PRIVILEGED")
                             .setData(Uri.parse("tel:112"))
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
